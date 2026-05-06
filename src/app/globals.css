@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Celeste Intenso Theme */
+    --background: 199 50% 96%;
+    --foreground: 222 47% 11%;
+
+    --card: 199 50% 98%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 199 50% 98%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 199 89% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 199 30% 90%;
+    --secondary-foreground: 199 89% 30%;
+
+    --muted: 199 20% 92%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 185 94% 45%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 199 20% 88%;
+    --input: 199 20% 94%;
+    --ring: 199 89% 48%;
+
+    --radius: 0.6rem;
+
+    --chart-1: 199 89% 48%;
+    --chart-2: 185 94% 45%;
+    --chart-3: 199 89% 68%;
+    --chart-4: 185 94% 65%;
+    --chart-5: 199 89% 88%;
+
+    /* Sidebar - Ensure opaque background */
+    --sidebar-background: 199 50% 98%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 199 89% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 199 30% 90%;
+    --sidebar-accent-foreground: 199 89% 30%;
+    --sidebar-border: 199 20% 88%;
+    --sidebar-ring: 199 89% 48%;
+  }
+
+  .dark {
+    --background: 222 47% 4%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 4%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 4%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 199 89% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 185 94% 45%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 199 89% 48%;
+    
+    --chart-1: 199 89% 48%;
+    --chart-2: 185 94% 45%;
+    --chart-3: 199 89% 68%;
+    --chart-4: 185 94% 65%;
+    --chart-5: 199 89% 88%;
+
+    --sidebar-background: 222 47% 4%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 199 89% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 32% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 32% 17%;
+    --sidebar-ring: 199 89% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
