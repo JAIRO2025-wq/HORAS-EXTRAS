@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
@@ -35,6 +35,7 @@ import {
 } from '@/components/ui/dialog';
 import {
   Tooltip,
+  TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
@@ -56,9 +57,8 @@ import {
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import exportToExcel from '@/lib/export-to-excel';
-import { TooltipContent } from '@radix-ui/react-tooltip';
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 8;
 
 export default function AdminPermitsPage() {
   const [permits, setPermits] = useState<PermitRequest[]>([]);
@@ -70,7 +70,7 @@ export default function AdminPermitsPage() {
   // Paginación
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Fechas para exportar - DIVIDIDAS para mejor UI
+  // Fechas para exportar
   const [dateFrom, setDateFrom] = useState<Date | undefined>(startOfMonth(new Date()));
   const [dateTo, setDateTo] = useState<Date | undefined>(endOfMonth(new Date()));
 
@@ -84,16 +84,11 @@ export default function AdminPermitsPage() {
   const [viewingEvidence, setViewingEvidence] = useState<string | null>(null);
   const pdfRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const stored = localStorage.getItem('overtimeAdmin');
-    if (stored) setAdminData(JSON.parse(stored));
-    fetchPermits();
-  }, []);
-
-  const fetchPermits = async () => {
+  const fetchPermits = useCallback(async (selectedMonth?: string) => {
     setIsLoading(true);
     try {
-      const res = await fetch('/api/permits');
+      const query = selectedMonth ? `?month=${encodeURIComponent(selectedMonth)}` : '';
+      const res = await fetch(`/api/permits${query}`);
       if (res.ok) {
         const data = await res.json();
         setPermits(data);
@@ -103,7 +98,16 @@ export default function AdminPermitsPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const stored = localStorage.getItem('overtimeAdmin');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      setAdminData(parsed);
+      fetchPermits(parsed.month);
+    }
+  }, [fetchPermits]);
 
   const handleExport = async () => {
     if (!dateFrom || !dateTo) {
@@ -115,6 +119,7 @@ export default function AdminPermitsPage() {
         return;
     }
 
+    setIsLoading(true);
     try {
         const query = `?from=${dateFrom.toISOString()}&to=${dateTo.toISOString()}`;
         const res = await fetch(`/api/permits${query}`);
@@ -124,14 +129,17 @@ export default function AdminPermitsPage() {
               toast({ title: "Sin registros", description: "No se encontraron permisos en este rango." });
               return;
             }
-            exportToExcel(data, `Reporte_Permisos_${format(dateFrom, 'yyyy-MM-dd')}_a_${format(dateTo, 'yyyy-MM-dd')}`);
-            toast({ title: "Excel generado", description: "El reporte se ha descargado con éxito." });
+            // Ahora esperamos a que se genere el Excel estilizado
+            await exportToExcel(data, `Reporte_Permisos_${format(dateFrom, 'yyyy-MM-dd')}_a_${format(dateTo, 'yyyy-MM-dd')}`);
+            toast({ title: "Excel generado", description: "El reporte estilizado se ha descargado con éxito." });
         } else {
           toast({ variant: 'destructive', title: 'Error servidor', description: 'No se pudo obtener la información de exportación.' });
         }
     } catch (e) {
         console.error(e);
         toast({ variant: 'destructive', title: 'Error inesperado', description: 'Falló el proceso de exportación.' });
+    } finally {
+        setIsLoading(false);
     }
   };
 
@@ -179,7 +187,7 @@ export default function AdminPermitsPage() {
       if (res.ok) {
         toast({ title: resolutionType === 'approved' ? 'Permiso Autorizado Final' : 'Permiso Rechazado' });
         setResolutionTarget(null);
-        fetchPermits();
+        fetchPermits(adminData.month);
       }
     } catch (e) {
       console.error(e);
@@ -227,28 +235,29 @@ export default function AdminPermitsPage() {
             <div>
                 <h1 className="text-2xl font-bold font-headline flex items-center gap-2">
                     <Scale className="h-6 w-6 text-primary" />
-                    Validación de Acciones de Personal
+                    Buzón de Acciones de Personal
                 </h1>
-                <p className="text-muted-foreground text-sm">Prioridad a solicitudes con firma pendiente de administración.</p>
+                <p className="text-muted-foreground text-sm">Gestionando registros de {adminData?.month}. Las solicitudes pendientes son siempre prioridad.</p>
             </div>
             <div className="flex items-center gap-2 w-full md:w-auto">
-                <Button variant="outline" onClick={() => { fetchPermits(); setCurrentPage(1); }} disabled={isLoading} className="w-full sm:w-auto">
-                    <Clock className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} /> Actualizar
+                <Button variant="outline" onClick={() => { fetchPermits(adminData?.month); setCurrentPage(1); }} disabled={isLoading} className="w-full sm:w-auto">
+                    <Clock className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} /> Sincronizar
                 </Button>
             </div>
         </div>
 
-        <Card>
-            <CardHeader className="border-b bg-muted/5 p-4">
+        <Card className="border-dashed border-2 bg-muted/5">
+            <CardHeader className="p-4">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <CardTitle className="text-sm font-bold uppercase text-zinc-500 tracking-wider">Reportes en Excel</CardTitle>
+                    <CardTitle className="text-xs font-black uppercase text-zinc-500 tracking-widest flex items-center gap-2">
+                        <FileDown className="h-4 w-4" /> Generación de Reportes Excel
+                    </CardTitle>
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
-                        {/* SELECTORES DIVIDIDOS PARA MEJOR UI */}
                         <div className="flex items-center gap-2">
                             <Popover>
                                 <PopoverTrigger asChild>
-                                    <Button variant="outline" className={cn("w-full sm:w-[150px] justify-start text-left font-normal h-10", !dateFrom && "text-muted-foreground")}>
-                                        <CalendarDays className="mr-2 h-4 w-4 text-primary" />
+                                    <Button variant="outline" className={cn("w-full sm:w-[140px] justify-start text-left font-normal h-9 text-xs", !dateFrom && "text-muted-foreground")}>
+                                        <CalendarDays className="mr-2 h-3.5 w-3.5 text-primary" />
                                         {dateFrom ? format(dateFrom, "dd/MM/yyyy") : <span>Desde</span>}
                                     </Button>
                                 </PopoverTrigger>
@@ -256,11 +265,11 @@ export default function AdminPermitsPage() {
                                     <Calendar mode="single" selected={dateFrom} onSelect={setDateFrom} initialFocus locale={es} />
                                 </PopoverContent>
                             </Popover>
-                            <span className="text-xs font-bold text-muted-foreground">al</span>
+                            <span className="text-[10px] font-bold text-muted-foreground">al</span>
                             <Popover>
                                 <PopoverTrigger asChild>
-                                    <Button variant="outline" className={cn("w-full sm:w-[150px] justify-start text-left font-normal h-10", !dateTo && "text-muted-foreground")}>
-                                        <CalendarDays className="mr-2 h-4 w-4 text-primary" />
+                                    <Button variant="outline" className={cn("w-full sm:w-[140px] justify-start text-left font-normal h-9 text-xs", !dateTo && "text-muted-foreground")}>
+                                        <CalendarDays className="mr-2 h-3.5 w-3.5 text-primary" />
                                         {dateTo ? format(dateTo, "dd/MM/yyyy") : <span>Hasta</span>}
                                     </Button>
                                 </PopoverTrigger>
@@ -269,8 +278,9 @@ export default function AdminPermitsPage() {
                                 </PopoverContent>
                             </Popover>
                         </div>
-                        <Button onClick={handleExport} disabled={isLoading} className="bg-green-600 hover:bg-green-700 text-white w-full sm:w-auto h-10 gap-2 shadow-md">
-                            <FileDown className="h-4 w-4"/> Descargar Excel
+                        <Button onClick={handleExport} disabled={isLoading} size="sm" className="bg-green-600 hover:bg-green-700 text-white h-9 shadow-md">
+                            {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                            Exportar Datos
                         </Button>
                     </div>
                 </div>
@@ -280,10 +290,10 @@ export default function AdminPermitsPage() {
       <Card>
         <CardHeader className="pb-2 border-b bg-muted/5">
           <div className="flex justify-between items-center">
-            <CardTitle className="text-lg">Buzón de Solicitudes</CardTitle>
+            <CardTitle className="text-lg">Solicitudes y Trámites</CardTitle>
             {totalPages > 1 && (
               <div className="flex items-center gap-4">
-                <span className="text-xs font-bold text-muted-foreground">Página {currentPage} de {totalPages}</span>
+                <span className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">Página {currentPage} de {totalPages}</span>
                 <div className="flex gap-1">
                   <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>
                     <ChevronLeft className="h-4 w-4" />
@@ -300,7 +310,7 @@ export default function AdminPermitsPage() {
           {isLoading ? (
             <div className="flex flex-col items-center justify-center p-20 gap-3">
               <Loader2 className="h-10 w-10 animate-spin text-primary" />
-              <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Cargando trámites...</p>
+              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Leyendo archivos...</p>
             </div>
           ) : permits.length > 0 ? (
             <div className="overflow-x-auto">
@@ -309,81 +319,79 @@ export default function AdminPermitsPage() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Empleado / Sucursal</TableHead>
-                      <TableHead>Acción / Jefe que Avala</TableHead>
+                      <TableHead>Acción / Aval</TableHead>
                       <TableHead>Periodo</TableHead>
                       <TableHead>Justificación</TableHead>
-                      <TableHead>Fecha Registro</TableHead>
+                      <TableHead>F. Solicitud</TableHead>
                       <TableHead>Estado</TableHead>
-                      <TableHead className="text-right">Decisión Final</TableHead>
+                      <TableHead className="text-right">Gestión</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {paginatedPermits.map((p) => (
-                      <TableRow key={p.id} className={p.status === 'pending_admin' ? "bg-blue-50/40 border-l-4 border-l-blue-500" : ""}>
+                      <TableRow key={p.id} className={p.status === 'pending_admin' ? "bg-blue-50/40 border-l-4 border-l-blue-500 hover:bg-blue-100/40 transition-colors" : ""}>
                         <TableCell>
                           <div className="flex flex-col">
                             <span className="font-bold text-sm">{p.employeeName}</span>
-                            <span className="text-[10px] text-muted-foreground flex items-center gap-1 uppercase">
-                              <Building className="h-3 w-3" /> {p.branch}
+                            <span className="text-[10px] text-muted-foreground flex items-center gap-1 uppercase font-bold tracking-tight">
+                              <Building className="h-2.5 w-2.5" /> {p.branch}
                             </span>
                           </div>
                         </TableCell>
                         <TableCell>
                           <div className="flex flex-col">
-                            <span className="font-bold text-[12px] text-primary">{p.action}</span>
+                            <span className="font-bold text-[12px] text-primary truncate max-w-[150px]">{p.action}</span>
                             <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-tighter">
-                              {p.approvedBySupervisorAt ? `AVALADO POR: ${p.supervisorName}` : `ESPERA A: ${p.supervisorName}`}
+                              {p.approvedBySupervisorAt ? `POR: ${p.supervisorName}` : `ESPERA: ${p.supervisorName}`}
                             </span>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <div className="flex items-center gap-1 text-[11px] font-mono whitespace-nowrap">
-                            {format(parseISO(p.startDate), 'dd/MM/yy')} <ArrowRight className="h-3 w-3 mx-1 opacity-50" /> {format(parseISO(p.endDate), 'dd/MM/yy')}
+                          <div className="flex items-center gap-1 text-[11px] font-mono whitespace-nowrap bg-zinc-50 px-2 py-1 rounded border">
+                            {format(parseISO(p.startDate), 'dd/MM')} <ArrowRight className="h-2.5 w-2.5 mx-0.5 opacity-30" /> {format(parseISO(p.endDate), 'dd/MM')}
                           </div>
                         </TableCell>
-                        <TableCell className="max-w-[220px]">
+                        <TableCell className="max-w-[200px]">
                           <Tooltip>
                             <TooltipTrigger asChild>
                               <div className="flex items-start gap-2 cursor-help group">
                                 <MessageSquare className="h-3 w-3 text-muted-foreground shrink-0 mt-0.5 group-hover:text-primary transition-colors" />
-                                <span className="text-[11px] text-zinc-600 line-clamp-2 leading-tight">
+                                <span className="text-[11px] text-zinc-600 line-clamp-2 leading-tight italic">
                                   {p.justification}
                                 </span>
                               </div>
                             </TooltipTrigger>
-                            <TooltipContent className="max-w-[300px] p-3 text-xs bg-zinc-900 text-zinc-50 border-none shadow-2xl z-50">
-                              <p className="font-black mb-1.5 uppercase text-[9px] text-primary tracking-widest border-b border-white/10 pb-1">Justificación del Trámite:</p>
+                            <TooltipContent className="max-w-[300px] p-4 text-xs bg-zinc-900 text-zinc-50 border-none shadow-2xl z-50 rounded-xl">
+                              <p className="font-black mb-2 uppercase text-[9px] text-primary tracking-widest border-b border-white/10 pb-1">Detalle del Motivo:</p>
                               <p className="leading-relaxed italic">"{p.justification}"</p>
                             </TooltipContent>
                           </Tooltip>
                         </TableCell>
                         <TableCell>
-                          <div className="flex items-center gap-1.5 text-[11px] font-bold text-zinc-600 bg-zinc-100 px-2 py-1 rounded w-fit">
-                            <History className="h-3 w-3" />
-                            {p.requestDate ? format(parseISO(p.requestDate), 'dd/MM/yy HH:mm:ss') : '--'}
+                          <div className="flex items-center gap-1.5 text-[11px] font-bold text-zinc-500">
+                            {p.requestDate ? format(parseISO(p.requestDate), 'dd/MM HH:mm') : '--'}
                           </div>
                         </TableCell>
                         <TableCell>{getStatusBadge(p.status)}</TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end gap-2">
                             {p.evidenceFileDataUri ? (
-                              <Button variant="outline" size="sm" className="h-8 gap-1 bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100" onClick={() => setViewingEvidence(p.evidenceFileDataUri!)}>
-                                {p.evidenceFileDataUri.includes('type=image') ? <ImageIcon className="h-3 w-3" /> : <FileSearch className="h-3 w-3" />}
-                                Ver Doc
+                              <Button variant="outline" size="sm" className="h-8 w-8 p-0 bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100" onClick={() => setViewingEvidence(p.evidenceFileDataUri!)} title="Ver Justificante">
+                                {p.evidenceFileDataUri.includes('type=image') ? <ImageIcon className="h-4 w-4" /> : <FileSearch className="h-4 w-4" />}
                               </Button>
                             ) : null}
                             
                             {(p.status === 'pending' || p.status === 'pending_admin') ? (
                               <div className="flex gap-1">
-                                <Button size="sm" className="bg-green-600 hover:bg-green-700 h-8 text-[11px] px-3 font-bold" onClick={() => handleOpenResolution(p, 'approved')}>
+                                <Button size="sm" className="bg-primary hover:bg-primary/90 h-8 text-[11px] px-3 font-bold" onClick={() => handleOpenResolution(p, 'approved')}>
                                    Firmar
                                 </Button>
-                                <Button size="sm" variant="destructive" className="h-8 text-[11px] px-3 font-bold" onClick={() => handleOpenResolution(p, 'rejected')}>
-                                   X
+                                <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-destructive hover:bg-destructive/10" onClick={() => handleOpenResolution(p, 'rejected')}>
+                                   <X className="h-4 w-4" />
                                 </Button>
                               </div>
                             ) : (
-                              <Button variant="outline" size="sm" className="h-8 gap-1" onClick={() => handleDownloadPdf(p)}>
+                              <Button variant="outline" size="sm" className="h-8 gap-1 text-[11px] font-bold" onClick={() => handleDownloadPdf(p)}>
                                  <Download className="h-3 w-3" /> PDF
                               </Button>
                             )}
@@ -398,7 +406,7 @@ export default function AdminPermitsPage() {
           ) : (
             <div className="text-center py-24 text-muted-foreground italic flex flex-col items-center gap-2">
               <Scale className="h-10 w-10 opacity-10" />
-              <p>No se encontraron solicitudes registradas.</p>
+              <p>No hay solicitudes pendientes ni registradas en este periodo.</p>
             </div>
           )}
         </CardContent>
@@ -417,21 +425,21 @@ export default function AdminPermitsPage() {
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
-            <div className="bg-muted/30 p-3 rounded-lg border border-dashed text-xs space-y-1">
-                <p className="font-bold text-zinc-600 uppercase tracking-widest">Resumen de Validación:</p>
-                <p>• Aval de Jefe: {resolutionTarget?.approvedBySupervisorAt ? "RECIBIDO ✅" : "POR ADMINISTRACIÓN ⚠️"}</p>
-                <p>• Motivo: "{resolutionTarget?.justification}"</p>
-                <p>• Registrado el: {resolutionTarget?.requestDate ? format(parseISO(resolutionTarget.requestDate), "dd/MM/yyyy HH:mm:ss") : '--'}</p>
+            <div className="bg-muted/30 p-4 rounded-xl border border-dashed text-xs space-y-2">
+                <p className="font-bold text-zinc-600 uppercase tracking-widest border-b pb-1">Resumen del Expediente:</p>
+                <p>• Aval Jefatura: <Badge variant="outline" className="h-4 text-[9px]">{resolutionTarget?.approvedBySupervisorAt ? "RECIBIDO ✅" : "POR ADMIN ⚠️"}</Badge></p>
+                <p>• Justificación: <span className="italic">"{resolutionTarget?.justification}"</span></p>
+                <p>• Periodo: <strong>{resolutionTarget?.startDate}</strong> al <strong>{resolutionTarget?.endDate}</strong></p>
             </div>
 
             <div className="space-y-2">
-                <Label htmlFor="notes">Observaciones para el Expediente</Label>
+                <Label htmlFor="notes" className="font-bold text-sm">Observaciones Administrativas</Label>
                 <Textarea 
                     id="notes"
-                    placeholder="Describe el motivo de la resolución final..."
+                    placeholder="Describe el motivo de la resolución final (opcional)..."
                     value={resolutionNotes}
                     onChange={(e) => setResolutionNotes(e.target.value)}
-                    className="min-h-[100px] resize-none"
+                    className="min-h-[120px] resize-none"
                 />
             </div>
           </div>
@@ -441,9 +449,10 @@ export default function AdminPermitsPage() {
                 variant={resolutionType === 'approved' ? 'default' : 'destructive'}
                 onClick={submitResolution}
                 disabled={!!isProcessing}
+                className="font-bold"
             >
                 {isProcessing ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
-                Finalizar Dictamen
+                Ejecutar Resolución
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -451,20 +460,20 @@ export default function AdminPermitsPage() {
 
       {/* VISOR DE JUSTIFICANTE */}
       <Dialog open={!!viewingEvidence} onOpenChange={(open) => !open && setViewingEvidence(null)}>
-        <DialogContent className="max-w-4xl h-[95vh] flex flex-col p-0 overflow-hidden">
+        <DialogContent className="max-w-4xl h-[95vh] flex flex-col p-0 overflow-hidden bg-zinc-100">
           <DialogHeader className="p-4 border-b flex flex-row items-center justify-between bg-white shrink-0">
             <DialogTitle className="flex items-center gap-2">
-              <FileSearch className="h-5 w-5 text-primary" /> Visualización de Evidencia Digital
+              <FileSearch className="h-5 w-5 text-primary" /> Visualización de Justificante Digital
             </DialogTitle>
             <Button variant="ghost" size="icon" onClick={() => setViewingEvidence(null)} className="rounded-full">
               <X className="h-4 w-4" />
             </Button>
           </DialogHeader>
-          <div className="flex-1 relative bg-zinc-50 overflow-auto">
+          <div className="flex-1 relative overflow-auto p-4 sm:p-8">
             {viewingEvidence ? (
               (viewingEvidence.includes('type=image')) ? (
-                <div className="p-4 flex justify-center items-start min-h-full">
-                  <img src={viewingEvidence} alt="Justificante" className="max-w-full h-auto shadow-2xl rounded-lg" />
+                <div className="flex justify-center items-start min-h-full">
+                  <img src={viewingEvidence} alt="Justificante" className="max-w-full h-auto shadow-2xl rounded-xl border-4 border-white" />
                 </div>
               ) : (
                 <PdfViewer file={viewingEvidence} />
@@ -472,7 +481,7 @@ export default function AdminPermitsPage() {
             ) : (
                 <div className="flex flex-col items-center justify-center h-full gap-3 text-muted-foreground">
                     <Loader2 className="h-8 w-8 animate-spin" />
-                    <p className="text-xs font-bold uppercase">Cargando archivo...</p>
+                    <p className="text-xs font-bold uppercase tracking-widest">Cargando documento...</p>
                 </div>
             )}
           </div>

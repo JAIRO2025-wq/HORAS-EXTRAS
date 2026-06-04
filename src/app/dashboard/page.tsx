@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
@@ -9,6 +8,7 @@ import { PayStubsViewer } from '@/components/dashboard/pay-stubs-viewer';
 import { PermitTracker } from '@/components/dashboard/permit-tracker';
 import { NotificationBanner } from '@/components/dashboard/notification-banner';
 import { NotificationCenter } from '@/components/dashboard/notification-center';
+import { AnnouncementDialog } from '@/components/dashboard/announcement-dialog';
 import { Home, Loader2, Clock, FileBadge, Scale, FileSearch, Timer, Calendar, Bell, MessageSquare, CheckCircle2, AlertCircle } from 'lucide-react';
 import type { Employee, OvertimeRecord, PermitRequest } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -95,7 +95,7 @@ export default function DashboardPage() {
     };
   }, [fetchData]);
 
-  // Cálculos para el resumen (Sin horas extra por política de integridad)
+  // Cálculos para el resumen
   const stats = useMemo(() => {
     const inasistencias = permits.filter(p => p.action === 'INASISTENCIA');
     const otrosPermisos = permits.filter(p => p.action !== 'INASISTENCIA');
@@ -115,6 +115,7 @@ export default function DashboardPage() {
   return (
     <div className="container mx-auto max-w-5xl space-y-6">
       <NotificationBanner />
+      <AnnouncementDialog />
 
       <Tabs value={activeTab} className="w-full">
         <TabsContent value="home" className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">

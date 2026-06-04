@@ -16,6 +16,7 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/api/auth/') || 
     pathname.startsWith('/api/admin/login') ||
     pathname.startsWith('/api/push/keys') ||
+    pathname === '/api/settings' || // Permitir para detectar periodo en login
     pathname === '/api/employees' || // Necesario para compatibilidad
     pathname === '/api/branches' ||  // Necesario para compatibilidad
     pathname === '/api/admin/admins'; // Necesario para compatibilidad

@@ -1336,3 +1336,236 @@
 {"timestamp":"2026-05-06T21:53:44.682Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'EDWIN ALEXANDER PALACIOS LINO' del 5/5/2026."}
 {"timestamp":"2026-05-06T21:53:53.412Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 6/5/2026."}
 {"timestamp":"2026-05-06T21:53:56.644Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'VICTOR MANUEL HERNANDEZ FUENTES' (6/5/2026)."}
+{"timestamp":"2026-05-07T14:15:25.146Z","eventType":"record_updated","message":"ADMIN RECHAZÓ el registro de 'JAVIER ARMANDO PORTILLO CHAVEZ' del 30/4/2026."}
+{"timestamp":"2026-05-08T18:39:05.135Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'DAVID ULISES VELIS REYES' del 5/5/2026."}
+{"timestamp":"2026-05-08T18:39:12.645Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'CARLOS ENRIQUE BARQUERO FLORES' del 5/5/2026."}
+{"timestamp":"2026-05-08T18:46:24.931Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 5/5/2026."}
+{"timestamp":"2026-05-08T18:46:42.797Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 4/5/2026."}
+{"timestamp":"2026-05-08T18:46:57.028Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'CARLOS ENRIQUE BARQUERO FLORES' del 4/5/2026."}
+{"timestamp":"2026-05-08T18:47:07.801Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'CARLOS ENRIQUE BARQUERO FLORES' del 4/5/2026."}
+{"timestamp":"2026-05-08T18:47:16.406Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'BRAYAN ESTIVEN AYALA AYALA' del 4/5/2026."}
+{"timestamp":"2026-05-08T18:47:26.903Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'BRAYAN ESTIVEN AYALA AYALA' del 4/5/2026."}
+{"timestamp":"2026-05-08T18:47:50.404Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 6/5/2026."}
+{"timestamp":"2026-05-08T18:47:58.184Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RONALD ANTONIO GOMEZ PRIVADO' del 6/5/2026."}
+{"timestamp":"2026-05-08T18:48:04.744Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 6/5/2026."}
+{"timestamp":"2026-05-08T18:48:16.003Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSE GUILLERMO HENRIQUEZ' del 6/5/2026."}
+{"timestamp":"2026-05-08T18:48:22.970Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'IVAN ANTONIO ZELAYA PORTILLO' del 6/5/2026."}
+{"timestamp":"2026-05-08T18:48:51.518Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FRANKLIN WILFREDO COREAS AQUINO' del 6/5/2026."}
+{"timestamp":"2026-05-08T18:49:19.905Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'EDWIN ALEXANDER PALACIOS LINO' (6/5/2026)."}
+{"timestamp":"2026-05-08T18:49:21.946Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'EDWIN ALEXANDER PALACIOS LINO' del 6/5/2026."}
+{"timestamp":"2026-05-08T18:49:28.713Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 7/5/2026."}
+{"timestamp":"2026-05-08T18:49:36.673Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 7/5/2026."}
+{"timestamp":"2026-05-08T18:49:55.929Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FERNANDO JOSE ALFARO PALACIOS' del 7/5/2026."}
+{"timestamp":"2026-05-08T18:50:05.577Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'DOUGLAS ENRIQUE ARGUETA AYALA' del 7/5/2026."}
+{"timestamp":"2026-05-08T18:50:23.552Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 8/5/2026."}
+{"timestamp":"2026-05-08T18:50:27.519Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 8/5/2026."}
+{"timestamp":"2026-05-13T14:23:33.739Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[26] CHRISTIAN DE JESUS SEGOVIA'. Cambios: Estado a 'inactive'."}
+{"timestamp":"2026-05-13T14:24:08.773Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[26] CHRISTIAN DE JESUS SEGOVIA'. Cambios: Estado a 'active'."}
+{"timestamp":"2026-05-13T14:24:16.957Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[26] CHRISTIAN DE JESUS SEGOVIA'. Cambios: Rango Jefe: Desactivado."}
+{"timestamp":"2026-05-13T14:25:08.573Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[26] CHRISTIAN DE JESUS SEGOVIA'. Cambios: PIN cambiado."}
+{"timestamp":"2026-05-13T14:25:08.982Z","eventType":"employee_updated","message":"El Administrador cambió el PIN de 'CHRISTIAN DE JESUS SEGOVIA'."}
+{"timestamp":"2026-05-13T14:25:14.453Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[55] FANNY YAMILETH CRUZ COREAS'. Cambios: PIN cambiado."}
+{"timestamp":"2026-05-13T14:25:14.919Z","eventType":"employee_updated","message":"El Administrador cambió el PIN de 'FANNY YAMILETH CRUZ COREAS'."}
+{"timestamp":"2026-05-13T14:25:23.319Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[54] MARIA TOMASA REYES MEJIA'. Cambios: PIN cambiado."}
+{"timestamp":"2026-05-13T14:25:23.521Z","eventType":"employee_updated","message":"El Administrador cambió el PIN de 'MARIA TOMASA REYES MEJIA'."}
+{"timestamp":"2026-05-13T14:39:13.872Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'ANDRE DUARTE SOSA' del 12/5/2026."}
+{"timestamp":"2026-05-13T14:39:27.125Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'ANDRE DUARTE SOSA' (12/5/2026)."}
+{"timestamp":"2026-05-13T14:39:29.383Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'EDWIN ALEXANDER PALACIOS LINO' del 12/5/2026."}
+{"timestamp":"2026-05-13T14:39:35.517Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FRANKLIN WILFREDO COREAS AQUINO' del 12/5/2026."}
+{"timestamp":"2026-05-13T14:39:45.151Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'HENRY ALEXANDER SANTACRUZ BLANCO' (12/5/2026)."}
+{"timestamp":"2026-05-13T14:39:47.190Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'HENRY ALEXANDER SANTACRUZ BLANCO' del 12/5/2026."}
+{"timestamp":"2026-05-13T14:39:51.435Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'IVAN ANTONIO ZELAYA PORTILLO' del 12/5/2026."}
+{"timestamp":"2026-05-13T14:39:55.180Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARIO ERNESTO GOMEZ ROMERO' del 12/5/2026."}
+{"timestamp":"2026-05-13T14:39:59.316Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RONALD ANTONIO GOMEZ PRIVADO' del 12/5/2026."}
+{"timestamp":"2026-05-13T14:40:03.584Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 12/5/2026."}
+{"timestamp":"2026-05-13T14:40:08.295Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'HENRY ALEXANDER SANTACRUZ BLANCO' (11/5/2026)."}
+{"timestamp":"2026-05-13T14:40:10.509Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'HENRY ALEXANDER SANTACRUZ BLANCO' del 11/5/2026."}
+{"timestamp":"2026-05-13T14:40:14.439Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 11/5/2026."}
+{"timestamp":"2026-05-13T14:40:29.644Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'DANIEL ALESSANDRO ROSALES GONZALEZ' (10/5/2026)."}
+{"timestamp":"2026-05-13T14:40:31.432Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'DANIEL ALESSANDRO ROSALES GONZALEZ' del 10/5/2026."}
+{"timestamp":"2026-05-13T14:40:35.037Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'HENRY ALEXANDER SANTACRUZ BLANCO' (10/5/2026)."}
+{"timestamp":"2026-05-13T14:40:37.355Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'HENRY ALEXANDER SANTACRUZ BLANCO' del 10/5/2026."}
+{"timestamp":"2026-05-13T14:40:43.105Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'KEVIN ANTONIO MUNTO RAMIREZ' (10/5/2026)."}
+{"timestamp":"2026-05-13T14:40:46.792Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'KEVIN ANTONIO MUNTO RAMIREZ' del 10/5/2026."}
+{"timestamp":"2026-05-13T14:40:52.738Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'RICARDO JOSUE ALAS DIAZ' (10/5/2026)."}
+{"timestamp":"2026-05-13T14:40:54.729Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RICARDO JOSUE ALAS DIAZ' del 10/5/2026."}
+{"timestamp":"2026-05-13T14:40:59.549Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'WIDMAN RAFAEL LUCHA GALLARDO' (10/5/2026)."}
+{"timestamp":"2026-05-13T14:41:01.338Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'WIDMAN RAFAEL LUCHA GALLARDO' del 10/5/2026."}
+{"timestamp":"2026-05-13T14:41:10.971Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 9/5/2026."}
+{"timestamp":"2026-05-13T14:41:19.887Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'EDWIN ALEXANDER PALACIOS LINO' (8/5/2026)."}
+{"timestamp":"2026-05-13T14:41:21.858Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'EDWIN ALEXANDER PALACIOS LINO' del 8/5/2026."}
+{"timestamp":"2026-05-13T14:41:26.733Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'JOSUE  DANIEL ROMERO CHICAS' (8/5/2026)."}
+{"timestamp":"2026-05-13T14:41:38.880Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RICARDO JOSUE ALAS DIAZ' del 7/5/2026."}
+{"timestamp":"2026-05-13T14:41:47.201Z","eventType":"record_updated","message":"ADMIN RECHAZÓ el registro de 'JAVIER ARMANDO PORTILLO CHAVEZ' del 1/5/2026."}
+{"timestamp":"2026-05-14T19:10:29.891Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 14/5/2026."}
+{"timestamp":"2026-05-14T19:10:41.997Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FRANKLIN WILFREDO COREAS AQUINO' del 13/5/2026."}
+{"timestamp":"2026-05-14T19:10:52.437Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'IVAN ANTONIO ZELAYA PORTILLO' del 13/5/2026."}
+{"timestamp":"2026-05-14T19:11:04.508Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSE GUILLERMO HENRIQUEZ' del 13/5/2026."}
+{"timestamp":"2026-05-14T19:11:23.567Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARIO ERNESTO GOMEZ ROMERO' del 13/5/2026."}
+{"timestamp":"2026-05-14T19:11:40.572Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARVIN JOSUE ALVARENGA GUERRERO' del 13/5/2026."}
+{"timestamp":"2026-05-14T19:13:38.242Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RONALD ANTONIO GOMEZ PRIVADO' del 13/5/2026."}
+{"timestamp":"2026-05-14T19:13:56.560Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 13/5/2026."}
+{"timestamp":"2026-05-14T19:14:12.420Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'FREDY ALBERTO VASQUEZ VIGIL' (10/5/2026)."}
+{"timestamp":"2026-05-14T19:14:15.412Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FREDY ALBERTO VASQUEZ VIGIL' del 10/5/2026."}
+{"timestamp":"2026-05-14T19:17:24.631Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'WALTER ALEXANDER VELASQUEZ GOMEZ' del 7/5/2026."}
+{"timestamp":"2026-05-14T19:35:11.638Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JORGE MARLON HERNANDEZ LUNA' del 10/5/2026."}
+{"timestamp":"2026-05-14T19:35:23.986Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'STEVEN EFRAIN MEDRANO DEL CID' del 13/5/2026."}
+{"timestamp":"2026-05-14T19:36:02.034Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RICARDO JOSUE ALAS DIAZ' del 13/5/2026."}
+{"timestamp":"2026-05-14T19:36:12.687Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'WALTER ALEXANDER VELASQUEZ GOMEZ' del 13/5/2026."}
+{"timestamp":"2026-05-14T19:42:23.217Z","eventType":"record_updated","message":"ADMIN RECHAZÓ el registro de 'STEVEN EFRAIN MEDRANO DEL CID' del 13/5/2026."}
+{"timestamp":"2026-05-14T19:42:44.676Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'STEVEN EFRAIN MEDRANO DEL CID' (13/5/2026)."}
+{"timestamp":"2026-05-14T19:48:26.163Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'STEVEN EFRAIN MEDRANO DEL CID' del 13/5/2026."}
+{"timestamp":"2026-05-15T13:44:21.065Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 14/5/2026."}
+{"timestamp":"2026-05-15T13:44:26.958Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 13/5/2026."}
+{"timestamp":"2026-05-15T13:44:29.232Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'HENRY ALEXANDER SANTACRUZ BLANCO' del 14/5/2026."}
+{"timestamp":"2026-05-15T21:47:57.233Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[87] VICTOR MANUEL PALOMO ORELLANA'. Cambios: PIN cambiado."}
+{"timestamp":"2026-05-15T21:47:57.491Z","eventType":"employee_updated","message":"El Administrador cambió el PIN de 'VICTOR MANUEL PALOMO ORELLANA'."}
+{"timestamp":"2026-05-19T14:07:37.263Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 19/5/2026."}
+{"timestamp":"2026-05-19T14:07:43.382Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FRANKLIN WILFREDO COREAS AQUINO' del 18/5/2026."}
+{"timestamp":"2026-05-19T14:07:49.832Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'GUILLERMO ALEXANDER ZELAYA PORTILLO' del 18/5/2026."}
+{"timestamp":"2026-05-19T14:07:53.272Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'IVAN ANTONIO ZELAYA PORTILLO' del 18/5/2026."}
+{"timestamp":"2026-05-19T14:07:58.027Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARIO ERNESTO GOMEZ ROMERO' del 18/5/2026."}
+{"timestamp":"2026-05-19T14:08:02.738Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RONALD ANTONIO GOMEZ PRIVADO' del 18/5/2026."}
+{"timestamp":"2026-05-19T14:08:05.598Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 18/5/2026."}
+{"timestamp":"2026-05-19T14:08:13.025Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'DOUGLAS ENRIQUE ARGUETA AYALA' del 16/5/2026."}
+{"timestamp":"2026-05-19T14:08:15.620Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FERNANDO JOSE ALFARO PALACIOS' del 16/5/2026."}
+{"timestamp":"2026-05-19T14:08:25.220Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'DOUGLAS ENRIQUE ARGUETA AYALA' (16/5/2026)."}
+{"timestamp":"2026-05-19T14:08:32.620Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'FERNANDO JOSE ALFARO PALACIOS' (16/5/2026)."}
+{"timestamp":"2026-05-19T14:08:44.568Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FIDEL ANGEL MARTINEZ NIETO' del 16/5/2026."}
+{"timestamp":"2026-05-19T14:08:56.755Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FIDEL ANGEL MARTINEZ NIETO' del 16/5/2026."}
+{"timestamp":"2026-05-19T14:09:01.341Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FRANKLIN WILFREDO COREAS AQUINO' del 16/5/2026."}
+{"timestamp":"2026-05-19T14:09:07.687Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'IVAN ANTONIO ZELAYA PORTILLO' del 16/5/2026."}
+{"timestamp":"2026-05-19T14:09:15.748Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARVIN JOSUE ALVARENGA GUERRERO' del 16/5/2026."}
+{"timestamp":"2026-05-19T14:09:28.449Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'MARVIN JOSUE ALVARENGA GUERRERO' (16/5/2026)."}
+{"timestamp":"2026-05-19T14:09:31.626Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARVIN JOSUE ALVARENGA GUERRERO' del 16/5/2026."}
+{"timestamp":"2026-05-19T14:09:38.180Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'FIDEL ANGEL MARTINEZ NIETO' (16/5/2026)."}
+{"timestamp":"2026-05-19T14:09:48.826Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'RONALD ANTONIO GOMEZ PRIVADO' (16/5/2026)."}
+{"timestamp":"2026-05-19T14:09:52.614Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RONALD ANTONIO GOMEZ PRIVADO' del 16/5/2026."}
+{"timestamp":"2026-05-19T14:10:00.086Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'WALTER ALEXANDER VELASQUEZ GOMEZ' del 16/5/2026."}
+{"timestamp":"2026-05-19T14:10:18.727Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'WALTER ALEXANDER VELASQUEZ GOMEZ' (16/5/2026)."}
+{"timestamp":"2026-05-19T14:10:28.586Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'DOUGLAS ENRIQUE ARGUETA AYALA' del 15/5/2026."}
+{"timestamp":"2026-05-19T14:10:32.472Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FERNANDO JOSE ALFARO PALACIOS' del 15/5/2026."}
+{"timestamp":"2026-05-19T14:10:37.276Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FIDEL ANGEL MARTINEZ NIETO' del 15/5/2026."}
+{"timestamp":"2026-05-19T14:11:19.279Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FRANKLIN WILFREDO COREAS AQUINO' del 15/5/2026."}
+{"timestamp":"2026-05-19T14:11:21.481Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'IVAN ANTONIO ZELAYA PORTILLO' del 15/5/2026."}
+{"timestamp":"2026-05-19T14:11:27.214Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARIO ERNESTO GOMEZ ROMERO' del 15/5/2026."}
+{"timestamp":"2026-05-19T14:11:32.043Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARVIN JOSUE ALVARENGA GUERRERO' del 15/5/2026."}
+{"timestamp":"2026-05-19T14:11:39.321Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RONALD ANTONIO GOMEZ PRIVADO' del 15/5/2026."}
+{"timestamp":"2026-05-19T14:11:42.464Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 15/5/2026."}
+{"timestamp":"2026-05-19T14:11:47.085Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'WALTER ALEXANDER VELASQUEZ GOMEZ' del 15/5/2026."}
+{"timestamp":"2026-05-19T14:11:56.009Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'BRAYAN ESTIVEN AYALA AYALA' del 10/5/2026."}
+{"timestamp":"2026-05-19T14:11:58.115Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'CARLOS ENRIQUE BARQUERO FLORES' del 10/5/2026."}
+{"timestamp":"2026-05-20T22:44:36.728Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 20/5/2026."}
+{"timestamp":"2026-05-20T22:44:42.785Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'EDWIN ALEXANDER PALACIOS LINO' (19/5/2026)."}
+{"timestamp":"2026-05-20T22:44:44.673Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'EDWIN ALEXANDER PALACIOS LINO' del 19/5/2026."}
+{"timestamp":"2026-05-20T22:44:49.993Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FRANKLIN WILFREDO COREAS AQUINO' del 19/5/2026."}
+{"timestamp":"2026-05-20T22:44:54.607Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'IVAN ANTONIO ZELAYA PORTILLO' del 19/5/2026."}
+{"timestamp":"2026-05-20T22:44:58.176Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARVIN JOSUE ALVARENGA GUERRERO' del 19/5/2026."}
+{"timestamp":"2026-05-20T22:45:06.150Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'EDWIN ALEXANDER PALACIOS LINO' (18/5/2026)."}
+{"timestamp":"2026-05-20T22:45:07.992Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'EDWIN ALEXANDER PALACIOS LINO' del 18/5/2026."}
+{"timestamp":"2026-05-20T22:47:16.556Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 15/5/2026."}
+{"timestamp":"2026-05-20T22:47:18.460Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 16/5/2026."}
+{"timestamp":"2026-05-20T22:47:25.007Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARVIN JOSUE ALVARENGA GUERRERO' del 18/5/2026."}
+{"timestamp":"2026-05-20T22:47:27.673Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 18/5/2026."}
+{"timestamp":"2026-05-20T22:47:29.901Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 18/5/2026."}
+{"timestamp":"2026-05-24T17:29:07.939Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[24] FREDY ALBERTO VASQUEZ VIGIL'. Cambios: Estado a 'inactive'."}
+{"timestamp":"2026-05-24T17:29:13.271Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[26] CHRISTIAN DE JESUS SEGOVIA'. Cambios: Estado a 'inactive'."}
+{"timestamp":"2026-05-24T17:29:24.746Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[36] WIDMAN RAFAEL LUCHA GALLARDO'. Cambios: Estado a 'inactive'."}
+{"timestamp":"2026-05-24T17:29:45.224Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[54] MARIA TOMASA REYES MEJIA'. Cambios: Estado a 'inactive'."}
+{"timestamp":"2026-05-24T17:29:49.298Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[55] FANNY YAMILETH CRUZ COREAS'. Cambios: Estado a 'inactive'."}
+{"timestamp":"2026-05-24T17:30:27.434Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[87] VICTOR MANUEL PALOMO ORELLANA'. Cambios: Estado a 'inactive'."}
+{"timestamp":"2026-05-24T17:31:25.202Z","eventType":"employee_created","message":"NUEVO EMPLEADO: Se creó a '[92] ARGELIA GRACIELA HENRIQUEZ GOMEZ' asignado a la sucursal 'SAN VICENTE' con un salario de $500. Jefe: SI."}
+{"timestamp":"2026-05-24T17:42:23.006Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'DOUGLAS ENRIQUE ARGUETA AYALA' del 24/5/2026."}
+{"timestamp":"2026-05-24T17:42:25.085Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'IVAN ANTONIO ZELAYA PORTILLO' del 24/5/2026."}
+{"timestamp":"2026-05-24T17:42:40.553Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'IVAN ANTONIO ZELAYA PORTILLO' (24/5/2026)."}
+{"timestamp":"2026-05-24T17:42:52.500Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARVIN JOSUE ALVARENGA GUERRERO' del 24/5/2026."}
+{"timestamp":"2026-05-24T17:43:02.542Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FRANKLIN WILFREDO COREAS AQUINO' del 23/5/2026."}
+{"timestamp":"2026-05-24T17:43:08.881Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARIO ERNESTO GOMEZ ROMERO' del 23/5/2026."}
+{"timestamp":"2026-05-24T17:43:22.293Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'MARIO ERNESTO GOMEZ ROMERO' (23/5/2026)."}
+{"timestamp":"2026-05-24T17:43:32.111Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'FRANKLIN WILFREDO COREAS AQUINO' (23/5/2026)."}
+{"timestamp":"2026-05-24T17:43:55.999Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARVIN JOSUE ALVARENGA GUERRERO' del 23/5/2026."}
+{"timestamp":"2026-05-24T17:44:09.918Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RONALD ANTONIO GOMEZ PRIVADO' del 23/5/2026."}
+{"timestamp":"2026-05-24T17:44:21.856Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'IVAN ANTONIO ZELAYA PORTILLO' del 22/5/2026."}
+{"timestamp":"2026-05-24T17:44:27.785Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARVIN JOSUE ALVARENGA GUERRERO' del 22/5/2026."}
+{"timestamp":"2026-05-24T17:44:39.448Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 22/5/2026."}
+{"timestamp":"2026-05-24T17:44:57.012Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'BRYAN ARTURO HERRERA RODRIGUEZ' (21/5/2026)."}
+{"timestamp":"2026-05-24T17:45:02.757Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'BRYAN ARTURO HERRERA RODRIGUEZ' del 21/5/2026."}
+{"timestamp":"2026-05-24T17:45:22.020Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'BRYAN ARTURO HERRERA RODRIGUEZ' del 21/5/2026."}
+{"timestamp":"2026-05-24T17:45:40.812Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FRANKLIN WILFREDO COREAS AQUINO' del 21/5/2026."}
+{"timestamp":"2026-05-24T17:46:03.238Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'GUILLERMO ALEXANDER ZELAYA PORTILLO' (21/5/2026)."}
+{"timestamp":"2026-05-24T17:46:05.994Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'GUILLERMO ALEXANDER ZELAYA PORTILLO' del 21/5/2026."}
+{"timestamp":"2026-05-24T17:46:19.987Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'GUILLERMO ALEXANDER ZELAYA PORTILLO' del 21/5/2026."}
+{"timestamp":"2026-05-24T17:46:41.208Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARVIN JOSUE ALVARENGA GUERRERO' del 21/5/2026."}
+{"timestamp":"2026-05-24T17:46:56.836Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RONALD ANTONIO GOMEZ PRIVADO' del 21/5/2026."}
+{"timestamp":"2026-05-24T17:47:03.184Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 21/5/2026."}
+{"timestamp":"2026-05-24T17:47:25.519Z","eventType":"record_updated","message":"ADMIN ACTUALIZÓ registro de 'EDWIN ALEXANDER PALACIOS LINO' (20/5/2026)."}
+{"timestamp":"2026-05-24T17:47:32.686Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'EDWIN ALEXANDER PALACIOS LINO' del 20/5/2026."}
+{"timestamp":"2026-05-24T17:47:52.538Z","eventType":"record_updated","message":"ADMIN RECHAZÓ el registro de 'EDWIN ALEXANDER PALACIOS LINO' del 23/5/2026."}
+{"timestamp":"2026-05-24T17:48:08.936Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'IVAN ANTONIO ZELAYA PORTILLO' del 20/5/2026."}
+{"timestamp":"2026-05-24T17:48:21.424Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JUAN EMILIO ULLOA GOMEZ' del 20/5/2026."}
+{"timestamp":"2026-05-24T17:48:45.476Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RUDY ARTEMYS RIVERA' del 20/5/2026."}
+{"timestamp":"2026-05-24T17:48:53.993Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RUDY ARTEMYS RIVERA' del 16/5/2026."}
+{"timestamp":"2026-05-24T17:49:15.869Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FIDEL ANGEL MARTINEZ NIETO' del 24/5/2026."}
+{"timestamp":"2026-05-24T17:50:06.686Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FIDEL ANGEL MARTINEZ NIETO' del 23/5/2026."}
+{"timestamp":"2026-05-24T17:52:55.034Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FIDEL ANGEL MARTINEZ NIETO' del 22/5/2026."}
+{"timestamp":"2026-05-24T17:53:13.055Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FIDEL ANGEL MARTINEZ NIETO' del 21/5/2026."}
+{"timestamp":"2026-05-24T17:53:33.129Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FIDEL ANGEL MARTINEZ NIETO' del 21/5/2026."}
+{"timestamp":"2026-05-29T01:46:10.144Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'STEVEN EFRAIN MEDRANO DEL CID' del 28/5/2026."}
+{"timestamp":"2026-05-29T01:46:57.878Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'BRYAN ARTURO HERRERA RODRIGUEZ' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:47:12.833Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'DANIEL ALESSANDRO ROSALES GONZALEZ' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:47:30.500Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FIDEL ANGEL MARTINEZ NIETO' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:47:45.576Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FIDEL ANGEL MARTINEZ NIETO' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:47:57.658Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FRANKLIN WILFREDO COREAS AQUINO' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:48:08.094Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'GUILLERMO ALEXANDER ZELAYA PORTILLO' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:48:18.293Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'IVAN ANTONIO ZELAYA PORTILLO' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:48:20.128Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:48:33.308Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JUAN EMILIO ULLOA GOMEZ' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:49:36.983Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARIO ERNESTO GOMEZ ROMERO' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:49:46.794Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARVIN JOSUE ALVARENGA GUERRERO' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:49:57.410Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'RONALD ANTONIO GOMEZ PRIVADO' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:50:19.446Z","eventType":"record_updated","message":"ADMIN RECHAZÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:50:58.650Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'KARLA SOFIA LOVO CORDOVA' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:51:08.277Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 27/5/2026."}
+{"timestamp":"2026-05-29T01:51:33.499Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'ANDRE DUARTE SOSA' del 26/5/2026."}
+{"timestamp":"2026-05-29T01:51:42.480Z","eventType":"record_updated","message":"ADMIN RECHAZÓ el registro de 'DANIEL ALESSANDRO ROSALES GONZALEZ' del 26/5/2026."}
+{"timestamp":"2026-05-29T01:51:55.397Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'EDWIN ALEXANDER PALACIOS LINO' del 26/5/2026."}
+{"timestamp":"2026-05-29T01:52:06.934Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 26/5/2026."}
+{"timestamp":"2026-05-29T01:52:14.831Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JUAN EMILIO ULLOA GOMEZ' del 26/5/2026."}
+{"timestamp":"2026-05-29T01:52:31.994Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARVIN JOSUE ALVARENGA GUERRERO' del 26/5/2026."}
+{"timestamp":"2026-05-29T01:53:25.548Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 26/5/2026."}
+{"timestamp":"2026-05-29T01:53:34.932Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FIDEL ANGEL MARTINEZ NIETO' del 25/5/2026."}
+{"timestamp":"2026-05-29T01:53:52.125Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FRANKLIN WILFREDO COREAS AQUINO' del 25/5/2026."}
+{"timestamp":"2026-05-29T01:53:59.464Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FIDEL ANGEL MARTINEZ NIETO' del 25/5/2026."}
+{"timestamp":"2026-05-29T01:54:29.216Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE DANIEL SOSA GODINEZ' del 25/5/2026."}
+{"timestamp":"2026-05-29T01:54:39.679Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 25/5/2026."}
+{"timestamp":"2026-05-29T01:54:48.490Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'KEVIN ALEXANDER MARTINEZ PINTO' del 25/5/2026."}
+{"timestamp":"2026-05-29T01:55:14.843Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARIO ERNESTO GOMEZ ROMERO' del 25/5/2026."}
+{"timestamp":"2026-05-29T01:55:21.026Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 25/5/2026."}
+{"timestamp":"2026-05-29T01:55:32.679Z","eventType":"record_updated","message":"ADMIN RECHAZÓ el registro de 'HENRY ALEXANDER SANTACRUZ BLANCO' del 24/5/2026."}
+{"timestamp":"2026-05-29T01:56:14.686Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JORGE MARLON HERNANDEZ LUNA' del 18/5/2026."}
+{"timestamp":"2026-05-29T01:56:26.136Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'ROBERTO ANTONIO VELIS DIAZ' del 19/5/2026."}
+{"timestamp":"2026-05-29T01:56:47.081Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 23/5/2026."}
+{"timestamp":"2026-05-29T01:56:53.598Z","eventType":"record_updated","message":"ADMIN RECHAZÓ el registro de 'RICARDO JOSUE ALAS DIAZ' del 23/5/2026."}
+{"timestamp":"2026-05-29T01:57:00.551Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 23/5/2026."}
+{"timestamp":"2026-05-29T01:57:06.109Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSUE  DANIEL ROMERO CHICAS' del 23/5/2026."}
+{"timestamp":"2026-05-29T01:57:21.831Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JORGE MARLON HERNANDEZ LUNA' del 23/5/2026."}
+{"timestamp":"2026-05-29T01:57:58.312Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'WALTER ALEXANDER VELASQUEZ GOMEZ' del 24/5/2026."}
+{"timestamp":"2026-05-29T21:14:56.898Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 29/5/2026."}
+{"timestamp":"2026-05-29T21:14:59.342Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 29/5/2026."}
+{"timestamp":"2026-05-29T21:15:03.439Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FIDEL ANGEL MARTINEZ NIETO' del 28/5/2026."}
+{"timestamp":"2026-05-29T21:15:08.210Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FRANKLIN WILFREDO COREAS AQUINO' del 28/5/2026."}
+{"timestamp":"2026-05-29T21:15:11.867Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'IVAN ANTONIO ZELAYA PORTILLO' del 28/5/2026."}
+{"timestamp":"2026-05-29T21:15:16.646Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'JOSE GUILLERMO HENRIQUEZ' del 28/5/2026."}
+{"timestamp":"2026-05-29T21:15:20.712Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'MARVIN JOSUE ALVARENGA GUERRERO' del 28/5/2026."}
+{"timestamp":"2026-05-29T21:15:31.530Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'VICTOR MANUEL HERNANDEZ FUENTES' del 28/5/2026."}
+{"timestamp":"2026-05-30T03:42:27.813Z","eventType":"record_updated","message":"ADMIN RECHAZÓ el registro de 'MARIO ERNESTO GOMEZ ROMERO' del 28/5/2026."}
+{"timestamp":"2026-05-30T03:42:46.526Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'IVAN ANTONIO ZELAYA PORTILLO' del 29/5/2026."}
+{"timestamp":"2026-05-30T03:42:56.165Z","eventType":"record_updated","message":"ADMIN APROBÓ el registro de 'FRANKLIN WILFREDO COREAS AQUINO' del 29/5/2026."}
+{"timestamp":"2026-05-30T17:53:17.503Z","eventType":"employee_created","message":"NUEVO EMPLEADO: Se creó a '[93] ERNESTO DAGOBERTO JOYA MENDEZ' asignado a la sucursal 'SAN MIGUEL' con un salario de $408.8. Jefe: NO."}
+{"timestamp":"2026-05-30T17:54:27.285Z","eventType":"employee_created","message":"NUEVO EMPLEADO: Se creó a '[94] KIMBERLY CECILIA ALVARENGA MORALES' asignado a la sucursal 'USULUTAN' con un salario de $408.8. Jefe: NO."}
+{"timestamp":"2026-05-30T17:54:41.690Z","eventType":"employee_created","message":"NUEVO EMPLEADO: Se creó a '[95] KENIA ESPERANZA BONILLA HERNANDEZ' asignado a la sucursal 'USULUTAN' con un salario de $408.8. Jefe: NO."}
+{"timestamp":"2026-05-30T17:54:57.410Z","eventType":"employee_created","message":"NUEVO EMPLEADO: Se creó a '[96] MAX STEVEN HERNANDEZ CRUZ' asignado a la sucursal 'USULUTAN' con un salario de $408.8. Jefe: NO."}
+{"timestamp":"2026-05-31T00:27:36.022Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[92] ARGELIA GRACIELA HENRIQUEZ GARCIA'. Cambios: Nombre a 'ARGELIA GRACIELA HENRIQUEZ GARCIA'."}
+{"timestamp":"2026-05-31T00:29:38.408Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[74] NELSY JOHANNA DIAZ DE CHICAS'. Cambios: Estado a 'inactive'."}
+{"timestamp":"2026-05-31T00:29:53.888Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[67] ERICK EDMUNDO CANDRAY RUIZ'. Cambios: Estado a 'inactive'."}
+{"timestamp":"2026-06-01T16:55:38.833Z","eventType":"employee_updated","message":"EMPLEADO ACTUALIZADO: '[72] DAVID ULISES VELIS REYES'. Cambios: Estado a 'inactive'."}

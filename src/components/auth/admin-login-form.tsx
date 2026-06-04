@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -37,11 +38,15 @@ export function AdminLoginForm() {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const { toast } = useToast();
-  const currentMonth = months[new Date().getMonth()];
+  
+  // Mes por defecto inicial
+  const now = new Date();
+  const calendarMonthIndex = now.getMonth();
+  const initialMonth = months[calendarMonthIndex];
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: { adminId: '', pin: '', month: currentMonth },
+    defaultValues: { adminId: '', pin: '', month: initialMonth },
   });
 
   useEffect(() => {
@@ -61,6 +66,28 @@ export function AdminLoginForm() {
         });
   }, []);
 
+  // Efecto para detectar si debemos saltar al mes siguiente por cierre de quincena
+  useEffect(() => {
+    async function checkAccountingPeriod() {
+      try {
+        const response = await fetch(`/api/settings?month=${encodeURIComponent(initialMonth)}`);
+        if (response.ok) {
+          const settings = await response.json();
+          const today = now.getDate();
+          
+          if (today > settings.quincena2_cutoff) {
+            const nextMonthIndex = (calendarMonthIndex + 1) % 12;
+            const nextMonth = months[nextMonthIndex];
+            form.setValue('month', nextMonth);
+          }
+        }
+      } catch (e) {
+        console.error("Error detecting period:", e);
+      }
+    }
+    checkAccountingPeriod();
+  }, [initialMonth, calendarMonthIndex, form]);
+
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
       const response = await fetch('/api/admin/login', {
@@ -74,7 +101,6 @@ export function AdminLoginForm() {
       if (response.ok) {
         toast({ title: 'Acceso Concedido', description: `¡Bienvenido, ${result.user.name}!` });
         
-        // El estado del cliente sigue necesitando el mes y el rol para la UI
         localStorage.setItem(
           'overtimeAdmin',
           JSON.stringify({ 
@@ -149,7 +175,7 @@ export function AdminLoginForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Mes de Análisis</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <div className="relative">
                     <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

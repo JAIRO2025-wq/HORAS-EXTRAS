@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -28,7 +29,7 @@ import {
   KeyRound,
   Loader2
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Input } from '../ui/input';
 
 const FormSchema = z.object({
@@ -39,15 +40,42 @@ const FormSchema = z.object({
 export function LoginForm() {
   const router = useRouter();
   const { toast } = useToast();
-  const currentMonth = months[new Date().getMonth()];
+  
+  // Mes por defecto inicial (Calendario)
+  const now = new Date();
+  const calendarMonthIndex = now.getMonth();
+  const initialMonth = months[calendarMonthIndex];
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       pin: '',
-      month: currentMonth,
+      month: initialMonth,
     },
   });
+
+  // Efecto para detectar si debemos saltar al mes siguiente por cierre de quincena
+  useEffect(() => {
+    async function checkAccountingPeriod() {
+      try {
+        const response = await fetch(`/api/settings?month=${encodeURIComponent(initialMonth)}`);
+        if (response.ok) {
+          const settings = await response.json();
+          const today = now.getDate();
+          
+          // Si hoy es después del corte de la 2da quincena
+          if (today > settings.quincena2_cutoff) {
+            const nextMonthIndex = (calendarMonthIndex + 1) % 12;
+            const nextMonth = months[nextMonthIndex];
+            form.setValue('month', nextMonth);
+          }
+        }
+      } catch (e) {
+        console.error("Error detecting period:", e);
+      }
+    }
+    checkAccountingPeriod();
+  }, [initialMonth, calendarMonthIndex, form]);
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
@@ -122,7 +150,7 @@ export function LoginForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-center block text-muted-foreground uppercase text-sm font-bold tracking-widest">Mes de Trabajo</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <div className="relative">
                     <CalendarIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

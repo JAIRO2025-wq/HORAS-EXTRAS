@@ -31,6 +31,8 @@ import {
   X,
   Loader2,
   CalendarDays,
+  ShieldAlert,
+  AlertTriangle,
 } from 'lucide-react';
 import {
   format,
@@ -44,7 +46,10 @@ import {
   getDaysInMonth,
   startOfDay,
   isValid,
-  parseISO
+  parseISO,
+  isAfter,
+  isSameDay,
+  isBefore
 } from 'date-fns';
 import { es } from 'date-fns/locale';
 import React, { useEffect, useState } from 'react';
@@ -58,6 +63,8 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Input } from '../ui/input';
 
 const hours = Array.from({ length: 12 }, (_, i) =>
   (i + 1).toString().padStart(2, '0')
@@ -167,6 +174,10 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
     const now = startOfDay(new Date());
     const currentYear = now.getFullYear();
     
+    // VIGENCIA: 15 de JUNIO de 2026 (Mes 5 en JS)
+    const POLICY_START_DATE = new Date(2026, 5, 15); 
+    const isStrictPolicyActive = isAfter(now, POLICY_START_DATE) || isSameDay(now, POLICY_START_DATE);
+    
     const selectedMonthDate = new Date(currentYear, monthIndex, 1);
     const currMonthDays = eachDayOfInterval({ 
       start: startOfMonth(selectedMonthDate), 
@@ -189,8 +200,21 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
       }
     }
 
-    return [...spilloverDays, ...currMonthDays]
-      .filter(day => startOfDay(day) <= now) 
+    const allPotentialDays = [...spilloverDays, ...currMonthDays];
+
+    return allPotentialDays
+      .filter(day => {
+        const d = startOfDay(day);
+        
+        if (isAfter(d, now)) return false;
+
+        // A PARTIR DEL 15 DE JUNIO SOLO SE PERMITE HOY
+        if (isStrictPolicyActive) {
+            return isToday(d);
+        }
+        
+        return true;
+      })
       .filter(day => {
         const dayMonthIndex = day.getMonth();
         const dom = day.getDate();
@@ -202,12 +226,11 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
         if (dom <= settings.quincena1_cutoff) return settings.quincena1_active;
         if (dom <= settings.quincena2_cutoff) return settings.quincena2_active;
         
-        if (dom > settings.quincena2_cutoff) {
-            return true;
-        }
-
         return false;
       })
+      .filter((date, index, self) => 
+        index === self.findIndex((d) => isSameDay(d, date))
+      )
       .sort((a, b) => b.getTime() - a.getTime());
   }, [user, settings, prevMonthSettings]);
 
@@ -231,8 +254,7 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
 
   useEffect(() => {
     if (availableDates.length > 0 && !getValues('date')) {
-      const today = availableDates.find(d => isToday(d));
-      setValue('date', today || availableDates[0]);
+      setValue('date', availableDates[0]);
     }
   }, [availableDates, setValue, getValues]);
 
@@ -247,7 +269,7 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
     }
 
     const selectedDateStr = format(data.date, 'yyyy-MM-dd');
-    const permitConflict = myPermits.find(p => p.startDate === selectedDateStr || p.endDate === selectedDateStr);
+    const permitConflict = myPermits.find(p => p.startDate <= selectedDateStr && p.endDate >= selectedDateStr);
     
     if (permitConflict) {
       toast({
@@ -264,13 +286,12 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
     }
 
     const currentMonthIdx = months.indexOf(user.month);
-    let quincena;
-    if (data.date.getMonth() === currentMonthIdx && data.date.getDate() > settings.quincena2_cutoff) {
-      quincena = 1;
-    } else if (data.date.getMonth() !== currentMonthIdx || data.date.getDate() <= settings.quincena1_cutoff) {
-      quincena = 1;
-    } else {
-      quincena = 2;
+    let quincena: 1 | 2 = 1;
+
+    if (data.date.getMonth() === currentMonthIdx) {
+        if (data.date.getDate() > settings.quincena1_cutoff) {
+            quincena = 2;
+        }
     }
 
     onRecordAdded({
@@ -280,7 +301,7 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
       endTime: et,
       activity: data.activity, 
       coworkers: data.coworkers.join(', '),
-      quincena: quincena as 1 | 2,
+      quincena: quincena,
       totalHours: calculatedHours.totalHours, 
       dayHours: calculatedHours.dayHours, 
       nightHours: calculatedHours.nightHours,
@@ -300,16 +321,48 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
 
   if (!settings) return <div className="flex h-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
 
+  if (availableDates.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full p-8 text-center animate-in fade-in zoom-in-95 duration-500">
+        <div className="bg-red-100 p-6 rounded-full mb-6 border-4 border-red-50">
+            <ShieldAlert className="h-16 w-16 text-red-600" />
+        </div>
+        <h3 className="text-xl font-black text-red-950 uppercase tracking-tighter mb-2">Registro Bloqueado</h3>
+        <p className="text-sm text-red-800 leading-relaxed mb-8">
+            Usted está intentando realizar un registro <strong>fuera del plazo establecido</strong> o la quincena se encuentra cerrada.
+        </p>
+        
+        <div className="w-full bg-white border-2 border-red-200 rounded-2xl p-6 shadow-xl shadow-red-100/50 mb-8 space-y-4">
+            <div className="flex items-center gap-2 justify-center text-red-600">
+                <AlertTriangle className="h-4 w-4" />
+                <span className="text-[10px] font-black uppercase tracking-widest">Protocolo Administrativo</span>
+            </div>
+            <p className="text-xs text-zinc-600">
+                A partir del 15 de junio de 2026, el sistema solo permite registros en tiempo real. Para habilitar un registro extemporáneo, su jefatura inmediata debe emitir una justificación técnica.
+            </p>
+            <div className="pt-4 border-t border-red-50">
+                <p className="text-xs font-bold text-red-900 uppercase">Por favor contacte a:</p>
+                <p className="text-sm font-black text-red-700">RECURSOS HUMANOS</p>
+            </div>
+        </div>
+
+        <Button onClick={closeSheet} variant="outline" className="w-full border-red-200 text-red-700 hover:bg-red-50 h-12 font-bold">
+            Entendido, Cerrar Panel
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <ScrollArea className="h-full">
       <div className="pr-6 py-4">
-        <div className="mb-6 p-3 bg-primary/10 border border-primary/20 rounded-lg flex items-center gap-3">
-          <CalendarDays className="h-5 w-5 text-primary" />
-          <div className="flex flex-col">
-            <span className="text-[10px] uppercase font-bold text-primary/70 tracking-wider">Hoy</span>
-            <span className="text-sm font-mono font-bold text-primary">{currentTime ? format(currentTime, "dd/MM/yyyy HH:mm") : '--'}</span>
-          </div>
-        </div>
+        <Alert className="mb-6 bg-amber-50 border-amber-200">
+          <ShieldAlert className="h-4 w-4 text-amber-600" />
+          <AlertTitle className="text-[11px] font-black uppercase tracking-wider text-amber-800">Control de Puntualidad</AlertTitle>
+          <AlertDescription className="text-[10px] text-amber-700 leading-tight">
+            Verifique que la fecha seleccionada sea la correcta. No se permiten registros futuros ni fuera de las fechas de corte habilitadas.
+          </AlertDescription>
+        </Alert>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -321,21 +374,19 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
                   value={getSafeISOString(field.value)}
                 >
                   <FormControl>
-                    <SelectTrigger className="h-11">
-                      <SelectValue placeholder="Selecciona la fecha" />
+                    <SelectTrigger className="h-11 bg-muted/50 font-bold border-primary/20">
+                      <SelectValue placeholder="Selecciona una fecha" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {availableDates.length > 0 ? availableDates.map(d => (
+                    {availableDates.map(d => (
                       <SelectItem key={d.toISOString()} value={d.toISOString()}>
-                        {format(d, "eeee, dd 'de' MMMM", { locale: es })}
+                        {isToday(d) ? 'HOY: ' : ''}{format(d, "eeee, dd 'de' MMMM", { locale: es })}
                       </SelectItem>
-                    )) : (
-                        <SelectItem value="none" disabled>No hay fechas habilitadas</SelectItem>
-                    )}
+                    ))}
                   </SelectContent>
                 </Select>
-                <FormDescription className="text-[10px]">
+                <FormDescription className="text-[10px] font-medium text-primary">
                     Si un día no aparece, es porque la quincena está cerrada o ya pasó el límite de registro.
                 </FormDescription>
                 <FormMessage />
@@ -442,8 +493,8 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
               </FormItem>
             )} />
 
-            <Button type="submit" className="w-full h-12 text-lg shadow-xl mt-4" disabled={availableDates.length === 0}>
-                {availableDates.length === 0 ? 'Sin fechas disponibles' : 'Guardar Registro'}
+            <Button type="submit" className="w-full h-12 text-lg shadow-xl mt-4">
+                Guardar Registro
             </Button>
           </form>
         </Form>

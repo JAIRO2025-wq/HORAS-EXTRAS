@@ -11,10 +11,11 @@
     "dayHours": 1.5,
     "nightHours": 0,
     "type": "overtime",
-    "status": "pending",
+    "status": "approved",
     "adminNotes": "",
     "createdAt": "2026-05-07T02:47:55.620Z",
-    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36"
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
+    "employeeName": "CARLOS ENRIQUE BARQUERO FLORES"
   },
   {
     "id": "8b6f7ebd-47e5-4153-a098-f32c132d8bac",
@@ -28,10 +29,11 @@
     "dayHours": 2,
     "nightHours": 0.5,
     "type": "overtime",
-    "status": "pending",
+    "status": "approved",
     "adminNotes": "",
     "createdAt": "2026-05-07T02:49:14.650Z",
-    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36"
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
+    "employeeName": "CARLOS ENRIQUE BARQUERO FLORES"
   },
   {
     "id": "f8b267b0-e69c-4b74-b3b3-a06e463d9503",
@@ -45,9 +47,28 @@
     "dayHours": 2,
     "nightHours": 0,
     "type": "overtime",
-    "status": "pending",
+    "status": "approved",
     "adminNotes": "",
     "createdAt": "2026-05-07T02:50:06.841Z",
-    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36"
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
+    "employeeName": "CARLOS ENRIQUE BARQUERO FLORES"
+  },
+  {
+    "id": "3a29baa3-8691-44ea-a9b7-e90f63dcc33f",
+    "date": "2026-05-10T06:00:00.000Z",
+    "startTime": "08:00 AM",
+    "endTime": "05:00 PM",
+    "activity": "Día de asueto ",
+    "coworkers": "BRAYAN ESTIVEN AYALA AYALA",
+    "quincena": 1,
+    "totalHours": 9,
+    "dayHours": 9,
+    "nightHours": 0,
+    "type": "overtime",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-05-15T17:28:03.715Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
+    "employeeName": "CARLOS ENRIQUE BARQUERO FLORES"
   }
 ]

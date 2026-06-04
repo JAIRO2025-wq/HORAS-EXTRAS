@@ -207,7 +207,7 @@
   {
     "id": 24,
     "name": "FREDY ALBERTO VASQUEZ VIGIL",
-    "status": "active",
+    "status": "inactive",
     "salary": 408.8,
     "pin": "397157",
     "branch": "MORAZAN",
@@ -224,10 +224,11 @@
   {
     "id": 26,
     "name": "CHRISTIAN DE JESUS SEGOVIA",
-    "status": "active",
+    "status": "inactive",
     "salary": 408.8,
-    "pin": "540656",
-    "branch": "USULUTAN"
+    "pin": "540650",
+    "branch": "USULUTAN",
+    "isSupervisor": false
   },
   {
     "id": 27,
@@ -311,7 +312,7 @@
   {
     "id": 36,
     "name": "WIDMAN RAFAEL LUCHA GALLARDO",
-    "status": "active",
+    "status": "inactive",
     "salary": 408.8,
     "pin": "897192",
     "branch": "CARA SUCIA",
@@ -470,18 +471,18 @@
   {
     "id": 54,
     "name": "MARIA TOMASA REYES MEJIA",
-    "status": "active",
+    "status": "inactive",
     "salary": 408.8,
-    "pin": "219424",
+    "pin": "219400",
     "branch": "USULUTAN",
     "isSupervisor": false
   },
   {
     "id": 55,
     "name": "FANNY YAMILETH CRUZ COREAS",
-    "status": "active",
+    "status": "inactive",
     "salary": 408.8,
-    "pin": "376034",
+    "pin": "376030",
     "branch": "USULUTAN",
     "isSupervisor": false
   },
@@ -587,7 +588,7 @@
   {
     "id": 67,
     "name": "ERICK EDMUNDO CANDRAY RUIZ",
-    "status": "active",
+    "status": "inactive",
     "salary": 800,
     "pin": "872700",
     "branch": "SAN SALVADOR",
@@ -632,7 +633,7 @@
   {
     "id": 72,
     "name": "DAVID ULISES VELIS REYES",
-    "status": "active",
+    "status": "inactive",
     "salary": 600,
     "pin": "666121",
     "branch": "SAN MIGUEL",
@@ -650,7 +651,7 @@
   {
     "id": 74,
     "name": "NELSY JOHANNA DIAZ DE CHICAS",
-    "status": "active",
+    "status": "inactive",
     "salary": 408.8,
     "pin": "336793",
     "branch": "MORAZAN",
@@ -767,9 +768,9 @@
   {
     "id": 87,
     "name": "VICTOR MANUEL PALOMO ORELLANA",
-    "status": "active",
+    "status": "inactive",
     "salary": 408.8,
-    "pin": "229507",
+    "pin": "229500",
     "branch": "SAN MIGUEL",
     "isSupervisor": false
   },
@@ -807,6 +808,51 @@
     "salary": 408.8,
     "pin": "367528",
     "branch": "CARA SUCIA",
+    "isSupervisor": false
+  },
+  {
+    "id": 92,
+    "name": "ARGELIA GRACIELA HENRIQUEZ GARCIA",
+    "status": "active",
+    "salary": 500,
+    "pin": "400081",
+    "branch": "SAN VICENTE",
+    "isSupervisor": true
+  },
+  {
+    "id": 93,
+    "name": "ERNESTO DAGOBERTO JOYA MENDEZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "665398",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 94,
+    "name": "KIMBERLY CECILIA ALVARENGA MORALES",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "721525",
+    "branch": "USULUTAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 95,
+    "name": "KENIA ESPERANZA BONILLA HERNANDEZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "342832",
+    "branch": "USULUTAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 96,
+    "name": "MAX STEVEN HERNANDEZ CRUZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "689604",
+    "branch": "USULUTAN",
     "isSupervisor": false
   }
 ]

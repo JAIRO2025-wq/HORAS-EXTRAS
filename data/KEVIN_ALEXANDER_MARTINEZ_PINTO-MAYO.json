@@ -36,20 +36,21 @@
     "employeeName": "KEVIN ALEXANDER MARTINEZ PINTO"
   },
   {
-    "id": "561e7bfe-3d95-46d4-8073-ecac0b68dc5b",
-    "date": "2026-05-06T06:00:00.000Z",
-    "startTime": "05:00 PM",
-    "endTime": "06:00 PM",
-    "activity": "Finalización de conexiones en ODF Nodo Santa Rita",
+    "id": "fe945e30-1e3f-4be0-b3cc-70ab450cc94f",
+    "date": "2026-05-25T06:00:00.000Z",
+    "startTime": "08:00 PM",
+    "endTime": "11:00 PM",
+    "activity": "Caída de Nodo Colonia Ista y sus dependencias, por daño de hilo en buffer, restauración completa de cierre de empalmes",
     "coworkers": "JOSUE DANIEL SOSA GODINEZ",
-    "quincena": 1,
-    "totalHours": 1,
-    "dayHours": 1,
-    "nightHours": 0,
+    "quincena": 2,
+    "totalHours": 3,
+    "dayHours": 0,
+    "nightHours": 3,
     "type": "overtime",
-    "status": "pending",
+    "status": "approved",
     "adminNotes": "",
-    "createdAt": "2026-05-07T03:28:20.847Z",
-    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36"
+    "createdAt": "2026-05-26T19:22:58.479Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Mobile Safari/537.36",
+    "employeeName": "KEVIN ALEXANDER MARTINEZ PINTO"
   }
 ]

@@ -12,32 +12,18 @@ function sanitize(str: string) {
 }
 
 /**
- * Busca el archivo de registros soportando cambios de nombre parciales.
+ * Genera el path jerárquico: data/records/[AÑO]/[MES]/[QX]/[NOMBRE].json
  */
-async function findUserMonthFile(userName: string, monthName: string) {
+async function getHierarchicalPath(userName: string, accountingMonth: string, quincena: number, date: Date) {
+    const year = date.getFullYear().toString();
     const sUser = sanitize(userName);
-    const sMonth = sanitize(monthName);
-    const exactName = `${sUser}-${sMonth}.json`;
-    const exactPath = path.join(dataDir, exactName);
-
-    try {
-        await fs.access(exactPath);
-        return exactPath;
-    } catch (e) {
-        // Si no es exacto, buscamos uno que coincida parcialmente
-        try {
-            const files = await fs.readdir(dataDir);
-            const monthSuffix = `-${sMonth}.JSON`;
-            const match = files.find(f => {
-                const fUpper = f.toUpperCase();
-                if (!fUpper.endsWith(monthSuffix) || fUpper.startsWith('ATTENDANCE-')) return false;
-                const namePart = fUpper.replace(monthSuffix, '');
-                return sUser.includes(namePart) || namePart.includes(sUser);
-            });
-            if (match) return path.join(dataDir, match);
-        } catch (err) {}
-    }
-    return exactPath;
+    const sMonth = sanitize(accountingMonth);
+    const qFolder = `Q${quincena}`;
+    
+    const targetDir = path.join(dataDir, 'records', year, sMonth, qFolder);
+    await fs.mkdir(targetDir, { recursive: true });
+    
+    return path.join(targetDir, `${sUser}.json`);
 }
 
 export async function GET(request: Request) {
@@ -48,18 +34,39 @@ export async function GET(request: Request) {
   const month = searchParams.get('month') || '';
   const targetName = auth.role === 'admin' ? (searchParams.get('user') || auth.name) : auth.name;
 
-  if (!month) {
-    return NextResponse.json({ error: 'Month required' }, { status: 400 });
+  if (!month) return NextResponse.json({ error: 'Month required' }, { status: 400 });
+
+  const year = new Date().getFullYear().toString();
+  const sUser = sanitize(targetName);
+  const sMonth = sanitize(month);
+  
+  let allRecords: OvertimeRecord[] = [];
+
+  // 1. Leer registros de la nueva estructura (Q1 y Q2)
+  for (const q of ['Q1', 'Q2']) {
+    const filePath = path.join(dataDir, 'records', year, sMonth, q, `${sUser}.json`);
+    try {
+      const content = await fs.readFile(filePath, 'utf-8');
+      const data = JSON.parse(content);
+      allRecords = [...allRecords, ...data];
+    } catch (e) {}
   }
 
-  const filePath = await findUserMonthFile(targetName, month);
-
+  // 2. Consolidar con archivos antiguos (flat structure)
+  // IMPORTANTE: Ahora se leen AMBOS y se combinan por ID para no perder datos de Junio
   try {
-    const fileContent = await fs.readFile(filePath, 'utf-8');
-    return NextResponse.json(JSON.parse(fileContent));
-  } catch (error) {
-    return NextResponse.json([]);
-  }
+      const oldPath = path.join(dataDir, `${sUser}-${sMonth}.json`);
+      const content = await fs.readFile(oldPath, 'utf-8');
+      const oldData: OvertimeRecord[] = JSON.parse(content);
+      
+      oldData.forEach(oldRec => {
+          if (!allRecords.some(r => r.id === oldRec.id)) {
+              allRecords.push(oldRec);
+          }
+      });
+  } catch (e) {}
+
+  return NextResponse.json(allRecords.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
 }
 
 export async function POST(request: Request) {
@@ -73,6 +80,7 @@ export async function POST(request: Request) {
   if (!month) return NextResponse.json({ error: 'Missing context' }, { status: 400 });
 
   const body: OvertimeRecord = await request.json();
+  const recordDate = new Date(body.date);
   const headersList = await headers();
   
   const newRecord: OvertimeRecord = {
@@ -84,7 +92,8 @@ export async function POST(request: Request) {
     type: body.type || 'overtime',
   };
 
-  const filePath = await findUserMonthFile(targetName, month);
+  const filePath = await getHierarchicalPath(targetName, month, body.quincena, recordDate);
+  
   let records: OvertimeRecord[] = [];
   try {
     const content = await fs.readFile(filePath, 'utf-8');

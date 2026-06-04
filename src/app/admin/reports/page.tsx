@@ -201,7 +201,9 @@ export default function AdminReportsPage() {
             body: JSON.stringify({
                 employeeName: recordToDelete.employeeName,
                 month,
-                recordId: recordToDelete.id
+                recordId: recordToDelete.id,
+                quincena: recordToDelete.quincena,
+                date: recordToDelete.date
             })
         });
         if (!response.ok) throw new Error('Failed to delete record');
@@ -272,6 +274,11 @@ export default function AdminReportsPage() {
         type: 'pattern',
         pattern: 'solid',
         fgColor: { argb: 'FFC6EFCE' }
+    };
+    const orangeHeader = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFE67E22' }
     };
     const whiteBold = { color: { argb: 'FFFFFFFF' }, bold: true };
 
@@ -367,10 +374,53 @@ export default function AdminReportsPage() {
 
     sheet2.columns = [{ width: 25 }, { width: 12 }, { width: 20 }, { width: 40 }, { width: 10 }, { width: 10 }, { width: 10 }, { width: 15 }, { width: 12 }, { width: 18 }];
 
+    // --- HOJA 3: DETALLE POR SUCURSAL ---
+    const sheet3 = workbook.addWorksheet('Detalle por Sucursal');
+    sheet3.addRow(['REPORTE AGRUPADO POR SUCURSAL - ' + month]);
+    sheet3.getCell('A1').font = { size: 16, bold: true };
+    sheet3.addRow([]);
+
+    const headers3 = ['Sucursal', 'Empleado', 'Fecha', 'Horario', 'Actividad', 'H. Diurnas', 'H. Nocturnas', 'H. Totales', 'Estado'];
+    const hr3 = sheet3.addRow(headers3);
+    hr3.eachCell(c => { c.fill = orangeHeader; c.font = whiteBold; });
+
+    const branchOrder = ['SAN MIGUEL', 'MORAZAN', 'USULUTAN', 'SAN VICENTE', 'CARA SUCIA', 'SAN SALVADOR'];
+    
+    branchOrder.forEach(branchName => {
+        const branchEmployees = employees.filter(e => e.branch === branchName).map(e => e.name);
+        const branchRecords = filteredRecords.filter(r => branchEmployees.includes(r.employeeName))
+            .sort((a, b) => a.date.getTime() - b.date.getTime());
+
+        if (branchRecords.length > 0) {
+            sheet3.addRow([]);
+            const branchRow = sheet3.addRow([branchName, '', '', '', '--- INICIO SECCIÓN ---', '', '', '', '']);
+            branchRow.eachCell(c => { c.font = { bold: true }; c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF2F2F2' } }; });
+            
+            branchRecords.forEach(r => {
+                sheet3.addRow([
+                    branchName,
+                    r.employeeName,
+                    format(r.date, 'dd/MM/yyyy'),
+                    `${r.startTime} - ${r.endTime}`,
+                    r.activity,
+                    parseFloat((r.dayHours || 0).toFixed(2)),
+                    parseFloat((r.nightHours || 0).toFixed(2)),
+                    parseFloat((r.totalHours || 0).toFixed(2)),
+                    translateStatus(r.status)
+                ]);
+            });
+        }
+    });
+
+    sheet3.columns = [
+        { width: 20 }, { width: 25 }, { width: 12 }, { width: 20 }, { width: 45 }, 
+        { width: 10 }, { width: 10 }, { width: 10 }, { width: 12 }
+    ];
+
     const buffer = await workbook.xlsx.writeBuffer();
     saveAs(new Blob([buffer]), `Reporte_Bitacora_${month}_${new Date().getTime()}.xlsx`);
     setIsExporting(false);
-  }, [filteredRecords, month]);
+  }, [filteredRecords, month, employees]);
 
   const renderLoading = () => (
     <div className="space-y-2">
@@ -593,9 +643,12 @@ export default function AdminReportsPage() {
         if (!open) setRecordToDelete(null);
      }}>
         <AlertDialogContent>
-            <AlertDialogHeader><AlertDialogTitle>¿Estás seguro?</AlertDialogTitle><AlertDialogDescription>Esta acción no se puede deshacer. Se eliminará permanentemente el registro de horas extra.</AlertDialogDescription></AlertDialogHeader>
+            <AlertDialogHeader>
+              <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+              <AlertDialogDescription>Esta acción no se puede deshacer. Se eliminará permanentemente el registro de horas extra.</AlertDialogDescription>
+            </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => setRecordToDelete(null)}>Cancelar</AlertDialogCancel>
+              <Button variant="ghost" onClick={() => setRecordToDelete(null)}>Cancelar</Button>
               <AlertDialogAction onClick={() => handleDeleteRecord()}>Eliminar</AlertDialogAction>
             </AlertDialogFooter>
         </AlertDialogContent>

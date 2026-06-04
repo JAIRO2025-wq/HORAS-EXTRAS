@@ -11,10 +11,11 @@
     "dayHours": 2,
     "nightHours": 1,
     "type": "overtime",
-    "status": "pending",
+    "status": "rejected",
     "adminNotes": "",
     "createdAt": "2026-05-06T22:17:53.017Z",
-    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36"
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
+    "employeeName": "JAVIER ARMANDO PORTILLO CHAVEZ"
   },
   {
     "id": "38eacc1a-d1f4-4739-b8e3-6c7dfc198c64",
@@ -28,9 +29,10 @@
     "dayHours": 2,
     "nightHours": 1,
     "type": "overtime",
-    "status": "pending",
+    "status": "rejected",
     "adminNotes": "",
     "createdAt": "2026-05-06T22:19:34.031Z",
-    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36"
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
+    "employeeName": "JAVIER ARMANDO PORTILLO CHAVEZ"
   }
 ]

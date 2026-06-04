@@ -1,6 +1,7 @@
+
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -20,7 +21,9 @@ import {
   MessageSquare,
   Eye,
   X,
-  Image as ImageIcon
+  Image as ImageIcon,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { PermitForm } from './permit-form';
 import type { PermitRequest } from '@/lib/types';
@@ -40,6 +43,8 @@ import { PermitPdfTemplate } from '@/components/admin/permit-pdf-template';
 import { useToast } from '@/hooks/use-toast';
 import { PdfViewer } from '@/components/ui/pdf-viewer';
 
+const ITEMS_PER_PAGE = 5;
+
 export function PermitTracker() {
   const [permits, setPermits] = useState<PermitRequest[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -48,7 +53,7 @@ export function PermitTracker() {
   const [viewingEvidence, setViewingEvidence] = useState<string | null>(null);
   const { toast } = useToast();
 
-  // Estados para PDF
+  const [currentPage, setCurrentPage] = useState(1);
   const [printingPermit, setPrintingPermit] = useState<PermitRequest | null>(null);
   const pdfRef = useRef<HTMLDivElement>(null);
 
@@ -104,7 +109,7 @@ export function PermitTracker() {
         const imgHeight = canvas.height;
         const ratio = Math.min(pdfWidth / imgWidth, 1);
         pdf.addImage(imgData, 'PNG', 0, 0, imgWidth * ratio, imgHeight * ratio);
-        pdf.save(`Mi_Accion_Personal_${permit.action}.pdf`);
+        pdf.save(`Mi_Accion_Personal_${permit.id.substring(0,8)}.pdf`);
         toast({ title: "Descarga completada" });
       } catch (error) {
         console.error("PDF Error:", error);
@@ -114,15 +119,36 @@ export function PermitTracker() {
     }, 500);
   };
 
-  const myRequests = permits.filter(p => p.employeeName === user?.name);
-  const pendingForMe = permits.filter(p => p.supervisorName === user?.name && p.status === 'pending');
+  // NORMALIZACIÓN DE FILTROS PARA EL USUARIO
+  const myRequests = useMemo(() => {
+    if (!user) return [];
+    const normalizedMe = user.name.toUpperCase().trim();
+    return permits.filter(p => (p.employeeName || "").toUpperCase().trim() === normalizedMe);
+  }, [permits, user]);
+
+  const pendingForMe = useMemo(() => {
+    if (!user) return [];
+    const normalizedMe = user.name.toUpperCase().trim();
+    return permits.filter(p => 
+      (p.supervisorName || "").toUpperCase().trim() === normalizedMe && 
+      p.status === 'pending'
+    );
+  }, [permits, user]);
+
+  const totalPages = Math.ceil(myRequests.length / ITEMS_PER_PAGE);
+  const paginatedRequests = useMemo(() => {
+    return myRequests.slice(
+      (currentPage - 1) * ITEMS_PER_PAGE,
+      currentPage * ITEMS_PER_PAGE
+    );
+  }, [myRequests, currentPage]);
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'approved': return <Badge variant="secondary" className="bg-green-100 text-green-800 border-green-200 gap-1"><CheckCircle2 className="h-3 w-3" /> Aprobado Final</Badge>;
       case 'rejected': return <Badge variant="destructive" className="gap-1"><XCircle className="h-3 w-3" /> Rechazado</Badge>;
       case 'pending_admin': return <Badge className="bg-blue-50 text-blue-700 border-blue-100 gap-1"><ShieldCheck className="h-3 w-3" /> Avalado (Espera Admin)</Badge>;
-      default: return <Badge variant="outline" className="opacity-60 gap-1"><Clock className="h-3 w-3" /> Esperando mi Aval</Badge>;
+      default: return <Badge variant="outline" className="opacity-60 gap-1"><Clock className="h-3 w-3" /> Pendiente de Jefe</Badge>;
     }
   };
 
@@ -140,7 +166,7 @@ export function PermitTracker() {
         </Button>
       </div>
 
-      <Tabs defaultValue="my-permits" className="w-full">
+      <Tabs defaultValue="my-permits" className="w-full" onValueChange={() => setCurrentPage(1)}>
         <TabsList className="grid grid-cols-2 w-full sm:w-[400px]">
           <TabsTrigger value="my-permits" className="gap-2">
             <FileClock className="h-4 w-4" /> Mis Solicitudes
@@ -155,9 +181,9 @@ export function PermitTracker() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="my-permits" className="mt-6">
+        <TabsContent value="my-permits" className="mt-6 space-y-6">
           <div className="grid gap-4">
-            {myRequests.length > 0 ? myRequests.map(p => (
+            {paginatedRequests.length > 0 ? paginatedRequests.map(p => (
               <Card key={p.id} className="overflow-hidden border-l-4 border-l-primary group hover:shadow-md transition-all">
                 <CardContent className="p-4 space-y-3">
                   <div className="flex flex-col md:flex-row justify-between gap-4">
@@ -167,7 +193,7 @@ export function PermitTracker() {
                         {getStatusBadge(p.status)}
                       </div>
                       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs text-muted-foreground font-medium">
-                        <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> Solicitado: {format(parseISO(p.requestDate), "dd/MM/yy")}</span>
+                        <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> Solicitado: {p.requestDate ? format(parseISO(p.requestDate), "dd/MM/yy") : '--'}</span>
                         <div className="flex items-center gap-1 bg-muted px-2 py-0.5 rounded">
                             {format(parseISO(p.startDate), "dd/MM")} <ArrowRight className="h-3 w-3 mx-1" /> {format(parseISO(p.endDate), "dd/MM")}
                         </div>
@@ -175,7 +201,7 @@ export function PermitTracker() {
                       <p className="text-sm italic text-zinc-600">"{p.justification}"</p>
                       
                       {p.adminNotes && (
-                        <div className="mt-2 p-3 bg-blue-50/50 rounded-lg border border-blue-100 animate-in slide-in-from-top-2 duration-300">
+                        <div className="mt-2 p-3 bg-blue-50/50 rounded-lg border border-blue-100">
                             <div className="flex items-center gap-2 mb-1">
                                 <MessageSquare className="h-3 w-3 text-blue-600" />
                                 <span className="text-[10px] font-black uppercase text-blue-700 tracking-widest">Respuesta de RRHH</span>
@@ -189,7 +215,7 @@ export function PermitTracker() {
                           {p.evidenceFileDataUri && (
                             <Button variant="secondary" size="sm" className="h-8 gap-2 bg-amber-50 text-amber-700 hover:bg-amber-100" onClick={() => setViewingEvidence(p.evidenceFileDataUri!)}>
                                 {p.evidenceFileDataUri.includes('type=image') ? <ImageIcon className="h-3.5 w-3.5" /> : <FileSearch className="h-3.5 w-3.5" />}
-                                Justificante
+                                Evidencia
                             </Button>
                           )}
                           {(p.status === 'approved' || p.status === 'rejected') && (
@@ -199,7 +225,7 @@ export function PermitTracker() {
                           )}
                         </div>
                         <div className="text-right">
-                            <span className="text-[10px] uppercase font-black text-muted-foreground block">Jefe que Avala</span>
+                            <span className="text-[10px] uppercase font-black text-muted-foreground block">Avalado por</span>
                             <span className="text-xs font-bold">{p.supervisorName}</span>
                         </div>
                     </div>
@@ -209,10 +235,38 @@ export function PermitTracker() {
             )) : (
               <div className="text-center py-20 bg-muted/20 border-2 border-dashed rounded-xl">
                 <FileClock className="h-12 w-12 mx-auto mb-4 opacity-20" />
-                <p className="text-muted-foreground">No has realizado ninguna solicitud todavía.</p>
+                <p className="text-muted-foreground">No se encontraron solicitudes.</p>
               </div>
             )}
           </div>
+
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between bg-muted/30 p-4 rounded-xl border border-dashed">
+                <p className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
+                    Página {currentPage} de {totalPages}
+                </p>
+                <div className="flex items-center gap-2">
+                    <Button
+                        variant="outline"
+                        size="icon"
+                        className="h-8 w-8"
+                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                    >
+                        <ChevronLeft className="h-4 w-4" />
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="icon"
+                        className="h-8 w-8"
+                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages}
+                    >
+                        <ChevronRight className="h-4 w-4" />
+                    </Button>
+                </div>
+            </div>
+          )}
         </TabsContent>
 
         <TabsContent value="to-approve" className="mt-6">
@@ -222,9 +276,9 @@ export function PermitTracker() {
                 <CardHeader className="pb-2">
                     <div className="flex justify-between items-start">
                         <div>
-                            <Badge className="bg-amber-100 text-amber-800 border-amber-200 mb-2">ESPERANDO TU VISTO BUENO</Badge>
+                            <Badge className="bg-amber-100 text-amber-800 border-amber-200 mb-2">SOLICITUD PENDIENTE</Badge>
                             <CardTitle className="text-lg">{p.employeeName}</CardTitle>
-                            <CardDescription>Solicita: <span className="font-bold text-foreground">{p.action}</span></CardDescription>
+                            <CardDescription>Trámite: <span className="font-bold text-foreground">{p.action}</span></CardDescription>
                         </div>
                         <div className="text-right hidden sm:block">
                             <p className="text-xs font-bold text-muted-foreground uppercase">Periodo</p>
@@ -240,32 +294,27 @@ export function PermitTracker() {
                     {p.evidenceFileDataUri && (
                       <div className="flex items-center gap-3 p-3 bg-white rounded border border-dashed border-amber-300">
                         {p.evidenceFileDataUri.includes('type=image') ? <ImageIcon className="h-5 w-5 text-amber-600" /> : <FileSearch className="h-5 w-5 text-amber-600" />}
-                        <span className="text-xs font-bold flex-1">
-                          {p.evidenceFileDataUri.includes('type=image') ? 'Fotografía adjunta' : 'Evidencia PDF adjunta'}
-                        </span>
+                        <span className="text-xs font-bold flex-1">Justificante adjunto</span>
                         <Button size="sm" variant="outline" className="h-7 text-[10px] gap-1" onClick={() => setViewingEvidence(p.evidenceFileDataUri!)}>
-                          <Eye className="h-3 w-3" /> Revisar {p.evidenceFileDataUri.includes('type=image') ? 'Imagen' : 'PDF'}
+                          <Eye className="h-3 w-3" /> Revisar
                         </Button>
                       </div>
                     )}
 
                     <div className="flex flex-col sm:flex-row gap-2">
                         <Button className="flex-1 bg-green-600 hover:bg-green-700 gap-2" onClick={() => handleAction(p.id, 'approved')}>
-                            <CheckCircle2 className="h-4 w-4" /> Dar Visto Bueno (Aval)
+                            <CheckCircle2 className="h-4 w-4" /> Dar Visto Bueno
                         </Button>
                         <Button variant="destructive" className="flex-1 gap-2" onClick={() => handleAction(p.id, 'rejected')}>
                             <XCircle className="h-4 w-4" /> Rechazar
                         </Button>
                     </div>
-                    <p className="text-[10px] text-muted-foreground italic text-center">
-                      * Al dar el Visto Bueno, la solicitud será remitida a Administración para su aprobación final.
-                    </p>
                 </CardContent>
               </Card>
             )) : (
               <div className="text-center py-20 bg-muted/20 border-2 border-dashed rounded-xl">
                 <ClipboardCheck className="h-12 w-12 mx-auto mb-4 opacity-20" />
-                <p className="text-muted-foreground">No tienes solicitudes pendientes de avalar.</p>
+                <p className="text-muted-foreground">No tienes avales pendientes.</p>
               </div>
             )}
           </div>
@@ -276,7 +325,7 @@ export function PermitTracker() {
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto p-0">
           <DialogHeader className="sr-only">
             <DialogTitle>Nueva Solicitud de Permiso</DialogTitle>
-            <DialogDescription>Formulario oficial para trámites de Recursos Humanos.</DialogDescription>
+            <DialogDescription>Formulario oficial para trámites.</DialogDescription>
           </DialogHeader>
           <PermitForm onSuccess={() => {
             setIsFormOpen(false);
@@ -285,7 +334,6 @@ export function PermitTracker() {
         </DialogContent>
       </Dialog>
 
-      {/* VISOR DE JUSTIFICANTE CON DETECCION DE TIPO MEJORADA */}
       <Dialog open={!!viewingEvidence} onOpenChange={(open) => !open && setViewingEvidence(null)}>
         <DialogContent className="max-w-4xl h-[95vh] flex flex-col p-0 overflow-hidden">
           <DialogHeader className="p-4 border-b flex flex-row items-center justify-between bg-white shrink-0">
@@ -310,7 +358,6 @@ export function PermitTracker() {
         </DialogContent>
       </Dialog>
 
-      {/* CONTENEDOR OCULTO PARA PDF */}
       <div className="fixed top-[-9999px] left-[-9999px]">
         <div ref={pdfRef}>
           {printingPermit && <PermitPdfTemplate permit={printingPermit} />}

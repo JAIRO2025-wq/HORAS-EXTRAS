@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
@@ -84,7 +83,6 @@ export default function AdminPayrollPage() {
     fetchAllData();
   }, [month]);
 
-  // Helper para buscar empleados de forma robusta (flexible matching)
   const findOfficialEmployee = useCallback((nameInRecord: string) => {
     const normalizedSearch = nameInRecord.toUpperCase().trim();
     let employee = employees.find(e => e.name.toUpperCase().trim() === normalizedSearch);
@@ -181,6 +179,7 @@ export default function AdminPayrollPage() {
         const workbook = new ExcelJS.Workbook();
         const blueHeader = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0070C0' } };
         const greenFill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFC6EFCE' } };
+        const yellowHeader = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFC000' } };
         const whiteBold = { color: { argb: 'FFFFFFFF' }, bold: true };
 
         // --- HOJA 1: RESUMEN GENERAL ---
@@ -189,20 +188,40 @@ export default function AdminPayrollPage() {
         sheet1.getCell('A1').font = { size: 16, bold: true };
         sheet1.addRow([]);
 
-        const headers1 = ['Empleado', 'Salario Base', 'Valor Hora', 'H. Diurnas', 'Pago Diurno', 'H. Nocturnas', 'Pago Nocturno', 'Total HE', 'Días Adic.', 'Pago Adic.', 'PAGO TOTAL'];
+        const headers1 = [
+            'Empleado', 'Salario Base', 'Valor Hora', 
+            'H. Diurnas', 'Pago Diurno', 'H. Nocturnas', 'Pago Nocturno', 
+            'Total HE', 'Días Adic.', 'Pago Adic.', 'PAGO TOTAL',
+            'Detalle de Actividades'
+        ];
         const hr1 = sheet1.addRow(headers1);
         hr1.eachCell(cell => { cell.fill = blueHeader; cell.font = whiteBold; });
 
         payrollData.forEach(item => {
+            // Obtener actividades para el resumen de la Hoja 1
+            const empRecords = approvedFilteredRecords.filter(r => r.employeeName === item.employeeName);
+            const totalHE = item.totalDayHours + item.totalNightHours;
+            const uniqueActs = Array.from(new Set(empRecords.map(r => r.activity))).filter(a => a && a.length > 0);
+            
+            const adicPart = item.additionalDays > 0 ? ` + ${item.additionalDays} DÍAS ADICIONALES` : "";
+            const summaryText = `${totalHE.toFixed(2)} HE${adicPart}. ACTIVIDADES: ${uniqueActs.join(', ')}`;
+
             const row = sheet1.addRow([
                 item.employeeName, item.salary, item.baseHourlyRate,
                 item.totalDayHours, item.dayPay, item.totalNightHours,
                 item.nightPay, item.overtimePay, item.additionalDays,
-                item.additionalDayPay, item.totalPay
+                item.additionalDayPay, item.totalPay,
+                summaryText
             ]);
             row.getCell(5).fill = greenFill; row.getCell(7).fill = greenFill;
+            row.getCell(12).alignment = { wrapText: true };
         });
-        sheet1.columns = [{ width: 25 }, { width: 12 }, { width: 12 }, { width: 10 }, { width: 12 }, { width: 10 }, { width: 12 }, { width: 12 }, { width: 10 }, { width: 12 }, { width: 15 }];
+        sheet1.columns = [
+            { width: 25 }, { width: 12 }, { width: 12 }, 
+            { width: 10 }, { width: 12 }, { width: 10 }, { width: 12 }, 
+            { width: 12 }, { width: 10 }, { width: 12 }, { width: 15 },
+            { width: 50 }
+        ];
 
         // --- HOJA 2: DESGLOSE DETALLADO ---
         const sheet2 = workbook.addWorksheet('Desglose Detallado');
@@ -224,8 +243,10 @@ export default function AdminPayrollPage() {
             const officialEmp = findOfficialEmployee(nameFromRecord);
             const displayName = officialEmp?.name || nameFromRecord;
             const totalHE = empTotals.dH + empTotals.nH;
-            const uniqueActs = Array.from(new Set(empActs)).filter(a => a.length > 0);
-            const detailText = `${totalHE.toFixed(2)} HE + ${empTotals.aD} DÍAS ADICIONALES. ACTIVIDADES: ${uniqueActs.map((a, i) => `${i + 1}. ${a}`).join(', ')}`;
+            const uniqueActs = Array.from(new Set(empActs)).filter(a => a && a.length > 0);
+            
+            const adicPart = empTotals.aD > 0 ? ` + ${empTotals.aD} DÍAS ADICIONALES` : "";
+            const detailText = `${totalHE.toFixed(2)} HE${adicPart}. ACTIVIDADES: ${uniqueActs.map((a, i) => `${i + 1}. ${a}`).join(', ')}`;
             
             const row = sheet2.addRow([
                 `SUBTOTAL ${displayName}`, '', '--- ACUMULADO ---', 
@@ -248,7 +269,6 @@ export default function AdminPayrollPage() {
                 addSubtotalRow(currentEmpInLoop);
             }
             
-            // Buscar datos del empleado para cálculos financieros usando el buscador robusto
             const emp = findOfficialEmployee(r.employeeName);
             const salary = emp?.salary || 0;
             const rate = salary > 0 ? (salary / 2 / 15 / 8) : 0;
@@ -297,6 +317,46 @@ export default function AdminPayrollPage() {
             { width: 25 }, { width: 12 }, { width: 35 }, { width: 12 }, { width: 12 }, 
             { width: 10 }, { width: 12 }, { width: 10 }, { width: 12 }, { width: 10 }, 
             { width: 12 }, { width: 15 }, { width: 60 }
+        ];
+
+        // --- HOJA 3: RESUMEN POR SUCURSAL ---
+        const sheet3 = workbook.addWorksheet('Resumen por Sucursal');
+        sheet3.addRow(['RESUMEN DE ACTIVIDADES Y PAGOS HE POR SUCURSAL - ' + month]);
+        sheet3.getCell('A1').font = { size: 16, bold: true };
+        sheet3.addRow([]);
+
+        const headers3 = ['Sucursal', 'Nombre del Empleado', 'Descripción de Actividades', 'Monto a Pagar HE'];
+        const hr3 = sheet3.addRow(headers3);
+        hr3.eachCell(c => { c.fill = yellowHeader; c.font = { bold: true }; });
+
+        const branchOrder = ['SAN MIGUEL', 'MORAZAN', 'USULUTAN', 'SAN VICENTE', 'CARA SUCIA', 'SAN SALVADOR'];
+
+        branchOrder.forEach(branchName => {
+            const branchPayroll = payrollData.filter(item => {
+                const emp = findOfficialEmployee(item.employeeName);
+                return emp?.branch === branchName;
+            });
+
+            if (branchPayroll.length > 0) {
+                branchPayroll.forEach(item => {
+                    const empRecords = approvedFilteredRecords.filter(r => r.employeeName === item.employeeName && r.type === 'overtime');
+                    const activities = Array.from(new Set(empRecords.map(r => r.activity))).join(', ');
+                    
+                    const row = sheet3.addRow([
+                        branchName,
+                        item.employeeName,
+                        activities,
+                        item.overtimePay
+                    ]);
+                    row.getCell(4).numFmt = '"$"#,##0.00';
+                    row.getCell(3).alignment = { wrapText: true };
+                });
+                sheet3.addRow([]); // Espacio entre sucursales
+            }
+        });
+
+        sheet3.columns = [
+            { width: 20 }, { width: 30 }, { width: 60 }, { width: 20 }
         ];
 
         const buffer = await workbook.xlsx.writeBuffer();
@@ -352,7 +412,7 @@ export default function AdminPayrollPage() {
                 <SelectContent>
                     <SelectItem value="all">Todos los tipos</SelectItem>
                     <SelectItem value="overtime">Horas Extra</SelectItem>
-                    <SelectItem value="additional_day">Días Adicionales</SelectItem>
+                    <SelectItem value="additional_day">Día Adicional</SelectItem>
                 </SelectContent>
             </Select>
           </div>
@@ -361,7 +421,7 @@ export default function AdminPayrollPage() {
           {isLoading ? <Skeleton className="h-40 w-full" /> : (
             <div className="rounded-md border overflow-hidden shadow-sm">
               <Table>
-                <TableHeader className="bg-muted/50">
+                <TableHeader>
                     <TableRow>
                         <TableHead className="py-1 h-8 text-[10px] uppercase">Empleado</TableHead>
                         <TableHead className="text-right py-1 h-8 text-[10px] uppercase">Salario Base</TableHead>
