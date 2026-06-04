@@ -1,0 +1,20 @@
+[
+  {
+    "id": "02c87e67-78b3-40a3-a58f-23ee0a406a0f",
+    "date": "2026-05-01T06:00:00.000Z",
+    "startTime": "06:00 AM",
+    "endTime": "05:00 PM",
+    "activity": "Horas extras en día de asueto",
+    "coworkers": "HENRY ALEXANDER SANTACRUZ BLANCO, RAUL ALEXANDER CHICAS GUTIERREZ",
+    "quincena": 1,
+    "totalHours": 11,
+    "dayHours": 11,
+    "nightHours": 0,
+    "type": "additional_day",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-05-01T12:30:12.590Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
+    "employeeName": "CARLOS EDUARDO MEJIA LUNA"
+  }
+]

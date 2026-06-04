@@ -1,0 +1,38 @@
+[
+  {
+    "id": "bbf80f12-b552-4f53-aa17-d678ba0da699",
+    "date": "2026-03-31T06:00:00.000Z",
+    "startTime": "05:00 PM",
+    "endTime": "02:00 AM",
+    "activity": "Corte Pon El Jobo",
+    "coworkers": "IVAN ANTONIO ZELAYA, RONALD ANTONIO GOMEZ, MARVIN JOSUE ALVARENGA, MARIO ERNESTO GOMEZ",
+    "quincena": 1,
+    "totalHours": 9,
+    "dayHours": 2,
+    "nightHours": 7,
+    "type": "overtime",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-04-02T12:50:45.606Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36",
+    "employeeName": "FRANKLIN WILFREDO COREAS"
+  },
+  {
+    "id": "d0ff2727-9957-4ada-b360-1d8b2fd146b0",
+    "date": "2026-04-01T06:00:00.000Z",
+    "startTime": "05:00 PM",
+    "endTime": "11:00 PM",
+    "activity": "Revision Nap El Jobo",
+    "coworkers": "IVAN ANTONIO ZELAYA, FIDEL ANGEL MARTINEZ, MARVIN JOSUE ALVARENGA",
+    "quincena": 1,
+    "totalHours": 6,
+    "dayHours": 2,
+    "nightHours": 4,
+    "type": "overtime",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-04-02T12:52:09.618Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36",
+    "employeeName": "FRANKLIN WILFREDO COREAS"
+  }
+]

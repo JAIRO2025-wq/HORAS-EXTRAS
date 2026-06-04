@@ -1,0 +1,812 @@
+[
+  {
+    "id": 1,
+    "name": "IVAN ANTONIO ZELAYA PORTILLO",
+    "status": "active",
+    "salary": 600,
+    "pin": "248655",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 2,
+    "name": "RAUL ALEXANDER CHICAS GUTIERREZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "958470",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 3,
+    "name": "FIDEL ANGEL MARTINEZ NIETO",
+    "status": "active",
+    "salary": 700,
+    "pin": "188068",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": true
+  },
+  {
+    "id": 4,
+    "name": "FRANKLIN WILFREDO COREAS AQUINO",
+    "status": "active",
+    "salary": 550,
+    "pin": "192086",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 5,
+    "name": "VICTOR MANUEL HERNANDEZ FUENTES",
+    "status": "active",
+    "salary": 700,
+    "pin": "492570",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": true
+  },
+  {
+    "id": 6,
+    "name": "FERNANDO JAVIER SORTO MEDRANO",
+    "status": "active",
+    "salary": 1000,
+    "pin": "507241",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 7,
+    "name": "WALTER ALEXANDER VELASQUEZ GOMEZ",
+    "status": "active",
+    "salary": 500,
+    "pin": "969628",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 8,
+    "name": "RONALD ANTONIO GOMEZ PRIVADO",
+    "status": "active",
+    "salary": 450,
+    "pin": "246215",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 9,
+    "name": "EDWIN ALEXANDER PALACIOS LINO",
+    "status": "active",
+    "salary": 500,
+    "pin": "513442",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 10,
+    "name": "JAVIER ARMANDO PORTILLO CHAVEZ",
+    "status": "active",
+    "salary": 800,
+    "pin": "184918",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 11,
+    "name": "ROBERTO ANTONIO VELIS DIAZ",
+    "status": "active",
+    "salary": 600,
+    "pin": "337429",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": true
+  },
+  {
+    "id": 12,
+    "name": "GUILLERMO ALEXANDER ZELAYA PORTILLO",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "622155",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 13,
+    "name": "RAFAEL ANTONIO DIAZ",
+    "status": "active",
+    "salary": 500,
+    "pin": "985434",
+    "branch": "SAN MIGUEL"
+  },
+  {
+    "id": 14,
+    "name": "JOSUE  DANIEL ROMERO CHICAS",
+    "status": "active",
+    "salary": 450,
+    "pin": "119847",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 15,
+    "name": "MARVIN JOSUE ALVARENGA GUERRERO",
+    "status": "active",
+    "salary": 500,
+    "pin": "349297",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 16,
+    "name": "RUDY ARTEMYS RIVERA",
+    "status": "active",
+    "salary": 500,
+    "pin": "357144",
+    "branch": "SAN MIGUEL"
+  },
+  {
+    "id": 17,
+    "name": "KARLA SOFIA LOVO CORDOVA",
+    "status": "active",
+    "salary": 500,
+    "pin": "279159",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 18,
+    "name": "MARIO ERNESTO GOMEZ ROMERO",
+    "status": "active",
+    "salary": 450,
+    "pin": "564586",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 19,
+    "name": "HENRY ALEXANDER SANTACRUZ BLANCO",
+    "status": "active",
+    "salary": 600,
+    "pin": "699006",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 20,
+    "name": "JUAN EMILIO ULLOA GOMEZ",
+    "status": "active",
+    "salary": 700,
+    "pin": "610951",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 21,
+    "name": "JOSE EVELIO RAMIREZ RAMIREZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "836629",
+    "branch": "MORAZAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 22,
+    "name": "OSCAR ADAN RAMIREZ RAMIREZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "719376",
+    "branch": "MORAZAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 23,
+    "name": "JORGE MARLON HERNANDEZ LUNA",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "181843",
+    "branch": "MORAZAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 24,
+    "name": "FREDY ALBERTO VASQUEZ VIGIL",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "397157",
+    "branch": "MORAZAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 25,
+    "name": "WILLIAM ALEXANDER SEGOVIA",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "346683",
+    "branch": "USULUTAN"
+  },
+  {
+    "id": 26,
+    "name": "CHRISTIAN DE JESUS SEGOVIA",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "540656",
+    "branch": "USULUTAN"
+  },
+  {
+    "id": 27,
+    "name": "JOSE GUILLERMO HENRIQUEZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "758566",
+    "branch": "USULUTAN"
+  },
+  {
+    "id": 28,
+    "name": "RAFAEL ANTONIO ALFARO RIVAS",
+    "status": "active",
+    "salary": 450,
+    "pin": "340928",
+    "branch": "SAN VICENTE",
+    "isSupervisor": false
+  },
+  {
+    "id": 29,
+    "name": "KEVIN MAURICIO BAUTISTA",
+    "status": "inactive",
+    "salary": 408.8,
+    "pin": "903243",
+    "branch": "SAN VICENTE"
+  },
+  {
+    "id": 30,
+    "name": "DOUGLAS ENRIQUE ARGUETA AYALA",
+    "status": "active",
+    "salary": 450,
+    "pin": "696416",
+    "branch": "SAN VICENTE",
+    "isSupervisor": false
+  },
+  {
+    "id": 31,
+    "name": "BRAYAN ESTIVEN AYALA AYALA",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "604635",
+    "branch": "SAN VICENTE",
+    "isSupervisor": false
+  },
+  {
+    "id": 32,
+    "name": "FERNANDO JOSE ALFARO PALACIOS",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "457865",
+    "branch": "SAN VICENTE",
+    "isSupervisor": false
+  },
+  {
+    "id": 33,
+    "name": "JOSUE DANIEL SOSA GODINEZ",
+    "status": "active",
+    "salary": 600,
+    "pin": "811469",
+    "branch": "CARA SUCIA",
+    "isSupervisor": false
+  },
+  {
+    "id": 34,
+    "name": "KEVIN ANTONIO MUNTO RAMIREZ",
+    "status": "active",
+    "salary": 425,
+    "pin": "198190",
+    "branch": "CARA SUCIA",
+    "isSupervisor": false
+  },
+  {
+    "id": 35,
+    "name": "MILTON DAVID MENJIVAR GRANILLO",
+    "status": "active",
+    "salary": 450,
+    "pin": "365921",
+    "branch": "CARA SUCIA",
+    "isSupervisor": false
+  },
+  {
+    "id": 36,
+    "name": "WIDMAN RAFAEL LUCHA GALLARDO",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "897192",
+    "branch": "CARA SUCIA",
+    "isSupervisor": false
+  },
+  {
+    "id": 37,
+    "name": "NERY ARY CASTILLO",
+    "status": "inactive",
+    "salary": 408.8,
+    "pin": "428819",
+    "branch": "CARA SUCIA"
+  },
+  {
+    "id": 38,
+    "name": "JAIRO ANTONIO HERNANDEZ GUEVARA",
+    "status": "active",
+    "salary": 500,
+    "pin": "111111",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 39,
+    "name": "WILLIAM ULISES PARADA BONILLA",
+    "status": "active",
+    "salary": 500,
+    "pin": "285352",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 40,
+    "name": "DANIEL ALESSANDRO ROSALES GONZALEZ",
+    "status": "active",
+    "salary": 500,
+    "pin": "361411",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 41,
+    "name": "STEVEN EFRAIN MEDRANO DEL CID",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "549416",
+    "branch": "USULUTAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 42,
+    "name": "ANDRE DUARTE SOSA",
+    "status": "active",
+    "salary": 450,
+    "pin": "680402",
+    "branch": "SAN MIGUEL"
+  },
+  {
+    "id": 43,
+    "name": "ROSA DE LA PAZ CALIX SERRANO",
+    "status": "active",
+    "salary": 450,
+    "pin": "222205",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 44,
+    "name": "ADELIA NOHEMY VALVERDE ROMERO",
+    "status": "active",
+    "salary": 450,
+    "pin": "395065",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 45,
+    "name": "STEFANY YAMILETH RIVAS MENDIOLA",
+    "status": "active",
+    "salary": 500,
+    "pin": "293511",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 46,
+    "name": "NAOMI LINETTE CHAVEZ GARCIA",
+    "status": "active",
+    "salary": 450,
+    "pin": "527333",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 47,
+    "name": "CESIA NATHALY  ESCOBAR",
+    "status": "inactive",
+    "salary": 408.8,
+    "pin": "191027",
+    "branch": "SAN MIGUEL"
+  },
+  {
+    "id": 48,
+    "name": "YANIRA ESTEFANY GOMEZ ASCENCIO",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "404694",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 49,
+    "name": "CARLOS EDUARDO MEJIA LUNA",
+    "status": "active",
+    "salary": 500,
+    "pin": "311382",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 50,
+    "name": "KATHERINE TATIANA AMAYA RAMOS",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "515109",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 51,
+    "name": "RICARDO JOSUE ALAS DIAZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "830157",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 52,
+    "name": "JESSICA BEATRIZ HERNANDEZ CHICA",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "522535",
+    "branch": "MORAZAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 53,
+    "name": "JOSE ROLANDO CHICA MENDEZ",
+    "status": "active",
+    "salary": 500,
+    "pin": "896501",
+    "branch": "MORAZAN",
+    "isSupervisor": true
+  },
+  {
+    "id": 54,
+    "name": "MARIA TOMASA REYES MEJIA",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "219424",
+    "branch": "USULUTAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 55,
+    "name": "FANNY YAMILETH CRUZ COREAS",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "376034",
+    "branch": "USULUTAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 56,
+    "name": "STEPHANIE LISETH SALAZAR DIAZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "220743",
+    "branch": "SAN VICENTE",
+    "isSupervisor": false
+  },
+  {
+    "id": 57,
+    "name": "KATHERINE ELIZABETH VANEGAS DIAZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "896530",
+    "branch": "CARA SUCIA",
+    "isSupervisor": false
+  },
+  {
+    "id": 58,
+    "name": "WILFREDO ALEXANDER ESPINOZA HERRERA",
+    "status": "active",
+    "salary": 500,
+    "pin": "752641",
+    "branch": "CARA SUCIA",
+    "isSupervisor": true
+  },
+  {
+    "id": 59,
+    "name": "PEDRO VICENTE CHICAS",
+    "status": "active",
+    "salary": 700,
+    "pin": "933243",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": true
+  },
+  {
+    "id": 60,
+    "name": "CARLOS ENRIQUE BARQUERO FLORES",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "456676",
+    "branch": "SAN VICENTE",
+    "isSupervisor": false
+  },
+  {
+    "id": 61,
+    "name": "MARIA GLORIA HERNANDEZ ZELAYA",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "867827",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 62,
+    "name": "CARLOS MAURO CHAVEZ ALVARENGA",
+    "status": "active",
+    "salary": 1700,
+    "pin": "131370",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": true
+  },
+  {
+    "id": 63,
+    "name": "IRVIN WILFREDO HERNANDEZ LIPE",
+    "status": "active",
+    "salary": 1300,
+    "pin": "585734",
+    "branch": "SAN SALVADOR",
+    "isSupervisor": false
+  },
+  {
+    "id": 64,
+    "name": "EDITH XIOMARA BENITEZ DE ROBLES",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "957577",
+    "branch": "SAN SALVADOR",
+    "isSupervisor": false
+  },
+  {
+    "id": 65,
+    "name": "GLENDA CAROLINA MEJIA CHAVEZ",
+    "status": "active",
+    "salary": 500,
+    "pin": "655042",
+    "branch": "SAN SALVADOR",
+    "isSupervisor": false
+  },
+  {
+    "id": 66,
+    "name": "YANIRA CECILIA LEMUS ROMERO",
+    "status": "active",
+    "salary": 1000,
+    "pin": "907548",
+    "branch": "SAN SALVADOR",
+    "isSupervisor": false
+  },
+  {
+    "id": 67,
+    "name": "ERICK EDMUNDO CANDRAY RUIZ",
+    "status": "active",
+    "salary": 800,
+    "pin": "872700",
+    "branch": "SAN SALVADOR",
+    "isSupervisor": false
+  },
+  {
+    "id": 68,
+    "name": "JUAN CARLOS VIERA VILLAVICENCIO",
+    "status": "active",
+    "salary": 1256.8,
+    "pin": "775168",
+    "branch": "SAN SALVADOR",
+    "isSupervisor": false
+  },
+  {
+    "id": 69,
+    "name": "KEILY YAMILETH NAVARRO DIAZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "990508",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 70,
+    "name": "JOSE RODOLFO VASQUEZ",
+    "status": "active",
+    "salary": 500,
+    "pin": "472698",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 71,
+    "name": "ELSA MARCELA FLORES SERPAS",
+    "status": "active",
+    "salary": 500,
+    "pin": "529723",
+    "branch": "USULUTAN",
+    "isSupervisor": true
+  },
+  {
+    "id": 72,
+    "name": "DAVID ULISES VELIS REYES",
+    "status": "active",
+    "salary": 600,
+    "pin": "666121",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": true
+  },
+  {
+    "id": 73,
+    "name": "ROBERTH JONATHAN CORTEZ PEREZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "875912",
+    "branch": "MORAZAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 74,
+    "name": "NELSY JOHANNA DIAZ DE CHICAS",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "336793",
+    "branch": "MORAZAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 75,
+    "name": "KEVIN ALEXANDER MARTINEZ PINTO",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "450877",
+    "branch": "CARA SUCIA",
+    "isSupervisor": false
+  },
+  {
+    "id": 76,
+    "name": "CRISTY YAMILETH RAMOS CHICAS",
+    "status": "inactive",
+    "salary": 408.8,
+    "pin": "769873",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 77,
+    "name": "MARJORIE MARIELA LARA MOLINA",
+    "status": "inactive",
+    "salary": 408.8,
+    "pin": "764982",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 78,
+    "name": "CARLOS ALFREDO MARTINEZ FLORES",
+    "status": "inactive",
+    "salary": 408.8,
+    "pin": "579221",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 79,
+    "name": "JOEL WILLIAM HERNANDEZ RODRIGUEZ",
+    "status": "active",
+    "salary": 1000,
+    "pin": "546153",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 80,
+    "name": "ZAYRA LISSETH REYES DE GOMEZ",
+    "status": "active",
+    "salary": 450,
+    "pin": "270408",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 81,
+    "name": "ALEXANDER ARNOLDO GOMEZ QUINTANILLA",
+    "status": "active",
+    "salary": 450,
+    "pin": "854897",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 82,
+    "name": "PATRICIA GUADALUPE COLON SORTO",
+    "status": "active",
+    "salary": 4000,
+    "pin": "040520",
+    "branch": "SAN SALVADOR",
+    "isSupervisor": true
+  },
+  {
+    "id": 83,
+    "name": "JEFFRY FRANCISCO RAMOS GOMEZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "572705",
+    "branch": "USULUTAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 84,
+    "name": "BRYAN ARTURO HERRERA RODRIGUEZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "741804",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 85,
+    "name": "ODIR OSWALDO AGUILAR MENDEZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "858135",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 86,
+    "name": "HEYDI MELISA COREAS PONCE",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "510176",
+    "branch": "USULUTAN",
+    "isSupervisor": false
+  },
+  {
+    "id": 87,
+    "name": "VICTOR MANUEL PALOMO ORELLANA",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "229507",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 88,
+    "name": "JONATHAN MARCELO HERNANDEZ GONZALEZ",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "762004",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 89,
+    "name": "ERROR 1",
+    "status": "inactive",
+    "salary": 408.8,
+    "pin": "612269",
+    "branch": "SAN MIGUEL",
+    "isSupervisor": false
+  },
+  {
+    "id": 90,
+    "name": "GRICELDA XIOMARA MAGANA BARRIENTOS",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "443980",
+    "branch": "CARA SUCIA",
+    "isSupervisor": false
+  },
+  {
+    "id": 91,
+    "name": "JOSIA OBED MANCIA OLMEDO",
+    "status": "active",
+    "salary": 408.8,
+    "pin": "367528",
+    "branch": "CARA SUCIA",
+    "isSupervisor": false
+  }
+]

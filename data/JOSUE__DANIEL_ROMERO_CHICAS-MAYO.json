@@ -1,0 +1,38 @@
+[
+  {
+    "id": "2508a2d5-0d18-43dd-bd3d-ec7e9886a0d3",
+    "date": "2026-04-30T06:00:00.000Z",
+    "startTime": "05:00 PM",
+    "endTime": "06:30 PM",
+    "activity": "Instalación en pon el jalacatal",
+    "coworkers": "RONALD ANTONIO GOMEZ PRIVADO",
+    "quincena": 1,
+    "totalHours": 1.5,
+    "dayHours": 1.5,
+    "nightHours": 0,
+    "type": "overtime",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-05-03T23:37:07.110Z",
+    "deviceInfo": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.2 Mobile/15E148 Safari/604.1",
+    "employeeName": "JOSUE  DANIEL ROMERO CHICAS"
+  },
+  {
+    "id": "3a4a4a42-607f-4051-b4d8-aa2f89678451",
+    "date": "2026-05-02T06:00:00.000Z",
+    "startTime": "07:00 AM",
+    "endTime": "08:00 AM",
+    "activity": "Creación de ruta ",
+    "coworkers": "",
+    "quincena": 1,
+    "totalHours": 1,
+    "dayHours": 1,
+    "nightHours": 0,
+    "type": "overtime",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-05-03T23:38:06.670Z",
+    "deviceInfo": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.2 Mobile/15E148 Safari/604.1",
+    "employeeName": "JOSUE  DANIEL ROMERO CHICAS"
+  }
+]

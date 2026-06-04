@@ -1,0 +1,20 @@
+[
+  {
+    "id": "8980b160-948c-4bdf-b9b4-407427d9376a",
+    "date": "2026-03-24T06:00:00.000Z",
+    "startTime": "05:00 PM",
+    "endTime": "11:30 PM",
+    "activity": "Desfile en Morazán ",
+    "coworkers": "",
+    "quincena": 2,
+    "totalHours": 6.5,
+    "dayHours": 2,
+    "nightHours": 4.5,
+    "type": "overtime",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-03-27T22:05:16.622Z",
+    "deviceInfo": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.2 Mobile/15E148 Safari/604.1",
+    "employeeName": "ADELIA NOHEMY ROMERO"
+  }
+]

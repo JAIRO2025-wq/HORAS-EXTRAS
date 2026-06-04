@@ -1,0 +1,19 @@
+[
+  {
+    "id": "dd0a4879-4125-4cca-a19a-545c1e7c786a",
+    "date": "2026-03-30T06:00:00.000Z",
+    "startTime": "10:30 PM",
+    "endTime": "01:00 AM",
+    "activity": "Trabajos en cambio de equipos en usulutan",
+    "coworkers": "WILLIAM ALEXANDER SEGOVIA",
+    "quincena": 2,
+    "totalHours": 2.5,
+    "dayHours": 0,
+    "nightHours": 2.5,
+    "type": "overtime",
+    "status": "pending",
+    "adminNotes": "",
+    "createdAt": "2026-03-31T13:15:06.811Z",
+    "deviceInfo": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0"
+  }
+]

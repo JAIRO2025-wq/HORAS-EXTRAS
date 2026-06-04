@@ -1,0 +1,38 @@
+[
+  {
+    "id": "b46a562e-d188-4ce4-960b-2da401fbcc9d",
+    "date": "2026-05-02T06:00:00.000Z",
+    "startTime": "02:00 PM",
+    "endTime": "03:00 PM",
+    "activity": "Turno iptv La liga",
+    "coworkers": "",
+    "quincena": 1,
+    "totalHours": 1,
+    "dayHours": 1,
+    "nightHours": 0,
+    "type": "overtime",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-05-06T18:23:22.376Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
+    "employeeName": "EDWIN ALEXANDER PALACIOS LINO"
+  },
+  {
+    "id": "c93afeae-0b7f-4937-9eb5-e276f4e79e1f",
+    "date": "2026-05-05T06:00:00.000Z",
+    "startTime": "09:00 PM",
+    "endTime": "05:00 AM",
+    "activity": "Cubriendo al vigilante en edificio",
+    "coworkers": "",
+    "quincena": 1,
+    "totalHours": 8,
+    "dayHours": 0,
+    "nightHours": 8,
+    "type": "additional_day",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-05-06T18:24:06.614Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
+    "employeeName": "EDWIN ALEXANDER PALACIOS LINO"
+  }
+]

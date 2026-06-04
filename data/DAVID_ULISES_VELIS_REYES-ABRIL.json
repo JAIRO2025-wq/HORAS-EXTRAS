@@ -1,0 +1,20 @@
+[
+  {
+    "id": "0b4ff48c-2e40-4818-b849-f016dbe01e6a",
+    "date": "2026-04-28T06:00:00.000Z",
+    "startTime": "05:00 PM",
+    "endTime": "08:30 PM",
+    "activity": "Activada en garden molt over time ",
+    "coworkers": "EDWIN ALEXANDER PALACIOS LINO, ANDRE DUARTE SOSA",
+    "quincena": 2,
+    "totalHours": 3.5,
+    "dayHours": 2,
+    "nightHours": 1.5,
+    "type": "overtime",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-04-29T20:25:42.067Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
+    "employeeName": "DAVID ULISES VELIS REYES"
+  }
+]

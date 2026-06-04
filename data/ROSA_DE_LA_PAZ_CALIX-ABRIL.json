@@ -1,0 +1,52 @@
+[
+  {
+    "id": "26613257-35dd-4c9c-b77d-b99d275f5f11",
+    "date": "2026-04-02T06:00:00.000Z",
+    "startTime": "06:00 AM",
+    "endTime": "11:00 PM",
+    "activity": "Soporte Técnico y Atención al cliente Noc",
+    "coworkers": "",
+    "quincena": 1,
+    "totalHours": 17,
+    "dayHours": 13,
+    "nightHours": 4,
+    "type": "additional_day",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-04-02T20:13:01.593Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Mobile Safari/537.36",
+    "employeeName": "ROSA DE LA PAZ CALIX"
+  },
+  {
+    "id": "cb4bb3fd-4d0b-4ff8-b508-3f9e6340aa5e",
+    "date": "2026-04-02T06:00:00.000Z",
+    "startTime": "06:00 AM",
+    "endTime": "08:00 AM",
+    "activity": "POR AJUSTE DE HORAS EXTRAS",
+    "coworkers": "",
+    "quincena": 1,
+    "totalHours": 2,
+    "dayHours": 2,
+    "nightHours": 0,
+    "status": "approved",
+    "type": "overtime",
+    "adminNotes": "AJUSTES DE DIA COMPLETO Y HORAS EXTRAS",
+    "createdAt": "2026-04-10T21:35:36.131Z"
+  },
+  {
+    "id": "331b1dda-63c6-4e19-aa58-f0388233b9e4",
+    "date": "2026-04-02T06:00:00.000Z",
+    "startTime": "05:00 PM",
+    "endTime": "11:00 PM",
+    "activity": "POR AJUSTES DE HORAS EXTRAS",
+    "coworkers": "",
+    "quincena": 1,
+    "totalHours": 6,
+    "dayHours": 2,
+    "nightHours": 4,
+    "status": "approved",
+    "type": "overtime",
+    "adminNotes": "AJUSTES DE HORAS EXTRAS, DIA LABORADO, MAS HE, DE 5 PM A 11 PM",
+    "createdAt": "2026-04-10T21:39:01.195Z"
+  }
+]

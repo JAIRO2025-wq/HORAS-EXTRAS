@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1171101d-a0f7-4989-9b85-188aae6e2dd0",
+    "date": "2026-04-02T06:00:00.000Z",
+    "startTime": "08:00 AM",
+    "endTime": "05:00 PM",
+    "activity": "Visita a clientes ",
+    "coworkers": "CHRISTIAN DE JESUS SEGOVIA",
+    "quincena": 1,
+    "totalHours": 9,
+    "dayHours": 9,
+    "nightHours": 0,
+    "type": "additional_day",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-04-04T12:27:24.599Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Mobile Safari/537.36",
+    "employeeName": "JOSE GUILLERMO HENRIQUEZ"
+  },
+  {
+    "id": "53e40d45-5428-46c8-a7de-eb99cf108bf9",
+    "date": "2026-04-19T06:00:00.000Z",
+    "startTime": "09:00 AM",
+    "endTime": "04:00 PM",
+    "activity": "Poner planta en torre santa clara",
+    "coworkers": "CHRISTIAN DE JESUS SEGOVIA",
+    "quincena": 2,
+    "totalHours": 7,
+    "dayHours": 7,
+    "nightHours": 0,
+    "type": "overtime",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-04-23T16:00:56.055Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
+    "employeeName": "JOSE GUILLERMO HENRIQUEZ"
+  }
+]

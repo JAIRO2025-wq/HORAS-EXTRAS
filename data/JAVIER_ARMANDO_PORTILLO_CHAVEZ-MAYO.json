@@ -1,0 +1,36 @@
+[
+  {
+    "id": "f91d5724-d82f-4f4b-9e60-d134c0546fc7",
+    "date": "2026-04-30T06:00:00.000Z",
+    "startTime": "05:00 AM",
+    "endTime": "08:00 AM",
+    "activity": "Salida a san salvador a revisión eléctrica del edificio de flynet san salvador ",
+    "coworkers": "JOEL WILLIAM HERNANDEZ RODRIGUEZ",
+    "quincena": 1,
+    "totalHours": 3,
+    "dayHours": 2,
+    "nightHours": 1,
+    "type": "overtime",
+    "status": "pending",
+    "adminNotes": "",
+    "createdAt": "2026-05-06T22:17:53.017Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36"
+  },
+  {
+    "id": "38eacc1a-d1f4-4739-b8e3-6c7dfc198c64",
+    "date": "2026-05-01T06:00:00.000Z",
+    "startTime": "05:00 AM",
+    "endTime": "08:00 AM",
+    "activity": "Retorno de san salvador a san Miguel ",
+    "coworkers": "JOEL WILLIAM HERNANDEZ RODRIGUEZ",
+    "quincena": 1,
+    "totalHours": 3,
+    "dayHours": 2,
+    "nightHours": 1,
+    "type": "overtime",
+    "status": "pending",
+    "adminNotes": "",
+    "createdAt": "2026-05-06T22:19:34.031Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "0582e5f9-c431-4239-ba98-6d1ab713fb23",
+    "date": "2026-05-01T06:00:00.000Z",
+    "startTime": "08:00 AM",
+    "endTime": "05:00 PM",
+    "activity": "Se trabajo día de asueto",
+    "coworkers": "RAUL ALEXANDER CHICAS GUTIERREZ",
+    "quincena": 1,
+    "totalHours": 9,
+    "dayHours": 9,
+    "nightHours": 0,
+    "type": "additional_day",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-05-05T22:58:12.805Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
+    "employeeName": "RAFAEL ANTONIO DIAZ"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1",
+    "name": "Licdo. Pedro Chicas",
+    "pin": "2026",
+    "role": "ADMIN_2"
+  },
+  {
+    "id": "2",
+    "name": "licdo. Jairo Hernández",
+    "pin": "2027",
+    "role": "ADMIN_1"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "f556eda3-398c-4b9e-8abb-af6082be1eab",
+    "date": "2026-03-16T06:00:00.000Z",
+    "startTime": "06:00 AM",
+    "endTime": "02:00 PM",
+    "activity": "Noc, atención al cliente y soporte ",
+    "coworkers": "",
+    "quincena": 2,
+    "totalHours": 8,
+    "dayHours": 8,
+    "nightHours": 0,
+    "type": "additional_day",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-03-16T15:15:47.426Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36",
+    "employeeName": "ROSA DE LA PAZ CALIX"
+  }
+]

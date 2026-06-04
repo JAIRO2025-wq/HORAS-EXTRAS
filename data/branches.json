@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "CARA SUCIA",
+    "deviceId": null,
+    "isUnrestricted": false,
+    "isAttendanceEnabled": false
+  },
+  {
+    "id": 2,
+    "name": "MORAZAN",
+    "deviceId": null,
+    "isUnrestricted": false,
+    "isAttendanceEnabled": false
+  },
+  {
+    "id": 3,
+    "name": "SAN MIGUEL",
+    "deviceId": null,
+    "isUnrestricted": false,
+    "isAttendanceEnabled": false
+  },
+  {
+    "id": 4,
+    "name": "SAN VICENTE",
+    "deviceId": null,
+    "isUnrestricted": false,
+    "isAttendanceEnabled": false
+  },
+  {
+    "id": 5,
+    "name": "USULUTAN",
+    "deviceId": null,
+    "isUnrestricted": false,
+    "isAttendanceEnabled": false
+  },
+  {
+    "id": 6,
+    "name": "SAN SALVADOR",
+    "deviceId": null,
+    "isUnrestricted": false,
+    "isAttendanceEnabled": false
+  }
+]

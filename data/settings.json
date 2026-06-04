@@ -1,0 +1,26 @@
+{
+  "Febrero": {
+    "quincena1_active": false,
+    "quincena2_active": true,
+    "quincena1_cutoff": 15,
+    "quincena2_cutoff": 27
+  },
+  "Marzo": {
+    "quincena1_active": false,
+    "quincena2_active": false,
+    "quincena1_cutoff": 13,
+    "quincena2_cutoff": 30
+  },
+  "Abril": {
+    "quincena1_active": false,
+    "quincena2_active": false,
+    "quincena1_cutoff": 14,
+    "quincena2_cutoff": 29
+  },
+  "Mayo": {
+    "quincena1_active": true,
+    "quincena2_active": false,
+    "quincena1_cutoff": 14,
+    "quincena2_cutoff": 31
+  }
+}

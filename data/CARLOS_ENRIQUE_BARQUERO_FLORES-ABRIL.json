@@ -1,0 +1,38 @@
+[
+  {
+    "id": "e059975a-aabf-4469-a4e7-03c0b87b2f96",
+    "date": "2026-04-02T06:00:00.000Z",
+    "startTime": "08:00 AM",
+    "endTime": "05:00 PM",
+    "activity": "Día de asueto",
+    "coworkers": "BRAYAN ESTIVEN AYALA",
+    "quincena": 1,
+    "totalHours": 9,
+    "dayHours": 9,
+    "nightHours": 0,
+    "type": "additional_day",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-04-02T23:09:01.126Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Mobile Safari/537.36",
+    "employeeName": "CARLOS ENRIQUE BARQUERO FLORES"
+  },
+  {
+    "id": "6e5f459d-70fa-4bef-8cd8-966fcf9c4d17",
+    "date": "2026-04-25T06:00:00.000Z",
+    "startTime": "06:30 AM",
+    "endTime": "08:00 AM",
+    "activity": "Poner planta en la torre de san Sebastián santa teresa ",
+    "coworkers": "DOUGLAS ENRIQUE ARGUETA AYALA",
+    "quincena": 2,
+    "totalHours": 1.5,
+    "dayHours": 1.5,
+    "nightHours": 0,
+    "type": "overtime",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-04-26T03:10:08.375Z",
+    "deviceInfo": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
+    "employeeName": "CARLOS ENRIQUE BARQUERO FLORES"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "9d6ca4e8-957a-4ae1-baf8-2d2861e6768a",
+    "date": "2026-05-01T06:00:00.000Z",
+    "startTime": "08:00 AM",
+    "endTime": "05:00 PM",
+    "activity": "Dia De Asueto ",
+    "coworkers": "DOUGLAS ENRIQUE ARGUETA AYALA",
+    "quincena": 1,
+    "totalHours": 9,
+    "dayHours": 9,
+    "nightHours": 0,
+    "type": "additional_day",
+    "status": "approved",
+    "adminNotes": "",
+    "createdAt": "2026-05-01T23:18:55.827Z",
+    "deviceInfo": "Mozilla/5.0 (Android 16; Mobile; rv:150.0) Gecko/150.0 Firefox/150.0",
+    "employeeName": "FERNANDO JOSE ALFARO PALACIOS"
+  }
+]
