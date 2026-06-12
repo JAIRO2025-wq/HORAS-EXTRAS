@@ -32,6 +32,15 @@ async function getHierarchicalPath(user: string, month: string, quincena: number
     return path.join(targetDir, `${sUser}.json`);
 }
 
+/**
+ * Obtiene la ruta del archivo antiguo (formato NOMBRE-MES.json)
+ */
+function getLegacyPath(user: string, month: string) {
+    const sUser = user.replace(/[^a-z0-9]/gi, '_').toUpperCase();
+    const sMonth = month.replace(/[^a-z0-9]/gi, '_').toUpperCase();
+    return path.join(dataDir, `${sUser}-${sMonth}.json`);
+}
+
 async function readRecords(filePath: string): Promise<OvertimeRecord[]> {
     try {
         const fileContent = await fs.readFile(filePath, 'utf-8');
@@ -69,11 +78,21 @@ export async function PUT(request: Request) {
         const { employeeName, month, record: updatedRecord } = await request.json();
         const dateObj = new Date(updatedRecord.date);
         
-        const filePath = await getHierarchicalPath(employeeName, month, updatedRecord.quincena, dateObj);
+        // 1. Intentar en la nueva estructura
+        let filePath = await getHierarchicalPath(employeeName, month, updatedRecord.quincena, dateObj);
         let records = await readRecords(filePath);
-        
-        const idx = records.findIndex(r => r.id === updatedRecord.id);
-        if (idx === -1) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+        let idx = records.findIndex(r => r.id === updatedRecord.id);
+
+        // 2. Si no se encuentra, buscar en el archivo legado
+        if (idx === -1) {
+            filePath = getLegacyPath(employeeName, month);
+            records = await readRecords(filePath);
+            idx = records.findIndex(r => r.id === updatedRecord.id);
+        }
+
+        if (idx === -1) {
+            return NextResponse.json({ error: 'Record not found in any structure' }, { status: 404 });
+        }
 
         records[idx] = { ...records[idx], ...updatedRecord };
         await fs.writeFile(filePath, JSON.stringify(records, null, 2));
@@ -81,7 +100,8 @@ export async function PUT(request: Request) {
         await logToBackend('record_updated', `ADMIN ACTUALIZÓ registro de '${employeeName}'.`);
         return NextResponse.json(records[idx]);
     } catch (error) {
-        return NextResponse.json({ error: 'Failed' }, { status: 500 });
+        console.error("Error updating record:", error);
+        return NextResponse.json({ error: 'Failed to update' }, { status: 500 });
     }
 }
 
@@ -90,11 +110,24 @@ export async function DELETE(request: Request) {
         const { employeeName, month, recordId, quincena, date } = await request.json();
         const dateObj = new Date(date);
         
-        const filePath = await getHierarchicalPath(employeeName, month, quincena, dateObj);
+        // 1. Intentar en la nueva estructura
+        let filePath = await getHierarchicalPath(employeeName, month, quincena, dateObj);
         let records = await readRecords(filePath);
+        let exists = records.some(r => r.id === recordId);
+
+        // 2. Si no está ahí, buscar en el legado
+        if (!exists) {
+            filePath = getLegacyPath(employeeName, month);
+            records = await readRecords(filePath);
+            exists = records.some(r => r.id === recordId);
+        }
+
+        if (!exists) {
+            return NextResponse.json({ error: 'Record not found' }, { status: 404 });
+        }
         
-        records = records.filter(r => r.id !== recordId);
-        await fs.writeFile(filePath, JSON.stringify(records, null, 2));
+        const filteredRecords = records.filter(r => r.id !== recordId);
+        await fs.writeFile(filePath, JSON.stringify(filteredRecords, null, 2));
         
         await logToBackend('record_deleted', `ADMIN ELIMINÓ registro de '${employeeName}'.`);
         return NextResponse.json({ message: 'Deleted' });
