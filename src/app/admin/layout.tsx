@@ -43,6 +43,7 @@ import {
   Scale,
   ShieldCheck,
   Gavel,
+  FolderArchive,
 } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -133,6 +134,7 @@ export default function AdminRootLayout({
     { href: '/admin/attendance', label: 'Asistencia', icon: Clock },
     { href: '/admin/permits', label: 'Permisos RRHH', icon: Scale },
     { href: '/admin/warnings', label: 'Amonestaciones', icon: Gavel },
+    { href: '/admin/history', label: 'Historial Colaborador', icon: FolderArchive },
     { href: '/admin/employees', label: 'Empleados', icon: Users },
     { href: '/admin/admins', label: 'Administradores', icon: ShieldCheck },
     { href: '/admin/branches', label: 'Sucursales', icon: Building },

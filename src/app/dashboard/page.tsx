@@ -6,10 +6,11 @@ import OvertimeTracker from '@/components/dashboard/overtime-tracker';
 import { AttendanceTracker } from '@/components/dashboard/attendance-tracker';
 import { PayStubsViewer } from '@/components/dashboard/pay-stubs-viewer';
 import { PermitTracker } from '@/components/dashboard/permit-tracker';
+import { HistoryTracker } from '@/components/dashboard/history-tracker';
 import { NotificationBanner } from '@/components/dashboard/notification-banner';
 import { NotificationCenter } from '@/components/dashboard/notification-center';
 import { AnnouncementDialog } from '@/components/dashboard/announcement-dialog';
-import { Home, Loader2, Clock, FileBadge, Scale, FileSearch, Timer, Calendar, Bell, MessageSquare, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Home, Loader2, Clock, FileBadge, Scale, FileSearch, Timer, Calendar, Bell, MessageSquare, CheckCircle2, AlertCircle, FolderArchive } from 'lucide-react';
 import type { Employee, OvertimeRecord, PermitRequest } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -286,6 +287,10 @@ export default function DashboardPage() {
 
         <TabsContent value="permits">
             <PermitTracker />
+        </TabsContent>
+
+        <TabsContent value="history">
+            <HistoryTracker />
         </TabsContent>
       </Tabs>
     </div>

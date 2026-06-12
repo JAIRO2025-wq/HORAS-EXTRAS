@@ -34,6 +34,7 @@ import {
   Loader2,
   FileSearch,
   Bell,
+  FolderArchive,
 } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState, useMemo } from 'react';
@@ -138,7 +139,8 @@ export default function DashboardLayout({
       { label: 'Horas Extra', icon: Timer, value: 'overtime' },
       { label: 'Inasistencias', icon: FileSearch, value: 'inasistencias' },
       { label: 'Recibos Pago', icon: FileBadge, value: 'paystubs' },
-      { label: 'Permisos RRHH', icon: Scale, value: 'permits' }
+      { label: 'Permisos RRHH', icon: Scale, value: 'permits' },
+      { label: 'Mis Documentos', icon: FolderArchive, value: 'history' }
     );
 
     return base;

@@ -10,7 +10,8 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Megaphone, ShieldAlert, CheckCircle2 } from 'lucide-react';
+import { Megaphone, ShieldAlert, CheckCircle2, X } from 'lucide-react';
+import { isAfter, startOfDay } from 'date-fns';
 
 /**
  * Diálogo de Anuncio para la Circular Informativa de RRHH.
@@ -20,7 +21,14 @@ export function AnnouncementDialog() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Verificamos si ya vio la circular en esta sesión (actualizado para junio)
+    // 1. Verificamos la fecha actual. 
+    // El cartel debe desaparecer el 14 de Junio de 2026.
+    const expirationDate = startOfDay(new Date(2026, 5, 14)); // 14 de Junio, 2026
+    if (isAfter(new Date(), expirationDate)) {
+      return;
+    }
+
+    // 2. Verificamos si ya vio la circular en esta sesión
     const hasSeenCircular = sessionStorage.getItem('overtime_circular_june_2026');
     if (!hasSeenCircular) {
       const timer = setTimeout(() => setIsOpen(true), 1500);
@@ -34,9 +42,18 @@ export function AnnouncementDialog() {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={(open) => {
+        if (!open) handleClose();
+    }}>
       <DialogContent className="max-w-2xl p-0 overflow-hidden border-none shadow-2xl">
-        <DialogHeader className="p-0 space-y-0">
+        <DialogHeader className="p-0 space-y-0 relative">
+          <button 
+            onClick={handleClose}
+            className="absolute right-4 top-4 z-10 p-2 rounded-full bg-black/10 text-white hover:bg-black/20 transition-colors"
+          >
+            <X className="h-5 w-5" />
+          </button>
+
           <div className="bg-primary p-6 text-primary-foreground flex items-center gap-4">
             <div className="bg-white/20 p-3 rounded-full">
               <Megaphone className="h-8 w-8 text-white animate-bounce" />
@@ -65,10 +82,10 @@ export function AnnouncementDialog() {
               Se comunica a todos los usuarios que, a partir del <strong>15 de junio de 2026</strong>, el sistema únicamente aceptará registros cuya fecha coincida con el día efectivo en que se realizaron las horas extras.
             </p>
             <p>
-              Actualmente se ha detectado que algunos usuarios ingresan registros con varios días de retraso (hasta 5 días después), lo cual genera inconsistencias en los cálculos automáticos de las planillas. Con esta actualización, <strong>cualquier registro fuera de plazo será rechazado por el sistema</strong>.
+              Actualmente se ha detectado que algunos usuarios ingresan registros con varios días de retraso, lo cual genera inconsistencias en los cálculos automáticos de las planillas. Con esta actualización, <strong>cualquier registro fuera de plazo será rechazado por el sistema</strong>.
             </p>
             <p>
-              La medida busca asegurar la precisión de la información y la correcta ejecución de los procesos automatizados. Se solicita a todos los usuarios realizar sus anotaciones en <strong>tiempo real</strong>, el mismo día en que se efectúe la labor, para evitar inconvenientes y garantizar la continuidad de los procesos administrativos.
+              La medida busca asegurar la precisión de la información y la correcta ejecución de los procesos automatizados. Se solicita a todos los usuarios realizar sus anotaciones en <strong>tiempo real</strong>, el mismo día en que se efectúe la labor.
             </p>
           </div>
 

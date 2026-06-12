@@ -91,3 +91,13 @@ export type WarningRecord = {
   comments: string; // Derecho a descargo
   createdAt: string;
 };
+
+export type EmployeeHistoryRecord = {
+  id: string;
+  employeeName: string;
+  documentType: string;
+  fileName: string;
+  fileUrl: string;
+  uploadDate: string;
+  notes?: string;
+};

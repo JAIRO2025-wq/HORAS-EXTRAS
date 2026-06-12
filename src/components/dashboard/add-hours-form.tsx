@@ -174,7 +174,7 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
     const now = startOfDay(new Date());
     const currentYear = now.getFullYear();
     
-    // VIGENCIA: 15 de JUNIO de 2026 (Mes 5 en JS)
+    // VIGENCIA: 15 de JUNIO de 2026 (Mes 5 en JS es Junio)
     const POLICY_START_DATE = new Date(2026, 5, 15); 
     const isStrictPolicyActive = isAfter(now, POLICY_START_DATE) || isSameDay(now, POLICY_START_DATE);
     
@@ -208,7 +208,7 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
         
         if (isAfter(d, now)) return false;
 
-        // A PARTIR DEL 15 DE JUNIO SOLO SE PERMITE HOY
+        // POLÍTICA ESTRICTA: SI ES 15 DE JUNIO O DESPUÉS, SÓLO PERMITIR "HOY"
         if (isStrictPolicyActive) {
             return isToday(d);
         }
@@ -360,7 +360,7 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
           <ShieldAlert className="h-4 w-4 text-amber-600" />
           <AlertTitle className="text-[11px] font-black uppercase tracking-wider text-amber-800">Control de Puntualidad</AlertTitle>
           <AlertDescription className="text-[10px] text-amber-700 leading-tight">
-            Verifique que la fecha seleccionada sea la correcta. No se permiten registros futuros ni fuera de las fechas de corte habilitadas.
+            Verifique que la fecha seleccionada sea la correcta. A partir del 15 de junio, solo se permiten registros del día actual.
           </AlertDescription>
         </Alert>
 

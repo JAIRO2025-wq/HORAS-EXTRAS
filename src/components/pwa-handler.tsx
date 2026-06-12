@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { OfflineManager } from '@/lib/offline-manager';
-import { WifiOff, CloudUpload, Download, X } from 'lucide-react';
+import { WifiOff, CloudUpload, Download, X, Share, PlusSquare, Apple } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
@@ -11,9 +11,9 @@ export function PWAHandler() {
   const [isOffline, setIsOffline] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showInstallBanner, setShowInstallBanner] = useState(false);
+  const [showIOSBanner, setShowIOSBanner] = useState(false);
   const { toast } = useToast();
   
-  // Referencia para rastrear qué usuario está suscrito en esta sesión
   const lastSubscribedUser = useRef<string | null>(null);
 
   const urlBase64ToUint8Array = (base64String: string) => {
@@ -41,34 +41,23 @@ export function PWAHandler() {
         name = JSON.parse(storedAdmin).name;
       }
 
-      if (!name) {
-        console.log('[PWA] No hay usuario activo para suscribir.');
-        return;
-      }
-
-      // Si ya suscribimos a este usuario en esta sesión, no repetimos a menos que cambie
+      if (!name) return;
       if (lastSubscribedUser.current === name) return;
 
-      console.log(`[PWA] Sincronizando dispositivo para: ${name}`);
-
-      // 1. Limpiar suscripción existente para evitar conflictos de identidad en el mismo equipo
       const existingSubscription = await registration.pushManager.getSubscription();
       if (existingSubscription) {
         await existingSubscription.unsubscribe();
       }
 
-      // 2. Obtener nueva llave pública
       const response = await fetch('/api/push/keys');
       if (!response.ok) throw new Error('Error al obtener llaves VAPID');
       const { publicKey } = await response.json();
 
-      // 3. Suscribir nuevamente
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(publicKey)
       });
 
-      // 4. Vincular en el servidor con el nuevo nombre
       await fetch('/api/push/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -76,31 +65,36 @@ export function PWAHandler() {
       });
       
       lastSubscribedUser.current = name;
-      console.log(`[PWA] Dispositivo vinculado con éxito a: ${name}`);
     } catch (error) {
-      console.error('[PWA] Error crítico en suscripción Push:', error);
+      console.error('[PWA] Error en suscripción Push:', error);
     }
   }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
+    // Detectar iOS Safari para mostrar guía de instalación manual
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone === true;
+
+    if (isIOS && !isStandalone) {
+      const hasClosedBanner = sessionStorage.getItem('pwa_ios_banner_closed');
+      if (!hasClosedBanner) {
+        setShowIOSBanner(true);
+      }
+    }
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js', { scope: '/' })
           .then((reg) => {
-            console.log('[PWA] Service Worker registrado');
-            
-            // Verificación periódica del usuario activo para manejar cambios de cuenta
             const checkAndSubscribe = () => {
               const hasUser = localStorage.getItem('overtimeUser') || localStorage.getItem('overtimeAdmin');
               if (Notification.permission === 'granted' && hasUser) {
                 subscribeUserToPush(reg);
               }
             };
-
             checkAndSubscribe();
-            // Revisar cada 10 segundos si cambió el usuario en el mismo dispositivo
             const interval = setInterval(checkAndSubscribe, 10000);
             return () => clearInterval(interval);
           });
@@ -156,6 +150,11 @@ export function PWAHandler() {
     setDeferredPrompt(null);
   };
 
+  const closeIOSBanner = () => {
+    sessionStorage.setItem('pwa_ios_banner_closed', 'true');
+    setShowIOSBanner(false);
+  };
+
   return (
     <>
       {isOffline && (
@@ -167,6 +166,7 @@ export function PWAHandler() {
         </div>
       )}
 
+      {/* Banner para Android / Desktop Chrome */}
       {showInstallBanner && (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-md animate-in slide-in-from-top-full duration-500">
           <div className="bg-primary text-primary-foreground p-4 rounded-2xl shadow-2xl flex items-center gap-4 border-2 border-white/20 backdrop-blur-lg">
@@ -185,6 +185,45 @@ export function PWAHandler() {
                 <X className="h-4 w-4" />
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Banner de Guía para iPhone (iOS) */}
+      {showIOSBanner && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-[92%] max-w-sm animate-in slide-in-from-bottom-full duration-700">
+          <div className="bg-white text-zinc-900 p-5 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-zinc-100">
+            <div className="flex justify-between items-start mb-4">
+              <div className="flex items-center gap-2">
+                <div className="bg-primary/10 p-2 rounded-xl">
+                  <Apple className="h-5 w-5 text-primary" />
+                </div>
+                <span className="font-black text-sm uppercase tracking-tighter">Instalar en iPhone</span>
+              </div>
+              <button onClick={closeIOSBanner} className="bg-zinc-100 p-1 rounded-full text-zinc-400 hover:text-zinc-900 transition-colors">
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            
+            <div className="space-y-4 text-xs font-medium text-zinc-600">
+              <div className="flex items-center gap-3 bg-zinc-50 p-3 rounded-2xl">
+                <div className="bg-white p-2 rounded-lg shadow-sm border">
+                  <Share className="h-4 w-4 text-blue-500" />
+                </div>
+                <p>1. Toca el botón <strong>"Compartir"</strong> en la barra inferior de Safari.</p>
+              </div>
+              
+              <div className="flex items-center gap-3 bg-zinc-50 p-3 rounded-2xl">
+                <div className="bg-white p-2 rounded-lg shadow-sm border">
+                  <PlusSquare className="h-4 w-4 text-zinc-700" />
+                </div>
+                <p>2. Busca y elige <strong>"Añadir a la pantalla de inicio"</strong>.</p>
+              </div>
+            </div>
+            
+            <p className="text-[9px] text-center text-zinc-400 mt-4 uppercase font-bold tracking-widest">
+              Esto permite recibir notificaciones de recibos
+            </p>
           </div>
         </div>
       )}
