@@ -77,11 +77,17 @@ export async function PUT(request: Request) {
     try {
         const { employeeName, month, record: updatedRecord } = await request.json();
         const dateObj = new Date(updatedRecord.date);
+        let idx = -1;
+        let filePath = '';
+        let records: OvertimeRecord[] = [];
         
-        // 1. Intentar en la nueva estructura
-        let filePath = await getHierarchicalPath(employeeName, month, updatedRecord.quincena, dateObj);
-        let records = await readRecords(filePath);
-        let idx = records.findIndex(r => r.id === updatedRecord.id);
+        // 1. Buscar en la nueva estructura jerárquica en AMBAS quincenas
+        for (const q of [1, 2]) {
+            filePath = await getHierarchicalPath(employeeName, month, q, dateObj);
+            records = await readRecords(filePath);
+            idx = records.findIndex(r => r.id === updatedRecord.id);
+            if (idx !== -1) break;
+        }
 
         // 2. Si no se encuentra, buscar en el archivo legado
         if (idx === -1) {
@@ -94,8 +100,19 @@ export async function PUT(request: Request) {
             return NextResponse.json({ error: 'Record not found in any structure' }, { status: 404 });
         }
 
+        // Actualizar el registro y guardar en la estructura jerárquica correspondiente
         records[idx] = { ...records[idx], ...updatedRecord };
-        await fs.writeFile(filePath, JSON.stringify(records, null, 2));
+        
+        // Si el registro cambió de quincena, guardarlo en la carpeta correcta
+        const newFilePath = await getHierarchicalPath(employeeName, month, records[idx].quincena, new Date(records[idx].date));
+        await fs.writeFile(newFilePath, JSON.stringify(records, null, 2));
+        
+        // Si el archivo origen es distinto al destino (cambio de quincena), borrar del origen
+        if (newFilePath !== filePath) {
+            const oldRecords = await readRecords(filePath);
+            const filteredOld = oldRecords.filter(r => r.id !== updatedRecord.id);
+            await fs.writeFile(filePath, JSON.stringify(filteredOld, null, 2));
+        }
         
         await logToBackend('record_updated', `ADMIN ACTUALIZÓ registro de '${employeeName}'.`);
         return NextResponse.json(records[idx]);
@@ -109,20 +126,26 @@ export async function DELETE(request: Request) {
     try {
         const { employeeName, month, recordId, quincena, date } = await request.json();
         const dateObj = new Date(date);
+        let idx = -1;
+        let filePath = '';
+        let records: OvertimeRecord[] = [];
         
-        // 1. Intentar en la nueva estructura
-        let filePath = await getHierarchicalPath(employeeName, month, quincena, dateObj);
-        let records = await readRecords(filePath);
-        let exists = records.some(r => r.id === recordId);
-
-        // 2. Si no está ahí, buscar en el legado
-        if (!exists) {
-            filePath = getLegacyPath(employeeName, month);
+        // 1. Buscar en la nueva estructura en AMBAS quincenas
+        for (const q of [1, 2]) {
+            filePath = await getHierarchicalPath(employeeName, month, q, dateObj);
             records = await readRecords(filePath);
-            exists = records.some(r => r.id === recordId);
+            idx = records.findIndex(r => r.id === recordId);
+            if (idx !== -1) break;
         }
 
-        if (!exists) {
+        // 2. Si no está ahí, buscar en el legado
+        if (idx === -1) {
+            filePath = getLegacyPath(employeeName, month);
+            records = await readRecords(filePath);
+            idx = records.findIndex(r => r.id === recordId);
+        }
+
+        if (idx === -1) {
             return NextResponse.json({ error: 'Record not found' }, { status: 404 });
         }
         
