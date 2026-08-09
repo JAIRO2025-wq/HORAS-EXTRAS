@@ -7,6 +7,18 @@ export type Employee = {
   branch: string;
   position?: string;
   isSupervisor?: boolean;
+  // Datos personales (llenados desde Contratos)
+  dui?: string;
+  nit?: string;
+  edad?: string;
+  sexo?: string;
+  nacionalidad?: string;
+  estadoFamiliar?: string;
+  profesion?: string;
+  domicilio?: string;
+  residencia?: string;
+  lugarExpedicionDui?: string;
+  fechaExpedicionDui?: string;
 };
 
 export type Branch = {
@@ -15,6 +27,7 @@ export type Branch = {
   deviceId?: string | null;
   isUnrestricted?: boolean;
   isAttendanceEnabled?: boolean;
+  direccion?: string;
 };
 
 export type OvertimeRecord = {
@@ -100,4 +113,151 @@ export type EmployeeHistoryRecord = {
   fileUrl: string;
   uploadDate: string;
   notes?: string;
+};
+
+export type Dependiente = {
+  nombre: string;
+  apellido: string;
+  edad: string;
+  parentesco: string;
+  direccion: string;
+};
+
+export type CompanyDefaults = {
+  // Datos de la Empresa
+  razonSocialEmpresa: string;
+  abreviaturaEmpresa: string;
+  representanteLegalEmpresa: string;
+
+  // Datos del Empleador
+  nombreEmpleador: string;
+  duiEmpleador: string;
+  nitEmpleador: string;
+  edadEmpleador: string;
+  sexoEmpleador: string;
+  nacionalidadEmpleador: string;
+  estadoFamiliarEmpleador: string;
+  profesionEmpleador: string;
+  domicilioEmpleador: string;
+  lugarExpedicionDuiEmpleador: string;
+  fechaExpedicionDuiEmpleador: string;
+
+  // Datos de Firma
+  distritoFirma: string;
+  fechaFirmaEnLetras: string;
+
+  // Datos de Confidencialidad
+  direccionInstalacionesEmpresa: string;
+  ciudadJurisdiccionTribunales: string;
+
+  // Datos RRHH
+  nombreRepresentanteRrhh: string;
+  cargoRepresentanteRrhh: string;
+};
+
+export type CompanyProfile = CompanyDefaults & {
+  id: string;
+  nombre: string;
+};
+
+export type ContractRecord = {
+  id: string;
+  employeeId: number;
+  status: 'pendiente' | 'generado' | 'firmado' | 'activo' | 'vencido';
+
+  // Documentos
+  contractGeneratedUrl?: string;
+  contractSignedUrl?: string;
+  confidentialityGeneratedUrl?: string;
+  confidentialitySignedUrl?: string;
+  salaryCertificateUrl?: string;
+
+  // Datos de la Empresa
+  razonSocialEmpresa: string;
+  abreviaturaEmpresa: string;
+
+  // Datos del Empleador (Representante Legal)
+  nombreEmpleador: string;
+  duiEmpleador: string;
+  nitEmpleador: string;
+  edadEmpleador: string;
+  sexoEmpleador: string;
+  nacionalidadEmpleador: string;
+  estadoFamiliarEmpleador: string;
+  profesionEmpleador: string;
+  domicilioEmpleador: string;
+  lugarExpedicionDuiEmpleador: string;
+  fechaExpedicionDuiEmpleador: string;
+
+  // Datos del Empleado
+  nombreEmpleado: string;
+  duiEmpleado: string;
+  nitEmpleado: string;
+  edadEmpleado: string;
+  sexoEmpleado: string;
+  nacionalidadEmpleado: string;
+  estadoFamiliarEmpleado: string;
+  profesionEmpleado: string;
+  domicilioEmpleado: string;
+  residenciaEmpleado: string;
+  lugarExpedicionDuiEmpleado: string;
+  fechaExpedicionDuiEmpleado: string;
+
+  // Datos del Contrato
+  cargoPuesto: string;
+  representanteLegalEmpresa: string;
+  tipoDuracionContrato: string;
+  periodoContrato: string;
+  fechaInicioServicio: string;
+  lugarPrestacionServicios: string;
+  direccionPrestacionServicios: string;
+  horasSemanaLaboral: string;
+  horarioDeTrabajo: string;
+  salarioEnNumeros: string;
+  salarioEnLetras: string;
+  formaYPeriodoPago: string;
+  nombreEmpresaPago: string;
+  direccionLugarPago: string;
+  obligacionesYFuncionesCargo: string;
+  listaHerramientasYMateriales: string;
+  incentivosAdicionales: string;
+
+  // Dependientes
+  dependientes: Dependiente[];
+
+  // Firma
+  distritoFirma: string;
+  fechaFirmaEnLetras: string;
+
+  // Confidencialidad
+  direccionInstalacionesEmpresa: string;
+  ciudadJurisdiccionTribunales: string;
+
+  // Constancia de Salario
+  fechaIngreso: string;
+  sueldoBase: string;
+  deduccionIsss: string;
+  deduccionAfp: string;
+  deduccionIsr: string;
+  deduccionOtros: string;
+  totalDeducciones: string;
+  otrosIngresos: string;
+  totalIngresos: string;
+  liquidoAPagar: string;
+  nombreRepresentanteRrhh: string;
+  cargoRepresentanteRrhh: string;
+  destinatarioInstitucionOPersona: string;
+  ciudadEmision: string;
+  fechaEmisionEnLetras: string;
+
+  // Metadatos
+  employeeName: string;
+  branch: string;
+  contractType: string;
+  startDate: string;
+  endDate?: string;
+  salary: number;
+  notes?: string;
+  createdAt: string;
+  updatedAt?: string;
 };

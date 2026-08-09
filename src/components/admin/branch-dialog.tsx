@@ -31,6 +31,7 @@ const FormSchema = z.object({
   name: z.string().min(1, 'El nombre es requerido.'),
   isUnrestricted: z.boolean().default(false),
   isAttendanceEnabled: z.boolean().default(false),
+  direccion: z.string().optional(),
 });
 
 type BranchDialogProps = {
@@ -50,6 +51,7 @@ export function BranchDialog({ branch, isOpen, onOpenChange, onSave }: BranchDia
       name: '',
       isUnrestricted: false,
       isAttendanceEnabled: false,
+      direccion: '',
     }
   });
 
@@ -59,6 +61,7 @@ export function BranchDialog({ branch, isOpen, onOpenChange, onSave }: BranchDia
         name: branch?.name || '',
         isUnrestricted: branch?.isUnrestricted || false,
         isAttendanceEnabled: branch?.isAttendanceEnabled || false,
+        direccion: branch?.direccion || '',
       });
     }
   }, [branch, isOpen, form]);
@@ -72,12 +75,14 @@ export function BranchDialog({ branch, isOpen, onOpenChange, onSave }: BranchDia
             id: branch!.id, 
             name: data.name, 
             isUnrestricted: data.isUnrestricted,
-            isAttendanceEnabled: data.isAttendanceEnabled 
+            isAttendanceEnabled: data.isAttendanceEnabled,
+            direccion: data.direccion,
           }
         : { 
             name: data.name, 
             isUnrestricted: data.isUnrestricted,
-            isAttendanceEnabled: data.isAttendanceEnabled 
+            isAttendanceEnabled: data.isAttendanceEnabled,
+            direccion: data.direccion,
           };
 
       const response = await fetch(url, {
@@ -129,6 +134,19 @@ export function BranchDialog({ branch, isOpen, onOpenChange, onSave }: BranchDia
                   <FormLabel>Nombre de la Sucursal</FormLabel>
                   <FormControl>
                     <Input placeholder="Ej: Sucursal Centro" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="direccion"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Dirección</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Ej: 16ª Calle Poniente #123, San Salvador" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -63,7 +63,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
     try {
-        const { name, isUnrestricted, isAttendanceEnabled } = await request.json();
+        const { name, isUnrestricted, isAttendanceEnabled, direccion } = await request.json();
         const branches = await readBranchesFile();
 
         const newBranch: Branch = {
@@ -72,6 +72,7 @@ export async function POST(request: Request) {
             deviceId: null,
             isUnrestricted: !!isUnrestricted,
             isAttendanceEnabled: !!isAttendanceEnabled,
+            direccion: direccion?.trim() || undefined,
         };
 
         branches.push(newBranch);
@@ -88,7 +89,7 @@ export async function POST(request: Request) {
 export async function PUT(request: Request) {
     try {
         const body = await request.json();
-        const { id, name, deviceId, isUnrestricted, isAttendanceEnabled } = body;
+        const { id, name, deviceId, isUnrestricted, isAttendanceEnabled, direccion } = body;
 
         const branches = await readBranchesFile();
         const idx = branches.findIndex(b => b.id === id);
@@ -98,6 +99,7 @@ export async function PUT(request: Request) {
         if (name !== undefined) branches[idx].name = name.trim();
         if (isUnrestricted !== undefined) branches[idx].isUnrestricted = isUnrestricted;
         if (isAttendanceEnabled !== undefined) branches[idx].isAttendanceEnabled = isAttendanceEnabled;
+        if (direccion !== undefined) branches[idx].direccion = direccion?.trim() || undefined;
         
         if (deviceId !== undefined) {
           const oldDeviceId = branches[idx].deviceId;
