@@ -22,7 +22,7 @@ import {
   Plus, Search, Loader2, Trash2, Eye, CheckCircle2, Clock,
   AlertCircle, XCircle, FileSignature, Calendar, DollarSign,
   Building, User, Briefcase, Users, IdCard, MapPin, BookOpen,
-  ChevronDown, ChevronUp, Edit3,
+  ChevronDown, ChevronUp, Edit3, ExternalLink, RefreshCcw,
 } from 'lucide-react';
 
 const STATUS_MAP: Record<string, { label: string; variant: 'default' | 'secondary' | 'destructive' | 'outline'; icon: any }> = {
@@ -83,7 +83,7 @@ const defaultForm = {
   // Contrato
   cargoPuesto: '',
   representanteLegalEmpresa: '',
-  tipoDuracionContrato: '',
+  tipoDuracionContrato: 'Indefinido',
   periodoContrato: '',
   fechaInicioServicio: '',
   lugarPrestacionServicios: '',
@@ -92,7 +92,7 @@ const defaultForm = {
   horarioDeTrabajo: '',
   salarioEnNumeros: '',
   salarioEnLetras: '',
-  formaYPeriodoPago: '',
+  formaYPeriodoPago: 'Quincenal',
   nombreEmpresaPago: '',
   direccionLugarPago: '',
   obligacionesYFuncionesCargo: '',
@@ -132,12 +132,12 @@ const defaultForm = {
 };
 
 // Componentes estables fuera del componente principal (evita pérdida de foco)
-const FormInput = ({ label, value, onChange, placeholder, required, type = 'text' }: {
-  label: string; value: string; onChange: (v: string) => void; placeholder?: string; required?: boolean; type?: string;
+const FormInput = ({ label, value, onChange, placeholder, required, type = 'text', readonly }: {
+  label: string; value: string; onChange: (v: string) => void; placeholder?: string; required?: boolean; type?: string; readonly?: boolean;
 }) => (
   <div className="space-y-1.5">
     <Label className="text-xs">{label} {required && <span className="text-destructive">*</span>}</Label>
-    <Input type={type} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className="h-9 text-sm" />
+    <Input type={type} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className={`h-9 text-sm ${readonly ? 'bg-muted text-muted-foreground' : ''}`} readOnly={readonly} />
   </div>
 );
 
@@ -217,6 +217,14 @@ export default function ContractsPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [currentTab, setCurrentTab] = useState('empresa');
 
+  // Búsqueda desde Google Sheets
+  const [sheetEmployeeList, setSheetEmployeeList] = useState<{ codigo: string; nombre: string }[]>([]);
+  const [isSearchingSheet, setIsSearchingSheet] = useState(false);
+  const [isSyncingSheet, setIsSyncingSheet] = useState(false);
+  const [sheetSelectedCode, setSheetSelectedCode] = useState('');
+  const [sheetSearch, setSheetSearch] = useState('');
+  const [sheetCacheInfo, setSheetCacheInfo] = useState<{ hasData: boolean; count: number; updatedAt?: string }>({ hasData: false, count: 0 });
+
   const fetchContracts = useCallback(async () => {
     try {
       const res = await fetch('/api/admin/contracts');
@@ -273,12 +281,14 @@ export default function ContractsPage() {
     setForm({ ...defaultForm });
     setDependientes([emptyDependiente(), emptyDependiente()]);
     setSelectedEmployee(null);
+    setSheetSelectedCode('');
     setCurrentTab('empresa');
   };
 
   // Cargar CompanyDefaults al abrir el diálogo de crear
   const openCreate = async () => {
     resetForm();
+    fetchSheetEmployeeList(); // cargar lista en background
     let formWithDefaults = { ...defaultForm };
     const fechaHoy = fechaEnLetras(new Date());
 
@@ -353,11 +363,55 @@ export default function ContractsPage() {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
+  // Convierte "$410.00" o "410.00" a número
+  const parseMoney = (v: string): number => {
+    const num = parseFloat(String(v || '').replace(/[^0-9.-]/g, ''));
+    return isNaN(num) ? 0 : num;
+  };
+
+  // Formatea número a "$1,234.56"
+  const formatMoney = (n: number): string => {
+    return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+
+  // Actualiza un campo de la constancia y recalcula totales automáticamente
+  const updateConstancia = (field: string, value: string) => {
+    setForm((prev) => {
+      const next = { ...prev, [field]: value };
+      const sueldoBase = parseMoney(next.sueldoBase);
+      const isss = parseMoney(next.deduccionIsss);
+      const afp = parseMoney(next.deduccionAfp);
+      const isr = parseMoney(next.deduccionIsr);
+      const otrosDed = parseMoney(next.deduccionOtros);
+      const otrosIng = parseMoney(next.otrosIngresos);
+
+      const totalDeducciones = isss + afp + isr + otrosDed;
+      const totalIngresos = sueldoBase + otrosIng;
+      const liquido = totalIngresos - totalDeducciones;
+
+      next.totalDeducciones = formatMoney(totalDeducciones);
+      next.totalIngresos = formatMoney(totalIngresos);
+      next.liquidoAPagar = formatMoney(liquido);
+      return next;
+    });
+  };
+
   const updateDependiente = (index: number, field: keyof Dependiente, value: string) => {
     setDependientes((prev) => {
       const updated = [...prev];
       updated[index] = { ...updated[index], [field]: value };
       return updated;
+    });
+  };
+
+  const addDependiente = () => {
+    setDependientes((prev) => [...prev, emptyDependiente()]);
+  };
+
+  const removeDependiente = (index: number) => {
+    setDependientes((prev) => {
+      if (prev.length <= 1) return prev;
+      return prev.filter((_, i) => i !== index);
     });
   };
 
@@ -372,6 +426,92 @@ export default function ContractsPage() {
       updateForm('cargoPuesto', emp.position || '');
       updateForm('salary', emp.salary || 0);
       updateForm('salarioEnNumeros', emp.salary ? `$${Number(emp.salary).toFixed(2)}` : '');
+    }
+  };
+
+  // Cargar lista de empleados desde Google Sheets al abrir el diálogo
+  const fetchSheetEmployeeList = async () => {
+    try {
+      const res = await fetch('/api/admin/sheets/employee?todos=1');
+      const json = await res.json();
+      if (json.ok && json.empleados) {
+        setSheetEmployeeList(json.empleados);
+        setSheetCacheInfo({ hasData: true, count: json.total || json.empleados.length });
+      } else {
+        setSheetEmployeeList([]);
+        setSheetCacheInfo({ hasData: false, count: 0 });
+      }
+    } catch (e) { /* silencioso, la lista simplemente estará vacía */ }
+  };
+
+  // Sincronizar con Google Sheets (descarga y guarda en caché local)
+  const syncSheetData = async () => {
+    setIsSyncingSheet(true);
+    try {
+      const res = await fetch('/api/admin/sheets/sync', { method: 'POST' });
+      const json = await res.json();
+      if (json.ok) {
+        setSheetCacheInfo({ hasData: true, count: json.total, updatedAt: json.updatedAt });
+        await fetchSheetEmployeeList();
+        toast({ title: 'Datos actualizados', description: `${json.total} empleados descargados desde Google Sheets.` });
+      } else {
+        toast({ variant: 'destructive', title: 'Error al sincronizar', description: json.error || 'No se pudo conectar con Google Sheets.' });
+      }
+    } catch (e) {
+      toast({ variant: 'destructive', title: 'Error de conexión', description: 'No se pudo conectar con Google Sheets.' });
+    } finally {
+      setIsSyncingSheet(false);
+    }
+  };
+
+  // Seleccionar empleado desde Google Sheets
+  const handleSheetEmployeeSelect = async (codigo: string) => {
+    if (!codigo) return;
+    setSheetSelectedCode(codigo);
+    setIsSearchingSheet(true);
+    try {
+      const res = await fetch(`/api/admin/sheets/employee?codigo=${encodeURIComponent(codigo)}`);
+      const json = await res.json();
+      if (json.ok && json.data?.encontrado) {
+        const d = json.data;
+        updateForm('nombreEmpleado', d.nombreEmpleado || '');
+        updateForm('duiEmpleado', d.duiEmpleado || '');
+        updateForm('nitEmpleado', d.nitEmpleado || '');
+        updateForm('edadEmpleado', d.edadEmpleado || '');
+        updateForm('sexoEmpleado', d.sexoEmpleado || '');
+        updateForm('nacionalidadEmpleado', d.nacionalidadEmpleado || '');
+        updateForm('estadoFamiliarEmpleado', d.estadoFamiliarEmpleado || '');
+        updateForm('profesionEmpleado', d.profesionEmpleado || '');
+        updateForm('domicilioEmpleado', d.domicilioEmpleado || '');
+        updateForm('residenciaEmpleado', d.residenciaEmpleado || '');
+        updateForm('cargoPuesto', d.cargoPuesto || '');
+        updateForm('fechaInicioServicio', d.fechaInicioServicio || '');
+        updateForm('direccionPrestacionServicios', d.direccionPrestacionServicios || '');
+        updateForm('lugarPrestacionServicios', d.lugarPrestacionServicios || '');
+        updateForm('salarioEnNumeros', d.salarioEnNumeros || '');
+        updateForm('employeeName', d.employeeName || '');
+        updateForm('branch', d.branch || '');
+        updateForm('salary', d.salary || 0);
+        // Dependientes (todos, sin límite de 2)
+        if (d.dependientes?.length) {
+          const deps: Dependiente[] = d.dependientes.map((dep: any) => ({
+            nombre: dep.nombre || '',
+            apellido: dep.apellido || '',
+            edad: dep.edad || '',
+            parentesco: dep.parentesco || '',
+            direccion: dep.direccion || '',
+          }));
+          setDependientes(deps);
+        }
+        toast({ title: 'Empleado cargado', description: `"${d.nombreEmpleado}" importado desde Google Sheets.` });
+        setSheetSearch('');
+      } else {
+        toast({ variant: 'destructive', title: 'Error', description: 'No se encontraron los datos del empleado.' });
+      }
+    } catch (e) {
+      toast({ variant: 'destructive', title: 'Error de conexión', description: 'No se pudo conectar con Google Sheets.' });
+    } finally {
+      setIsSearchingSheet(false);
     }
   };
 
@@ -602,6 +742,67 @@ export default function ContractsPage() {
         </Select>
       </div>
 
+      {/* Buscar empleado desde Google Sheets */}
+      <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+        <div className="flex items-center justify-between mb-2">
+          <Label className="text-xs font-bold flex items-center gap-1.5">
+            <ExternalLink className="h-3.5 w-3.5" />
+            Importar desde Google Sheets
+            {isSearchingSheet && <Loader2 className="h-3 w-3 animate-spin ml-1" />}
+          </Label>
+          <Button
+            size="sm"
+            variant="outline"
+            className="h-7 text-[11px] gap-1"
+            onClick={syncSheetData}
+            disabled={isSyncingSheet}
+          >
+            {isSyncingSheet ? <Loader2 className="h-3 w-3 animate-spin" /> : <RefreshCcw className="h-3 w-3" />}
+            Actualizar
+          </Button>
+        </div>
+        {sheetEmployeeList.length > 0 ? (
+          <>
+            <div className="relative mb-2">
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+              <Input
+                className="h-9 text-sm pl-8"
+                placeholder="Buscar empleado por nombre o código..."
+                value={sheetSearch}
+                onChange={(e) => setSheetSearch(e.target.value)}
+              />
+            </div>
+            <Select value={sheetSelectedCode} onValueChange={handleSheetEmployeeSelect}>
+              <SelectTrigger className="h-9 text-sm">
+                <SelectValue placeholder="Seleccionar empleado de la hoja..." />
+              </SelectTrigger>
+              <SelectContent>
+                {sheetEmployeeList
+                  .filter((emp) => {
+                    if (!sheetSearch.trim()) return true;
+                    const q = sheetSearch.trim().toLowerCase();
+                    return emp.nombre.toLowerCase().includes(q) || emp.codigo.toLowerCase().includes(q);
+                  })
+                  .map((emp) => (
+                    <SelectItem key={emp.codigo} value={emp.codigo}>{emp.codigo} — {emp.nombre}</SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
+            <p className="text-[10px] text-muted-foreground mt-1.5">
+              {sheetEmployeeList.length} empleados en caché local.
+              {sheetSearch.trim() && ` Mostrando ${sheetEmployeeList.filter((emp) => emp.nombre.toLowerCase().includes(sheetSearch.trim().toLowerCase()) || emp.codigo.toLowerCase().includes(sheetSearch.trim().toLowerCase())).length} resultados.`}
+              {sheetCacheInfo.updatedAt && ` Última actualización: ${new Date(sheetCacheInfo.updatedAt).toLocaleDateString()} ${new Date(sheetCacheInfo.updatedAt).toLocaleTimeString()}.`}
+            </p>
+          </>
+        ) : (
+          <div className="text-center py-2">
+            <p className="text-xs text-muted-foreground mb-2">
+              {isSyncingSheet ? 'Descargando datos de Google Sheets...' : 'No hay datos descargados. Presiona "Actualizar" para obtener los empleados de Google Sheets.'}
+            </p>
+          </div>
+        )}
+      </div>
+
       {/* Sección: Empresa */}
       <FormSectionHeader icon={Building} title="1. Datos de la Empresa" expanded={expandedSections.includes('empresa')} onToggle={() => toggleSection('empresa')} />
       {expandedSections.includes('empresa') && (
@@ -650,49 +851,69 @@ export default function ContractsPage() {
       )}
 
       {/* Sección: Dependientes */}
-      <FormSectionHeader icon={Users} title="4. Dependientes del Empleado" expanded={expandedSections.includes('dependientes')} onToggle={() => toggleSection('dependientes')} />
+      <FormSectionHeader icon={Users} title={`4. Dependientes del Empleado (${dependientes.length})`} expanded={expandedSections.includes('dependientes')} onToggle={() => toggleSection('dependientes')} />
       {expandedSections.includes('dependientes') && (
         <div className="space-y-4 px-1">
-          {[0, 1].map((i) => (
+          {dependientes.map((dep, i) => (
             <Card key={i} className="border-dashed">
-              <CardHeader className="p-3 pb-0">
+              <CardHeader className="p-3 pb-0 flex flex-row items-center justify-between">
                 <CardTitle className="text-xs font-bold text-muted-foreground">Dependiente {i + 1}</CardTitle>
+                {dependientes.length > 1 && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 w-6 p-0 text-muted-foreground hover:text-red-500"
+                    onClick={() => removeDependiente(i)}
+                    title="Quitar dependiente"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </Button>
+                )}
               </CardHeader>
               <CardContent className="p-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
                 <Input
                   className="h-9 text-sm"
                   placeholder="Nombres"
-                  value={dependientes[i]?.nombre || ''}
+                  value={dep.nombre || ''}
                   onChange={(e) => updateDependiente(i, 'nombre', e.target.value)}
                 />
                 <Input
                   className="h-9 text-sm"
                   placeholder="Apellidos"
-                  value={dependientes[i]?.apellido || ''}
+                  value={dep.apellido || ''}
                   onChange={(e) => updateDependiente(i, 'apellido', e.target.value)}
                 />
                 <Input
                   className="h-9 text-sm"
                   placeholder="Edad"
                   type="number"
-                  value={dependientes[i]?.edad || ''}
+                  value={dep.edad || ''}
                   onChange={(e) => updateDependiente(i, 'edad', e.target.value)}
                 />
                 <Input
                   className="h-9 text-sm"
                   placeholder="Parentesco"
-                  value={dependientes[i]?.parentesco || ''}
+                  value={dep.parentesco || ''}
                   onChange={(e) => updateDependiente(i, 'parentesco', e.target.value)}
                 />
                 <Input
                   className="h-9 text-sm"
                   placeholder="Dirección"
-                  value={dependientes[i]?.direccion || ''}
+                  value={dep.direccion || ''}
                   onChange={(e) => updateDependiente(i, 'direccion', e.target.value)}
                 />
               </CardContent>
             </Card>
           ))}
+          <Button
+            variant="outline"
+            size="sm"
+            className="w-full text-xs gap-1"
+            onClick={addDependiente}
+          >
+            <Plus className="h-3.5 w-3.5" />
+            Agregar dependiente
+          </Button>
         </div>
       )}
 
@@ -745,15 +966,15 @@ export default function ContractsPage() {
       {expandedSections.includes('constancia') && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 px-1">
           <FormInput label="Fecha de Ingreso" value={form.fechaIngreso || ''} onChange={(v) => updateForm('fechaIngreso', v)} type="date" />
-          <FormInput label="Sueldo Base" value={form.sueldoBase || ''} onChange={(v) => updateForm('sueldoBase', v)} placeholder="Ej: $410.00" />
-          <FormInput label="Deducción ISSS" value={form.deduccionIsss || ''} onChange={(v) => updateForm('deduccionIsss', v)} placeholder="Ej: $13.50" />
-          <FormInput label="Deducción AFP" value={form.deduccionAfp || ''} onChange={(v) => updateForm('deduccionAfp', v)} placeholder="Ej: $32.63" />
-          <FormInput label="Deducción ISR" value={form.deduccionIsr || ''} onChange={(v) => updateForm('deduccionIsr', v)} placeholder="Ej: $0.00" />
-          <FormInput label="Otras Deducciones" value={form.deduccionOtros || ''} onChange={(v) => updateForm('deduccionOtros', v)} placeholder="Ej: $0.00" />
-          <FormInput label="Total Deducciones" value={form.totalDeducciones || ''} onChange={(v) => updateForm('totalDeducciones', v)} placeholder="Ej: $46.13" />
-          <FormInput label="Otros Ingresos" value={form.otrosIngresos || ''} onChange={(v) => updateForm('otrosIngresos', v)} placeholder="Ej: $0.00" />
-          <FormInput label="Total Ingresos" value={form.totalIngresos || ''} onChange={(v) => updateForm('totalIngresos', v)} placeholder="Ej: $410.00" />
-          <FormInput label="Líquido a Pagar" value={form.liquidoAPagar || ''} onChange={(v) => updateForm('liquidoAPagar', v)} placeholder="Ej: $403.87" />
+          <FormInput label="Sueldo Base" value={form.sueldoBase || ''} onChange={(v) => updateConstancia('sueldoBase', v)} placeholder="Ej: $410.00" />
+          <FormInput label="Deducción ISSS" value={form.deduccionIsss || ''} onChange={(v) => updateConstancia('deduccionIsss', v)} placeholder="Ej: $13.50" />
+          <FormInput label="Deducción AFP" value={form.deduccionAfp || ''} onChange={(v) => updateConstancia('deduccionAfp', v)} placeholder="Ej: $32.63" />
+          <FormInput label="Deducción ISR" value={form.deduccionIsr || ''} onChange={(v) => updateConstancia('deduccionIsr', v)} placeholder="Ej: $0.00" />
+          <FormInput label="Otras Deducciones" value={form.deduccionOtros || ''} onChange={(v) => updateConstancia('deduccionOtros', v)} placeholder="Ej: $0.00" />
+          <FormInput label="Total Deducciones" value={form.totalDeducciones || ''} onChange={(v) => updateConstancia('totalDeducciones', v)} placeholder="Ej: $46.13" readonly />
+          <FormInput label="Otros Ingresos" value={form.otrosIngresos || ''} onChange={(v) => updateConstancia('otrosIngresos', v)} placeholder="Ej: $0.00" />
+          <FormInput label="Total Ingresos" value={form.totalIngresos || ''} onChange={(v) => updateConstancia('totalIngresos', v)} placeholder="Ej: $410.00" readonly />
+          <FormInput label="Líquido a Pagar" value={form.liquidoAPagar || ''} onChange={(v) => updateConstancia('liquidoAPagar', v)} placeholder="Ej: $403.87" readonly />
           <FormInput label="Nombre Representante RRHH" value={form.nombreRepresentanteRrhh || ''} onChange={(v) => updateForm('nombreRepresentanteRrhh', v)} placeholder="Ej: Licdo. Pedro Vicente Chicas" />
           <FormInput label="Cargo Representante RRHH" value={form.cargoRepresentanteRrhh || ''} onChange={(v) => updateForm('cargoRepresentanteRrhh', v)} placeholder="Ej: Recursos Humanos" />
           <FormInput label="Destinatario (Institución/Persona)" value={form.destinatarioInstitucionOPersona || ''} onChange={(v) => updateForm('destinatarioInstitucionOPersona', v)} placeholder="Ej: Avance y Desarrollo" />
@@ -1012,9 +1233,14 @@ export default function ContractsPage() {
                               <span className={`text-sm text-${color}-700 flex items-center gap-2`}>
                                 <CheckCircle2 className="h-4 w-4" /> Generado
                               </span>
-                              <Button size="sm" variant="outline" onClick={() => window.open(genUrl, '_blank')}>
-                                <Download className="h-3 w-3 mr-1" /> Descargar
-                              </Button>
+                              <div className="flex items-center gap-2">
+                                <Button size="sm" variant="outline" onClick={() => setShowGenerate({ contract: showDetail, type: genType })}>
+                                  <RefreshCcw className="h-3 w-3 mr-1" /> Regenerar
+                                </Button>
+                                <Button size="sm" variant="outline" onClick={() => window.open(genUrl, '_blank')}>
+                                  <Download className="h-3 w-3 mr-1" /> Descargar
+                                </Button>
+                              </div>
                             </div>
                           ) : (
                             <Button variant="outline" size="sm" className="w-full" onClick={() => setShowGenerate({ contract: showDetail, type: genType })}>

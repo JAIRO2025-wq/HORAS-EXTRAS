@@ -58,7 +58,7 @@ function mapContratoData(contractData: Record<string, any>): Record<string, stri
     FECHA_FIRMA_EN_LETRAS: contractData.fechaFirmaEnLetras || '',
   };
 
-  for (let i = 1; i <= 2; i++) {
+  for (let i = 1; i <= 6; i++) {
     const dep = dependientes[i - 1];
     data[`NOMBRE_DEPENDIENTE_${i}`] = dep?.nombre || '';
     data[`APELLIDO_DEPENDIENTE_${i}`] = dep?.apellido || '';
