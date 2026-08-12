@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 import type { OvertimeRecord } from '@/lib/types';
+import { isSameRecordContent } from '@/lib/record-utils';
 
 const dataDir = path.join(process.cwd(), 'data');
 const logFilePath = path.join(dataDir, 'events.log');
@@ -80,9 +81,22 @@ export async function POST(request: Request) {
         const filePath = await findActualFilePath(employeeName, month);
         const records = await readRecords(filePath);
 
+        // MITIGACIÓN ANTI-DUPLICADO: respeta el id del cliente (idempotencia)
+        // y evita duplicar por contenido (doble click / reintento).
+        const clientId = (record as any).id || crypto.randomUUID();
+        const existingById = records.find(r => r.id === clientId);
+        if (existingById) {
+            return NextResponse.json(existingById, { status: 200 });
+        }
+
+        const duplicate = records.find(r => isSameRecordContent(r, record));
+        if (duplicate) {
+            return NextResponse.json(duplicate, { status: 200 });
+        }
+
         const newRecord = { 
             ...record, 
-            id: crypto.randomUUID(), 
+            id: clientId, 
             createdAt: new Date().toISOString() 
         };
         records.push(newRecord);

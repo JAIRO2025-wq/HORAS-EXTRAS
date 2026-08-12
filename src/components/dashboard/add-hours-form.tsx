@@ -109,6 +109,7 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [myPermits, setMyPermits] = useState<PermitRequest[]>([]);
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     setCurrentTime(new Date());
@@ -294,22 +295,27 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
         }
     }
 
-    onRecordAdded({
-      id: crypto.randomUUID(), 
-      date: data.date, 
-      startTime: st, 
-      endTime: et,
-      activity: data.activity, 
-      coworkers: data.coworkers.join(', '),
-      quincena: quincena,
-      totalHours: calculatedHours.totalHours, 
-      dayHours: calculatedHours.dayHours, 
-      nightHours: calculatedHours.nightHours,
-      type: 'overtime', 
-      status: 'pending', 
-      adminNotes: '',
-    });
-    closeSheet();
+    setIsSubmitting(true);
+    try {
+      await onRecordAdded({
+        id: crypto.randomUUID(), 
+        date: data.date, 
+        startTime: st, 
+        endTime: et,
+        activity: data.activity, 
+        coworkers: data.coworkers.join(', '),
+        quincena: quincena,
+        totalHours: calculatedHours.totalHours, 
+        dayHours: calculatedHours.dayHours, 
+        nightHours: calculatedHours.nightHours,
+        type: 'overtime', 
+        status: 'pending', 
+        adminNotes: '',
+      });
+      closeSheet();
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const getSafeISOString = (date: any) => {
@@ -493,8 +499,9 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
               </FormItem>
             )} />
 
-            <Button type="submit" className="w-full h-12 text-lg shadow-xl mt-4">
-                Guardar Registro
+            <Button type="submit" className="w-full h-12 text-lg shadow-xl mt-4" disabled={isSubmitting}>
+                {isSubmitting && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
+                {isSubmitting ? 'Guardando...' : 'Guardar Registro'}
             </Button>
           </form>
         </Form>

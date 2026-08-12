@@ -4,6 +4,7 @@ import path from 'path';
 import type { OvertimeRecord } from '@/lib/types';
 import { headers } from 'next/headers';
 import { getAuthContext } from '@/lib/auth-server';
+import { isSameRecordContent, dedupeRecords } from '@/lib/record-utils';
 
 const dataDir = path.join(process.cwd(), 'data');
 
@@ -105,7 +106,9 @@ export async function GET(request: Request) {
       });
   } catch (e) {}
 
-  return NextResponse.json(allRecords.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()));
+  return NextResponse.json(
+    dedupeRecords(allRecords).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  );
 }
 
 export async function POST(request: Request) {
@@ -150,12 +153,7 @@ export async function POST(request: Request) {
     return NextResponse.json(existing, { status: 200 });
   }
 
-  const duplicate = records.find(r =>
-    r.date === newRecord.date &&
-    r.startTime === newRecord.startTime &&
-    r.endTime === newRecord.endTime &&
-    (r.activity || '').trim().toLowerCase() === (newRecord.activity || '').trim().toLowerCase()
-  );
+  const duplicate = records.find(r => isSameRecordContent(r, newRecord));
   if (duplicate) {
     return NextResponse.json(duplicate, { status: 200 });
   }

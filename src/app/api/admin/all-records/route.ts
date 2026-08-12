@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 import type { OvertimeRecord } from '@/lib/types';
+import { dedupeRecords } from '@/lib/record-utils';
 
 const dataDir = path.join(process.cwd(), 'data');
 
@@ -75,6 +76,7 @@ export async function GET(request: Request) {
             } catch (e) {}
         }
         
+        allRecords = dedupeRecords(allRecords);
         allRecords.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         return NextResponse.json(allRecords);
     } catch (error) {
