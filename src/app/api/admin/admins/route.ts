@@ -6,16 +6,7 @@ import path from 'path';
 const dataDir = path.join(process.cwd(), 'data');
 const adminsFilePath = path.join(dataDir, 'admins.json');
 
-async function ensureDataDir() {
-  try {
-    await fs.access(dataDir);
-  } catch {
-    await fs.mkdir(dataDir, { recursive: true });
-  }
-}
-
 async function readAdminsFile(): Promise<any[]> {
-  await ensureDataDir();
   try {
     const fileContent = await fs.readFile(adminsFilePath, 'utf-8');
     return JSON.parse(fileContent);

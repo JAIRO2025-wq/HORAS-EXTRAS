@@ -7,14 +7,6 @@ import { SecurityManager } from '@/lib/security';
 const dataDir = path.join(process.cwd(), 'data');
 const adminsFilePath = path.join(dataDir, 'admins.json');
 
-async function ensureDataDir() {
-  try {
-    await fs.access(dataDir);
-  } catch {
-    await fs.mkdir(dataDir, { recursive: true });
-  }
-}
-
 export async function POST(request: Request) {
   try {
     const { adminId, pin } = await request.json();
@@ -30,18 +22,8 @@ export async function POST(request: Request) {
     }
 
     // 2. Leer admins
-    await ensureDataDir();
-    let admins: any[];
-    try {
-      const fileContent = await fs.readFile(adminsFilePath, 'utf-8');
-      admins = JSON.parse(fileContent);
-    } catch {
-      admins = [
-        { id: '1', name: 'Admin Control', pin: '2026', role: 'ADMIN_1' },
-        { id: '2', name: 'Admin Gerencia', pin: '7777', role: 'ADMIN_2' }
-      ];
-      await fs.writeFile(adminsFilePath, JSON.stringify(admins, null, 2));
-    }
+    const fileContent = await fs.readFile(adminsFilePath, 'utf-8');
+    const admins = JSON.parse(fileContent);
     const admin = admins.find((a: any) => a.id === adminId);
 
     // 3. Validar
