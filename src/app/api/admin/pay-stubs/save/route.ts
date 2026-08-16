@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 import webpush from 'web-push';
+import { signCompanyPdf } from '@/lib/sign-pdf';
 
 const dataDir = path.join(process.cwd(), 'data');
 
@@ -63,6 +64,15 @@ export async function POST(request: Request) {
     const buffer = Buffer.from(base64Data, 'base64');
 
     await fs.writeFile(filePath, buffer);
+
+    // FASE 3 - Aplicar la Firma 1 (Empresa) al recibo guardado.
+    // También dibuja la marca visual "Firmado electrónicamente por: <empleado>".
+    try {
+      const signedPdf = await signCompanyPdf(buffer, employeeName);
+      await fs.writeFile(filePath, signedPdf);
+    } catch (error) {
+      console.error('No se pudo aplicar la firma de la empresa:', error);
+    }
 
     // DISPARAR NOTIFICACIÓN PUSH
     // No esperamos a que termine para no bloquear la respuesta de la API

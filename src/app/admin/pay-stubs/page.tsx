@@ -218,7 +218,7 @@ export default function PayStubsPage() {
       const singlePageDoc = await PDFDocument.create();
       const [copiedPage] = await singlePageDoc.copyPages(pdfDoc, [i]);
       singlePageDoc.addPage(copiedPage);
-      const pdfBytes = await singlePageDoc.save();
+      const pdfBytes = await singlePageDoc.save({ useObjectStreams: false });
       const blob = new Blob([pdfBytes], { type: 'application/pdf' });
       const pageDataUri = await new Promise<string>((resolve) => {
         const reader = new FileReader();

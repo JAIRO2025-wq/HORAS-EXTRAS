@@ -46,6 +46,7 @@ import {
   FolderArchive,
   FileSignature,
   Database,
+  Fingerprint,
 } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -146,6 +147,7 @@ export default function AdminRootLayout({
     { href: '/admin/pins', label: 'PINs de Empleados', icon: KeyRound },
     { href: '/admin/payroll', label: 'Nómina', icon: DollarSign },
     { href: '/admin/pay-stubs', label: 'Recibos PDF', icon: FileBadge },
+    { href: '/admin/firmas', label: 'Control de Firmas', icon: Fingerprint },
     { href: '/admin/reports', label: 'Reportes', icon: FileText },
     { href: '/admin/pdf', label: 'PDF', icon: Printer },
     { href: '/admin/settings', label: 'Configuración', icon: Settings },

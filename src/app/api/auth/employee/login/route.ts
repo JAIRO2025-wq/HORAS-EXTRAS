@@ -43,6 +43,9 @@ export async function POST(request: Request) {
         user: { name: employee.name }
       });
 
+      // Descartar cualquier sesión de admin previa (evita roles cruzados).
+      response.cookies.delete('admin_session');
+
       // Cookie segura (invisible para JS)
       response.cookies.set('employee_session', token, {
         httpOnly: true,

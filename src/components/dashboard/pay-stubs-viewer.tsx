@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { FileText, Download, Eye, Loader2, Calendar, AlertCircle, X } from 'lucide-react';
+import { FileText, Download, Eye, Loader2, Calendar, AlertCircle, X, PenLine, CheckCircle2 } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -13,6 +13,9 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { PdfViewer } from '@/components/ui/pdf-viewer';
+import { PaystubSignDialog } from '@/components/dashboard/paystub-sign-dialog';
+import { SignatureEnrollment } from '@/components/dashboard/signature-enrollment';
+import { useToast } from '@/hooks/use-toast';
 
 type Stub = {
   year: number;
@@ -26,12 +29,34 @@ export function PayStubsViewer() {
   const [stubs, setStubs] = useState<Stub[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedStub, setSelectedStub] = useState<Stub | null>(null);
+  const [userName, setUserName] = useState('');
+  const [enrolled, setEnrolled] = useState(false);
+  const [signedKeys, setSignedKeys] = useState<Set<string>>(new Set());
+  const [signStub, setSignStub] = useState<Stub | null>(null);
+  const [showEnrollment, setShowEnrollment] = useState(false);
+  const { toast } = useToast();
+
+  const fetchEnrollment = async () => {
+    try {
+      const res = await fetch('/api/certificados/estado');
+      if (res.ok) {
+        const data = await res.json();
+        setEnrolled(!!data.enrolled);
+        if (data.enrolled && Array.isArray(data.firmas)) {
+          setSignedKeys(new Set(data.firmas.map((f: any) => `${f.year}-${f.month}-${f.quincena}`)));
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching enrollment", error);
+    }
+  };
 
   useEffect(() => {
     const fetchStubs = async () => {
       const storedUser = localStorage.getItem('overtimeUser');
       if (!storedUser) return;
       const { name } = JSON.parse(storedUser);
+      setUserName(name);
 
       try {
         const res = await fetch(`/api/pay-stubs/my-list?user=${encodeURIComponent(name)}`);
@@ -47,7 +72,18 @@ export function PayStubsViewer() {
     };
 
     fetchStubs();
+    fetchEnrollment();
   }, []);
+
+  const handleSignClick = (stub: Stub) => {
+    if (!enrolled) {
+      setShowEnrollment(true);
+      return;
+    }
+    setSignStub(stub);
+  };
+
+  const isSigned = (stub: Stub) => signedKeys.has(`${stub.year}-${stub.month}-${stub.quincena}`);
 
   if (isLoading) {
     return <div className="flex justify-center p-12"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>;
@@ -57,14 +93,21 @@ export function PayStubsViewer() {
     <div className="space-y-6">
       <Card className="border-primary/10 shadow-sm">
         <CardHeader>
-          <div className="flex items-center gap-3">
-            <div className="bg-primary/10 p-2 rounded-lg">
-                <FileText className="h-5 w-5 text-primary" />
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="bg-primary/10 p-2 rounded-lg">
+                  <FileText className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                  <CardTitle>Mis Recibos de Pago</CardTitle>
+                  <CardDescription>Consulta y descarga tus últimos 6 comprobantes de pago.</CardDescription>
+              </div>
             </div>
-            <div>
-                <CardTitle>Mis Recibos de Pago</CardTitle>
-                <CardDescription>Consulta y descarga tus últimos 6 comprobantes de pago.</CardDescription>
-            </div>
+            {enrolled && (
+              <Button variant="outline" size="sm" className="gap-2 shrink-0" onClick={() => setShowEnrollment(true)}>
+                <PenLine className="h-3.5 w-3.5" /> Actualizar mis datos
+              </Button>
+            )}
           </div>
         </CardHeader>
         <CardContent>
@@ -78,9 +121,15 @@ export function PayStubsViewer() {
                             <span className="text-[10px] uppercase font-black text-muted-foreground tracking-widest">{stub.year}</span>
                             <span className="text-lg font-bold text-foreground">{stub.month}</span>
                         </div>
-                        <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/10 border-none">
-                            Q{stub.quincena}
-                        </Badge>
+                        {isSigned(stub) ? (
+                            <Badge variant="secondary" className="gap-1 bg-green-50 text-green-700 border-green-100 hover:bg-green-50">
+                                <CheckCircle2 className="h-3 w-3" /> Firmado
+                            </Badge>
+                        ) : (
+                            <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/10 border-none">
+                                Q{stub.quincena}
+                            </Badge>
+                        )}
                     </div>
                     
                     <div className="flex gap-2">
@@ -101,6 +150,15 @@ export function PayStubsViewer() {
                             <a href={stub.viewUrl} download={`Recibo_${stub.month}_Q${stub.quincena}.pdf`}>
                                 <Download className="h-3.5 w-3.5" /> PDF
                             </a>
+                        </Button>
+                        <Button
+                            className="flex-1 gap-2"
+                            size="sm"
+                            variant={isSigned(stub) ? 'ghost' : 'default'}
+                            disabled={isSigned(stub)}
+                            onClick={() => handleSignClick(stub)}
+                        >
+                            <PenLine className="h-3.5 w-3.5" /> {isSigned(stub) ? 'Firmado' : 'Firmar'}
                         </Button>
                     </div>
                   </CardContent>
@@ -142,6 +200,30 @@ export function PayStubsViewer() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {signStub && (
+        <PaystubSignDialog
+          stub={signStub}
+          onClose={() => setSignStub(null)}
+          onSigned={() => {
+            setSignStub(null);
+            fetchEnrollment();
+            toast({ title: 'Firma registrada', description: 'El recibo ya está firmado digitalmente.' });
+          }}
+        />
+      )}
+
+      {showEnrollment && (
+        <SignatureEnrollment
+          name={userName}
+          mode={enrolled ? 'update' : 'new'}
+          onClose={() => setShowEnrollment(false)}
+          onEnrolled={() => {
+            setShowEnrollment(false);
+            fetchEnrollment();
+          }}
+        />
+      )}
     </div>
   );
 }

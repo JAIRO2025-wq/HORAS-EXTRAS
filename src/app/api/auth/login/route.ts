@@ -41,6 +41,9 @@ export async function POST(request: Request) {
         user: { name: admin.name, role: admin.role }
       });
 
+      // Descartar cualquier sesión de empleado previa (evita roles cruzados).
+      response.cookies.delete('employee_session');
+
       response.cookies.set('admin_session', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
@@ -66,6 +69,9 @@ export async function POST(request: Request) {
         type: 'employee',
         user: { name: employee.name }
       });
+
+      // Descartar cualquier sesión de admin previa (evita roles cruzados).
+      response.cookies.delete('admin_session');
 
       response.cookies.set('employee_session', token, {
         httpOnly: true,

@@ -10,6 +10,7 @@ import { HistoryTracker } from '@/components/dashboard/history-tracker';
 import { NotificationBanner } from '@/components/dashboard/notification-banner';
 import { NotificationCenter } from '@/components/dashboard/notification-center';
 import { AnnouncementDialog } from '@/components/dashboard/announcement-dialog';
+import { SignatureAnnouncement } from '@/components/dashboard/signature-announcement';
 import { Home, Loader2, Clock, FileBadge, Scale, FileSearch, Timer, Calendar, Bell, MessageSquare, CheckCircle2, AlertCircle, FolderArchive } from 'lucide-react';
 import type { Employee, OvertimeRecord, PermitRequest } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -117,6 +118,7 @@ export default function DashboardPage() {
     <div className="container mx-auto max-w-5xl space-y-6">
       <NotificationBanner />
       <AnnouncementDialog />
+      <SignatureAnnouncement />
 
       <Tabs value={activeTab} className="w-full">
         <TabsContent value="home" className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">

@@ -89,6 +89,7 @@ export function LoginForm() {
 
       if (response.ok) {
         if (result.type === 'admin') {
+          localStorage.removeItem('overtimeUser');
           localStorage.setItem('overtimeAdmin', JSON.stringify({ 
             admin: true, 
             role: result.user.role,
@@ -98,6 +99,7 @@ export function LoginForm() {
           toast({ title: 'Acceso Administrativo', description: `Bienvenido, ${result.user.name}` });
           router.push('/admin/dashboard');
         } else {
+          localStorage.removeItem('overtimeAdmin');
           localStorage.setItem('overtimeUser', JSON.stringify({ 
             name: result.user.name, 
             month: data.month 

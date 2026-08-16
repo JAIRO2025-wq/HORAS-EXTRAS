@@ -59,6 +59,9 @@ export async function POST(request: Request) {
         }
       });
 
+      // Descartar cualquier sesión de empleado previa (evita roles cruzados).
+      response.cookies.delete('employee_session');
+
       response.cookies.set('admin_session', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
