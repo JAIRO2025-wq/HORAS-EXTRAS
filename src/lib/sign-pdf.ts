@@ -5,6 +5,7 @@ import { P12Signer } from '@signpdf/signer-p12';
 import { SUBFILTER_ETSI_CADES_DETACHED } from '@signpdf/utils';
 import { plainAddPlaceholder } from './plain-placeholder';
 import { ensureCompanyPfx, ensurePfxWithChain } from './pki';
+import { applyTimeStampsToPdf } from './tsa';
 import type { EnrollmentRecord } from './signatures';
 
 type SignatureMeta = {
@@ -175,10 +176,23 @@ async function applySignature(
     name: meta.name,
     location: meta.location,
     subFilter: SUBFILTER_ETSI_CADES_DETACHED,
+    // Reserva 16 KB para el CMS: espacio suficiente para el sello de tiempo
+    // RFC 3161 (el token puede medir varios KB).
+    signatureLength: 16384,
   });
 
   const signer = new P12Signer(pfxBuffer, { passphrase });
-  return new SignPdf().sign(pdfWithPlaceholder, signer);
+  const signed = await new SignPdf().sign(pdfWithPlaceholder, signer);
+
+  // Sello de tiempo RFC 3161 (TSA) sobre el CMS ya firmado. Si la TSA no
+  // responde, la firma se guarda igual (sin sello) y solo queda la advertencia
+  // de Adobe de "hora del reloj del equipo".
+  try {
+    return await applyTimeStampsToPdf(signed);
+  } catch (error) {
+    console.warn('TSA no disponible, la firma se guarda sin sello de tiempo:', (error as Error).message);
+    return signed;
+  }
 }
 
 /**
