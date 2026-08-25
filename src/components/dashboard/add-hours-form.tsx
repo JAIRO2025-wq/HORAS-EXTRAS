@@ -259,7 +259,7 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
     }
   }, [availableDates, setValue, getValues]);
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
     if (!user || !settings) return;
     const st = `${data.startHour}:${data.startMinute} ${data.startPeriod}`;
     const et = `${data.endHour}:${data.endMinute} ${data.endPeriod}`;
