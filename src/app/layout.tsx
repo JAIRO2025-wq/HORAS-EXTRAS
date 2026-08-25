@@ -54,6 +54,33 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
           rel="stylesheet"
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function () {
+  var KEY = 'overtime_chunk_reload';
+  function isChunkError(msg) {
+    if (typeof msg !== 'string') return false;
+    return msg.indexOf('ChunkLoadError') !== -1 || /Loading chunk .* failed/.test(msg);
+  }
+  function reloadPage() {
+    var now = Date.now();
+    var last = 0;
+    try { last = parseInt(sessionStorage.getItem(KEY) || '0', 10); } catch (e) {}
+    if (now - last < 10000) return;
+    try { sessionStorage.setItem(KEY, String(now)); } catch (e) {}
+    window.location.reload();
+  }
+  window.addEventListener('error', function (event) {
+    if (event && isChunkError(event.message)) reloadPage();
+  });
+  window.addEventListener('unhandledrejection', function (event) {
+    var reason = event && event.reason;
+    var msg = reason && reason.message ? reason.message : String(reason);
+    if (isChunkError(msg)) reloadPage();
+  });
+})();`,
+          }}
+        />
       </head>
       <body className="font-body antialiased h-full">
         <PWAHandler />
