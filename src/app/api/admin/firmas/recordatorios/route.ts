@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
-import webpush from 'web-push';
 import { getAuthContext } from '@/lib/auth-server';
+import { sendPushNotification } from '@/lib/push';
 import type { Employee, UserNotification } from '@/lib/types';
 import { readSignatures, normalizeName } from '@/lib/signatures';
 import { sendReminderEmail } from '@/lib/mailer';
@@ -29,17 +29,13 @@ export async function POST(request: Request) {
 
   const stubFolder = path.join(dataDir, 'pay-stubs', year, month, `Q${quincena}`);
 
-  const [keysContent, subsContent, empContent, notifContent, store, stubs] = await Promise.all([
-    fs.readFile(path.join(dataDir, 'vapid.json'), 'utf-8').catch(() => null),
-    fs.readFile(path.join(dataDir, 'push_subscriptions.json'), 'utf-8').catch(() => '{}'),
+  const [empContent, notifContent, store, stubs] = await Promise.all([
     fs.readFile(employeesFile, 'utf-8').catch(() => '[]'),
     fs.readFile(notificationsFile, 'utf-8').catch(() => '[]'),
     readSignatures(),
     fs.readdir(stubFolder).catch(() => [] as string[]),
   ]);
 
-  const keys = keysContent ? JSON.parse(keysContent) : null;
-  const subscriptions = JSON.parse(subsContent) as Record<string, any>;
   const employees = JSON.parse(empContent) as Employee[];
   let allNotifications = JSON.parse(notifContent) as UserNotification[];
 
@@ -83,30 +79,18 @@ export async function POST(request: Request) {
 
   // 2. Push
   let pushCount = 0;
-  if (keys) {
-    webpush.setVapidDetails('mailto:admin@flynet.com', keys.publicKey, keys.privateKey);
-    await Promise.all(
-      targets.map(async (emp) => {
-        const sub = subscriptions[emp.name];
-        if (!sub) return;
-        try {
-          await webpush.sendNotification(
-            sub,
-            JSON.stringify({
-              title: '🔔 RECIBO PENDIENTE DE FIRMA',
-              body: `Firma tu recibo de ${month} ${year} (Q${quincena}).`,
-              url: '/dashboard?tab=paystubs',
-              employeeName: emp.name,
-              timestamp: new Date().toISOString(),
-            })
-          );
-          pushCount++;
-        } catch (e) {
-          console.error(`Error push a ${emp.name}:`, e);
-        }
-      })
-    );
-  }
+  await Promise.all(
+    targets.map(async (emp) => {
+      const delivered = await sendPushNotification(emp.name, {
+        title: '🔔 RECIBO PENDIENTE DE FIRMA',
+        body: `Firma tu recibo de ${month} ${year} (Q${quincena}).`,
+        url: '/dashboard?tab=paystubs',
+        employeeName: emp.name,
+        timestamp: new Date().toISOString(),
+      });
+      if (delivered) pushCount++;
+    })
+  );
 
   // 3. Correo (solo si el empleado está enrolado y tiene correo registrado)
   let emailDelivered = 0;

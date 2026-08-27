@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
-import webpush from 'web-push';
+import { sendPushNotification } from '@/lib/push';
 import type { PermitRequest } from '@/lib/types';
 import { getAuthContext } from '@/lib/auth-server';
 import { parseISO, isWithinInterval, format } from 'date-fns';
@@ -31,30 +31,13 @@ async function getPermitPath(dateIso: string) {
 }
 
 async function sendPush(targetName: string, title: string, message: string, url: string = '/dashboard') {
-  try {
-    const keysPath = path.join(dataDir, 'vapid.json');
-    const keysContent = await fs.readFile(keysPath, 'utf-8').catch(() => null);
-    if (!keysContent) return;
-    const keys = JSON.parse(keysContent);
-    webpush.setVapidDetails('mailto:admin@flynet.com', keys.publicKey, keys.privateKey);
-
-    const subsPath = path.join(dataDir, 'push_subscriptions.json');
-    const subsContent = await fs.readFile(subsPath, 'utf-8').catch(() => '{}');
-    const subscriptions = JSON.parse(subsContent);
-    const sub = subscriptions[targetName];
-
-    if (sub) {
-      await webpush.sendNotification(sub, JSON.stringify({ 
-        title: `🔔 ${title}`, 
-        body: message, 
-        url: url,
-        timestamp: new Date().toISOString(),
-        employeeName: targetName
-      }));
-    }
-  } catch (e) {
-    console.error("Push Error:", e);
-  }
+  await sendPushNotification(targetName, {
+    title: `🔔 ${title}`,
+    body: message,
+    url,
+    timestamp: new Date().toISOString(),
+    employeeName: targetName
+  });
 }
 
 async function notifyAdmins(title: string, message: string) {
