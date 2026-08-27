@@ -60,6 +60,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { months } from '@/lib/data';
+import { NotificationBanner } from '@/components/dashboard/notification-banner';
 
 type AdminUser = {
   admin: boolean;
@@ -251,6 +252,7 @@ export default function AdminRootLayout({
             </div>
           </header>
           <main className="flex-1 p-4 lg:p-6 bg-background">
+            <NotificationBanner context="admin" />
             {children}
           </main>
         </SidebarInset>

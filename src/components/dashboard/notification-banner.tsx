@@ -6,10 +6,11 @@ import { Button } from '@/components/ui/button';
 import { BellRing, BellOff, X, Info, Apple } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
-export function NotificationBanner() {
+export function NotificationBanner({ context = 'employee' }: { context?: 'employee' | 'admin' }) {
   const [status, setStatus] = useState<NotificationPermission | 'not-supported'>('default');
   const [isVisible, setIsVisible] = useState(true);
   const [isIOS, setIsIOS] = useState(false);
+  const isAdmin = context === 'admin';
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -68,12 +69,14 @@ export function NotificationBanner() {
           
           <div className="flex-1 space-y-1">
             <h4 className="font-bold text-sm flex items-center gap-2">
-              {status === 'denied' ? 'Avisos Bloqueados' : '¿Quieres recibir tus recibos al instante?'}
+              {status === 'denied' ? 'Avisos Bloqueados' : (isAdmin ? '¿Quieres recibir alertas al instante?' : '¿Quieres recibir tus recibos al instante?')}
             </h4>
             <p className="text-xs text-muted-foreground leading-relaxed">
               {status === 'denied' 
-                ? 'Has bloqueado las notificaciones. Para recibir avisos de tus pagos, haz clic en el icono del "candado" junto a la dirección web y elige "Permitir".' 
-                : 'Activa las notificaciones para que te avisemos en cuanto tu recibo de pago esté disponible en el sistema.'}
+                ? 'Has bloqueado las notificaciones. Para recibir avisos, haz clic en el icono del "candado" junto a la dirección web y elige "Permitir".' 
+                : (isAdmin 
+                  ? 'Activa las notificaciones para enterarte al instante de nuevos permisos, trámites y solicitudes de tu equipo.' 
+                  : 'Activa las notificaciones para que te avisemos en cuanto tu recibo de pago esté disponible en el sistema.')}
             </p>
             
             {isIOS && (
