@@ -230,3 +230,33 @@ export function fechaEnLetras(fecha: Date): string {
   const anioLetras = anioALetras(anio);
   return `a los ${diaLetras} días del mes de ${mesLetras} de ${anioLetras}`;
 }
+
+/**
+ * Convierte una fecha (Date o string YYYY-MM-DD) a formato legible:
+ * "04 de agosto de 2026".
+ * Si no puede interpretarse, devuelve el valor original (o '').
+ */
+export function fechaCortaEnLetras(fecha: Date | string): string {
+  if (!fecha) return '';
+
+  let d: Date;
+  if (typeof fecha === 'string') {
+    const m = fecha.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (m) {
+      d = new Date(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10));
+    } else {
+      d = new Date(fecha);
+    }
+  } else {
+    d = fecha;
+  }
+
+  if (!d || isNaN(d.getTime())) {
+    return typeof fecha === 'string' ? fecha : '';
+  }
+
+  const dia = String(d.getDate()).padStart(2, '0');
+  const mes = MESES_LETRAS[d.getMonth()];
+  const anio = d.getFullYear();
+  return `${dia} de ${mes} de ${anio}`;
+}

@@ -212,6 +212,14 @@ export async function GET(request: Request) {
       return NextResponse.json({ ok: true, total: lista.length, empleados: lista });
     }
 
+    // Lista completa formateada (para la tabla de empleados y generar contratos)
+    if (todos === 'full') {
+      const lista = cache.empleados
+        .map((emp: any) => formatearParaApp(emp))
+        .filter((emp: any) => emp && emp.encontrado);
+      return NextResponse.json({ ok: true, total: lista.length, empleados: lista });
+    }
+
     // Buscar uno por código (compara como número, ignora formato 0001 vs 1)
     if (codigo) {
       const codigoInt = parseInt(String(codigo).replace(/^0+/, '') || '0', 10);

@@ -103,6 +103,16 @@ export type WarningRecord = {
   position: string;
   comments: string; // Derecho a descargo
   createdAt: string;
+  // Nuevos campos del memorándum disciplinario
+  numeroMemorandum?: string;
+  department?: string;
+  motivo?: string;
+  tipoFalta?: string;
+  art31?: string;
+  art32?: string;
+  art50?: string;
+  descripcion?: string;
+  representanteRrhh?: string;
 };
 
 export type EmployeeHistoryRecord = {
@@ -139,6 +149,7 @@ export type CompanyDefaults = {
   estadoFamiliarEmpleador: string;
   profesionEmpleador: string;
   domicilioEmpleador: string;
+  residenciaEmpleador: string;
   lugarExpedicionDuiEmpleador: string;
   fechaExpedicionDuiEmpleador: string;
 
@@ -186,6 +197,7 @@ export type ContractRecord = {
   estadoFamiliarEmpleador: string;
   profesionEmpleador: string;
   domicilioEmpleador: string;
+  residenciaEmpleador: string;
   lugarExpedicionDuiEmpleador: string;
   fechaExpedicionDuiEmpleador: string;
 
@@ -208,6 +220,7 @@ export type ContractRecord = {
   representanteLegalEmpresa: string;
   tipoDuracionContrato: string;
   periodoContrato: string;
+  periodoContratoFin: string;
   fechaInicioServicio: string;
   lugarPrestacionServicios: string;
   direccionPrestacionServicios: string;

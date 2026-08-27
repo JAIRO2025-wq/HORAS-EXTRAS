@@ -1,0 +1,7 @@
+
+Tipo de falta	Art. 31 (obligaciones)	Art. 32 (prohibiciones)	Art. 50 (despido)
+Inasistencia	Ord. 2° y 10°	Ord. 2°	Ord. 12°
+Retardo	Ord. 10°	Ord. 2°	Ord. 12° (si acumula)
+Mal rendimiento	Ord. 5° (cumplir órdenes)	Ord. 5° (ejecutar mal el trabajo)	Ord. 11° (ineficiencia)
+Desobediencia	Ord. 5°	—	Ord. 9°
+Mal uso de equipo	Ord. 6° (cuidar herramientas)	—	Ord. 13°

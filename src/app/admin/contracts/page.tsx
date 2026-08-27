@@ -14,7 +14,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import type { ContractRecord, Employee, Dependiente, CompanyProfile, Branch } from '@/lib/types';
+import type { ContractRecord, Employee, Dependiente, CompanyProfile, Branch, EmployeeHistoryRecord, WarningRecord } from '@/lib/types';
 import { numeroALetras, fechaEnLetras } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import {
@@ -65,6 +65,7 @@ const defaultForm = {
   estadoFamiliarEmpleador: '',
   profesionEmpleador: '',
   domicilioEmpleador: '',
+  residenciaEmpleador: '',
   lugarExpedicionDuiEmpleador: '',
   fechaExpedicionDuiEmpleador: '',
   // Empleado
@@ -85,6 +86,7 @@ const defaultForm = {
   representanteLegalEmpresa: '',
   tipoDuracionContrato: 'Indefinido',
   periodoContrato: '',
+  periodoContratoFin: '',
   fechaInicioServicio: '',
   lugarPrestacionServicios: '',
   direccionPrestacionServicios: '',
@@ -224,6 +226,20 @@ export default function ContractsPage() {
   const [sheetSelectedCode, setSheetSelectedCode] = useState('');
   const [sheetSearch, setSheetSearch] = useState('');
   const [sheetCacheInfo, setSheetCacheInfo] = useState<{ hasData: boolean; count: number; updatedAt?: string }>({ hasData: false, count: 0 });
+  const [sheetEmployeesFull, setSheetEmployeesFull] = useState<any[]>([]);
+  const [sheetTableSearch, setSheetTableSearch] = useState('');
+  const [pendingSheetEmployee, setPendingSheetEmployee] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState('contratos');
+  const [historyDocs, setHistoryDocs] = useState<EmployeeHistoryRecord[]>([]);
+  const [warnings, setWarnings] = useState<WarningRecord[]>([]);
+  const [docDialog, setDocDialog] = useState<{ name: string; dui: string; position: string } | null>(null);
+  const [docTab, setDocTab] = useState<'document' | 'warning'>('document');
+  const [docType, setDocType] = useState('');
+  const [docFile, setDocFile] = useState<{ dataUri: string; fileName: string } | null>(null);
+  const [docNotes, setDocNotes] = useState('');
+  const [warnIncidentDate, setWarnIncidentDate] = useState('');
+  const [warnComments, setWarnComments] = useState('');
+  const [docSaving, setDocSaving] = useState(false);
 
   const fetchContracts = useCallback(async () => {
     try {
@@ -246,9 +262,32 @@ export default function ContractsPage() {
     } catch (e) { console.error(e); }
   }, []);
 
+  const fetchSheetEmployeesFull = useCallback(async () => {
+    try {
+      const res = await fetch('/api/admin/sheets/employee?todos=full');
+      const json = await res.json();
+      if (json.ok && json.empleados) {
+        setSheetEmployeesFull(json.empleados);
+        setSheetCacheInfo({ hasData: true, count: json.total || json.empleados.length });
+      } else {
+        setSheetEmployeesFull([]);
+      }
+    } catch (e) { /* silencioso */ }
+  }, []);
+
+  const fetchEmployeeDocs = useCallback(async () => {
+    try {
+      const [hRes, wRes] = await Promise.all([fetch('/api/history'), fetch('/api/admin/warnings')]);
+      if (hRes.ok) setHistoryDocs(await hRes.json());
+      if (wRes.ok) setWarnings(await wRes.json());
+    } catch (e) { /* silencioso */ }
+  }, []);
+
   useEffect(() => {
     Promise.all([fetchContracts(), fetchEmployees(), fetchBranches()]).finally(() => setIsLoading(false));
-  }, [fetchContracts, fetchEmployees, fetchBranches]);
+    fetchSheetEmployeesFull();
+    fetchEmployeeDocs();
+  }, [fetchContracts, fetchEmployees, fetchBranches, fetchSheetEmployeesFull, fetchEmployeeDocs]);
 
   // Auto-llenados del formulario
   useEffect(() => {
@@ -282,6 +321,7 @@ export default function ContractsPage() {
     setDependientes([emptyDependiente(), emptyDependiente()]);
     setSelectedEmployee(null);
     setSheetSelectedCode('');
+    setPendingSheetEmployee(null);
     setCurrentTab('empresa');
   };
 
@@ -338,6 +378,7 @@ export default function ContractsPage() {
     estadoFamiliarEmpleador: profile.estadoFamiliarEmpleador || '',
     profesionEmpleador: profile.profesionEmpleador || '',
     domicilioEmpleador: profile.domicilioEmpleador || '',
+    residenciaEmpleador: profile.residenciaEmpleador || '',
     lugarExpedicionDuiEmpleador: profile.lugarExpedicionDuiEmpleador || '',
     fechaExpedicionDuiEmpleador: profile.fechaExpedicionDuiEmpleador || '',
     distritoFirma: profile.distritoFirma || '',
@@ -352,9 +393,14 @@ export default function ContractsPage() {
   const handleCompanySelected = () => {
     const profile = companyProfiles.find((p) => p.id === selectedCompanyId);
     if (!profile) return;
-    const formWithDefaults = applyDefaults(profile);
     const fechaHoy = fechaEnLetras(new Date());
-    setForm({ ...formWithDefaults, fechaFirmaEnLetras: fechaHoy, fechaEmisionEnLetras: fechaHoy });
+    let formWithDefaults = applyDefaults(profile);
+    formWithDefaults = { ...formWithDefaults, fechaFirmaEnLetras: fechaHoy, fechaEmisionEnLetras: fechaHoy };
+    // Si venimos de "Generar contrato" desde la tabla, conservamos los datos del empleado
+    if (pendingSheetEmployee) {
+      formWithDefaults = { ...formWithDefaults, ...sheetDataToFormPartial(pendingSheetEmployee) };
+    }
+    setForm(formWithDefaults);
     setShowCompanySelect(false);
     setShowCreate(true);
   };
@@ -453,6 +499,7 @@ export default function ContractsPage() {
       if (json.ok) {
         setSheetCacheInfo({ hasData: true, count: json.total, updatedAt: json.updatedAt });
         await fetchSheetEmployeeList();
+        await fetchSheetEmployeesFull();
         toast({ title: 'Datos actualizados', description: `${json.total} empleados descargados desde Google Sheets.` });
       } else {
         toast({ variant: 'destructive', title: 'Error al sincronizar', description: json.error || 'No se pudo conectar con Google Sheets.' });
@@ -464,7 +511,41 @@ export default function ContractsPage() {
     }
   };
 
-  // Seleccionar empleado desde Google Sheets
+  // Mapea los datos de un empleado de Google Sheets a los campos del formulario
+  const sheetDataToFormPartial = (d: any) => ({
+    nombreEmpleado: d.nombreEmpleado || '',
+    duiEmpleado: d.duiEmpleado || '',
+    nitEmpleado: d.nitEmpleado || '',
+    edadEmpleado: d.edadEmpleado || '',
+    sexoEmpleado: d.sexoEmpleado || '',
+    nacionalidadEmpleado: d.nacionalidadEmpleado || '',
+    estadoFamiliarEmpleado: d.estadoFamiliarEmpleado || '',
+    profesionEmpleado: d.profesionEmpleado || '',
+    domicilioEmpleado: d.domicilioEmpleado || '',
+    residenciaEmpleado: d.residenciaEmpleado || '',
+    cargoPuesto: d.cargoPuesto || '',
+    fechaInicioServicio: d.fechaInicioServicio || '',
+    direccionPrestacionServicios: d.direccionPrestacionServicios || '',
+    lugarPrestacionServicios: d.lugarPrestacionServicios || '',
+    salarioEnNumeros: d.salarioEnNumeros || '',
+    employeeName: d.employeeName || '',
+    branch: d.branch || '',
+    salary: d.salary || 0,
+  });
+
+  const applyDependientes = (deps: any[]) => {
+    if (deps?.length) {
+      setDependientes(deps.map((dep: any) => ({
+        nombre: dep.nombre || '',
+        apellido: dep.apellido || '',
+        edad: dep.edad || '',
+        parentesco: dep.parentesco || '',
+        direccion: dep.direccion || '',
+      })));
+    }
+  };
+
+  // Seleccionar empleado desde Google Sheets (dentro del formulario)
   const handleSheetEmployeeSelect = async (codigo: string) => {
     if (!codigo) return;
     setSheetSelectedCode(codigo);
@@ -474,35 +555,9 @@ export default function ContractsPage() {
       const json = await res.json();
       if (json.ok && json.data?.encontrado) {
         const d = json.data;
-        updateForm('nombreEmpleado', d.nombreEmpleado || '');
-        updateForm('duiEmpleado', d.duiEmpleado || '');
-        updateForm('nitEmpleado', d.nitEmpleado || '');
-        updateForm('edadEmpleado', d.edadEmpleado || '');
-        updateForm('sexoEmpleado', d.sexoEmpleado || '');
-        updateForm('nacionalidadEmpleado', d.nacionalidadEmpleado || '');
-        updateForm('estadoFamiliarEmpleado', d.estadoFamiliarEmpleado || '');
-        updateForm('profesionEmpleado', d.profesionEmpleado || '');
-        updateForm('domicilioEmpleado', d.domicilioEmpleado || '');
-        updateForm('residenciaEmpleado', d.residenciaEmpleado || '');
-        updateForm('cargoPuesto', d.cargoPuesto || '');
-        updateForm('fechaInicioServicio', d.fechaInicioServicio || '');
-        updateForm('direccionPrestacionServicios', d.direccionPrestacionServicios || '');
-        updateForm('lugarPrestacionServicios', d.lugarPrestacionServicios || '');
-        updateForm('salarioEnNumeros', d.salarioEnNumeros || '');
-        updateForm('employeeName', d.employeeName || '');
-        updateForm('branch', d.branch || '');
-        updateForm('salary', d.salary || 0);
-        // Dependientes (todos, sin límite de 2)
-        if (d.dependientes?.length) {
-          const deps: Dependiente[] = d.dependientes.map((dep: any) => ({
-            nombre: dep.nombre || '',
-            apellido: dep.apellido || '',
-            edad: dep.edad || '',
-            parentesco: dep.parentesco || '',
-            direccion: dep.direccion || '',
-          }));
-          setDependientes(deps);
-        }
+        const partial = sheetDataToFormPartial(d);
+        (Object.keys(partial) as (keyof typeof partial)[]).forEach((k) => updateForm(k, partial[k] as string | number));
+        applyDependientes(d.dependientes);
         toast({ title: 'Empleado cargado', description: `"${d.nombreEmpleado}" importado desde Google Sheets.` });
         setSheetSearch('');
       } else {
@@ -512,6 +567,210 @@ export default function ContractsPage() {
       toast({ variant: 'destructive', title: 'Error de conexión', description: 'No se pudo conectar con Google Sheets.' });
     } finally {
       setIsSearchingSheet(false);
+    }
+  };
+
+  // Generar contrato directamente desde la tabla de empleados (precarga y abre el formulario)
+  const openCreateFromEmployee = async (codigo: string) => {
+    if (!codigo) return;
+    resetForm();
+    const fechaHoy = fechaEnLetras(new Date());
+
+    // Cargar datos del empleado
+    let sheetData: any = null;
+    try {
+      const res = await fetch(`/api/admin/sheets/employee?codigo=${encodeURIComponent(codigo)}`);
+      const json = await res.json();
+      if (json.ok && json.data?.encontrado) sheetData = json.data;
+    } catch (e) { /* silencioso */ }
+
+    if (!sheetData) {
+      toast({ variant: 'destructive', title: 'Error', description: 'No se pudieron cargar los datos del empleado.' });
+      return;
+    }
+
+    applyDependientes(sheetData.dependientes);
+    setPendingSheetEmployee(sheetData);
+
+    // Cargar perfiles de empresa
+    let profiles: CompanyProfile[] = [];
+    try {
+      const res = await fetch('/api/admin/datos-c');
+      if (res.ok) profiles = await res.json();
+    } catch (e) { /* silencioso */ }
+    setCompanyProfiles(profiles);
+
+    const partial = sheetDataToFormPartial(sheetData);
+
+    if (profiles.length === 1) {
+      let formWithDefaults = applyDefaults(profiles[0]);
+      formWithDefaults = { ...formWithDefaults, ...partial, fechaFirmaEnLetras: fechaHoy, fechaEmisionEnLetras: fechaHoy };
+      setForm(formWithDefaults);
+      setShowCreate(true);
+    } else if (profiles.length > 1) {
+      setShowCompanySelect(true);
+    } else {
+      setForm({ ...defaultForm, ...partial, fechaFirmaEnLetras: fechaHoy, fechaEmisionEnLetras: fechaHoy });
+      setShowCreate(true);
+    }
+  };
+
+  // Busca si un empleado de Google Sheets ya tiene un contrato creado (por DUI o nombre)
+  const findContractByEmployee = (emp: any): ContractRecord | undefined => {
+    const dui = (emp.duiEmpleado || '').trim();
+    if (dui) {
+      const byDui = contracts.find((c) => (c.duiEmpleado || '').trim() === dui);
+      if (byDui) return byDui;
+    }
+    const nombre = (emp.nombreEmpleado || '').toLowerCase();
+    if (!nombre) return undefined;
+    return contracts.find((c) => (c.nombreEmpleado || c.employeeName || '').toLowerCase() === nombre);
+  };
+
+  // Iconos extra de documentos del empleado (DUI, CV, amonestaciones, etc.)
+  const renderExtraDocIcons = (nombreEmpleado: string) => {
+    const nombre = (nombreEmpleado || '').toLowerCase();
+    if (!nombre) return null;
+
+    const docs = historyDocs.filter((h) => (h.employeeName || '').toLowerCase() === nombre);
+    const warns = warnings.filter((w) => (w.employeeName || '').toLowerCase() === nombre);
+
+    const iconForType = (t: string) => {
+      const s = (t || '').toLowerCase();
+      if (s.includes('dui')) return { Icon: IdCard, color: 'text-sky-500' };
+      if (s.includes('cv') || s.includes('curri') || s.includes('hoja de vida')) return { Icon: Briefcase, color: 'text-indigo-500' };
+      if (s.includes('amonest') || s.includes('warning') || s.includes('llamada') || s.includes('memo') || s.includes('falta')) return { Icon: AlertCircle, color: 'text-red-500' };
+      if (s.includes('foto') || s.includes('fotografia')) return { Icon: IdCard, color: 'text-teal-500' };
+      return { Icon: FileText, color: 'text-slate-500' };
+    };
+
+    return (
+      <>
+        {docs.map((d) => {
+          const { Icon, color } = iconForType(d.documentType);
+          const label = d.documentType || d.fileName || 'Documento';
+          return (
+            <button
+              key={d.id}
+              type="button"
+              title={`Ver: ${label}`}
+              className="p-0 bg-transparent border-0 cursor-pointer hover:scale-110 transition-transform"
+              onClick={(e) => { e.stopPropagation(); window.open(d.fileUrl, '_blank'); }}
+            >
+              <Icon className={`h-4 w-4 ${color}`} />
+            </button>
+          );
+        })}
+        {warns.length > 0 && (
+          <button
+            type="button"
+            title={`Amonestaciones (${warns.length})`}
+            className="p-0 bg-transparent border-0 cursor-pointer hover:scale-110 transition-transform"
+            onClick={(e) => { e.stopPropagation(); window.open('/admin/warnings', '_blank'); }}
+          >
+            <AlertCircle className="h-4 w-4 text-red-500" />
+          </button>
+        )}
+      </>
+    );
+  };
+
+  const contractDocIcon = (Icon: any, title: string, url: string | undefined, color: string) => {
+    if (!url) return null;
+    return (
+      <button
+        type="button"
+        title={`Ver: ${title}`}
+        className="p-0 bg-transparent border-0 cursor-pointer hover:scale-110 transition-transform"
+        onClick={(e) => { e.stopPropagation(); window.open(url, '_blank'); }}
+      >
+        <Icon className={`h-4 w-4 ${color}`} />
+      </button>
+    );
+  };
+
+  const countExtraDocs = (nombreEmpleado: string) => {
+    const nombre = (nombreEmpleado || '').toLowerCase();
+    if (!nombre) return 0;
+    const docs = historyDocs.filter((h) => (h.employeeName || '').toLowerCase() === nombre);
+    const warns = warnings.filter((w) => (w.employeeName || '').toLowerCase() === nombre);
+    return docs.length + (warns.length > 0 ? 1 : 0);
+  };
+
+  const openDocDialog = (name: string, dui: string, position: string) => {
+    setDocTab('document');
+    setDocType('');
+    setDocFile(null);
+    setDocNotes('');
+    setWarnIncidentDate(new Date().toISOString().split('T')[0]);
+    setWarnComments('');
+    setDocDialog({ name, dui: dui || '', position: position || '' });
+  };
+
+  const handleUploadEmployeeDoc = async () => {
+    if (!docDialog) return;
+    if (!docType || !docFile) {
+      toast({ variant: 'destructive', title: 'Faltan datos', description: 'Selecciona el tipo y el archivo.' });
+      return;
+    }
+    setDocSaving(true);
+    try {
+      const res = await fetch('/api/history', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          documentType: docType,
+          fileName: docFile.fileName,
+          fileDataUri: docFile.dataUri,
+          notes: docNotes,
+          employeeName: docDialog.name,
+        }),
+      });
+      if (res.ok) {
+        toast({ title: 'Documento subido', description: 'Se guardó en el expediente del empleado.' });
+        setDocDialog(null);
+        fetchEmployeeDocs();
+      } else {
+        throw new Error();
+      }
+    } catch {
+      toast({ variant: 'destructive', title: 'Error al subir' });
+    } finally {
+      setDocSaving(false);
+    }
+  };
+
+  const handleCreateWarning = async () => {
+    if (!docDialog) return;
+    if (!warnIncidentDate) {
+      toast({ variant: 'destructive', title: 'Faltan datos', description: 'Indica la fecha de la falta.' });
+      return;
+    }
+    setDocSaving(true);
+    try {
+      const res = await fetch('/api/admin/warnings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          employeeName: docDialog.name,
+          dui: docDialog.dui,
+          position: docDialog.position || 'Colaborador',
+          incidentDate: warnIncidentDate,
+          date: new Date().toISOString().split('T')[0],
+          comments: warnComments,
+        }),
+      });
+      if (res.ok) {
+        toast({ title: 'Amonestación registrada' });
+        setDocDialog(null);
+        fetchEmployeeDocs();
+      } else {
+        throw new Error();
+      }
+    } catch {
+      toast({ variant: 'destructive', title: 'Error al guardar' });
+    } finally {
+      setDocSaving(false);
     }
   };
 
@@ -596,31 +855,36 @@ export default function ContractsPage() {
   };
 
   // Subir firmado
-  const handleUpload = async (file: File) => {
-    if (!showUpload) return;
-    const { contract, type } = showUpload;
+  const handleUpload = async (file: File, contract: ContractRecord, type: string) => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('type', type);
 
     try {
       const res = await fetch('/api/admin/contracts/upload', { method: 'POST', body: formData });
-      if (res.ok) {
-        const result = await res.json();
-        const updateField =
-          type === 'contract_signed' ? 'contractSignedUrl'
-          : type === 'confidentiality_signed' ? 'confidentialitySignedUrl'
-          : 'salaryCertificateUrl';
-
-        await fetch('/api/admin/contracts', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: contract.id, [updateField]: result.url }),
-        });
-        await fetchContracts();
-        setShowUpload(null);
+      if (!res.ok) {
+        toast({ variant: 'destructive', title: 'Error al subir', description: 'No se pudo subir el archivo.' });
+        return;
       }
-    } catch (e) { console.error(e); }
+      const result = await res.json();
+      const updateField =
+        type === 'contract_signed' ? 'contractSignedUrl'
+        : type === 'confidentiality_signed' ? 'confidentialitySignedUrl'
+        : 'salaryCertificateUrl';
+
+      await fetch('/api/admin/contracts', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: contract.id, [updateField]: result.url }),
+      });
+      await fetchContracts();
+      toast({ title: 'Archivo subido', description: 'El documento firmado se guardó correctamente.' });
+    } catch (e) {
+      console.error(e);
+      toast({ variant: 'destructive', title: 'Error al subir', description: (e as Error).message });
+    } finally {
+      setShowUpload(null);
+    }
   };
 
   const handleStatusChange = async (contract: ContractRecord, newStatus: string) => {
@@ -652,6 +916,7 @@ export default function ContractsPage() {
       estadoFamiliarEmpleador: contract.estadoFamiliarEmpleador,
       profesionEmpleador: contract.profesionEmpleador,
       domicilioEmpleador: contract.domicilioEmpleador,
+      residenciaEmpleador: contract.residenciaEmpleador,
       lugarExpedicionDuiEmpleador: contract.lugarExpedicionDuiEmpleador,
       fechaExpedicionDuiEmpleador: contract.fechaExpedicionDuiEmpleador,
       nombreEmpleado: contract.nombreEmpleado,
@@ -670,6 +935,7 @@ export default function ContractsPage() {
       representanteLegalEmpresa: contract.representanteLegalEmpresa,
       tipoDuracionContrato: contract.tipoDuracionContrato,
       periodoContrato: contract.periodoContrato,
+      periodoContratoFin: contract.periodoContratoFin || '',
       fechaInicioServicio: contract.fechaInicioServicio,
       lugarPrestacionServicios: contract.lugarPrestacionServicios,
       direccionPrestacionServicios: contract.direccionPrestacionServicios,
@@ -826,6 +1092,7 @@ export default function ContractsPage() {
           <FormSelect label="Estado Familiar" value={form.estadoFamiliarEmpleador || ''} onChange={(v) => updateForm('estadoFamiliarEmpleador', v)} options={['Soltero', 'Casado', 'Divorciado', 'Viudo', 'Acompañado']} />
           <FormInput label="Profesión/Oficio" value={form.profesionEmpleador || ''} onChange={(v) => updateForm('profesionEmpleador', v)} />
           <FormInput label="Domicilio" value={form.domicilioEmpleador || ''} onChange={(v) => updateForm('domicilioEmpleador', v)} />
+          <FormInput label="Residencia (Departamento)" value={form.residenciaEmpleador || ''} onChange={(v) => updateForm('residenciaEmpleador', v)} placeholder="Ej: San Miguel" />
           <FormInput label="Lugar Expedición DUI" value={form.lugarExpedicionDuiEmpleador || ''} onChange={(v) => updateForm('lugarExpedicionDuiEmpleador', v)} placeholder="Ej: San Salvador" />
           <FormInput label="Fecha Expedición DUI" value={form.fechaExpedicionDuiEmpleador || ''} onChange={(v) => updateForm('fechaExpedicionDuiEmpleador', v)} type="date" />
         </div>
@@ -923,7 +1190,8 @@ export default function ContractsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 px-1">
           <FormInput label="Cargo / Puesto" value={form.cargoPuesto || ''} onChange={(v) => updateForm('cargoPuesto', v)} required />
           <FormSelect label="Tipo de Duración" value={form.tipoDuracionContrato || ''} onChange={(v) => updateForm('tipoDuracionContrato', v)} options={DURACION_TIPOS} />
-          <FormInput label="Período del Contrato" value={form.periodoContrato || ''} onChange={(v) => updateForm('periodoContrato', v)} placeholder="Ej: Del 01/01/2026 al 31/12/2026" />
+          <FormInput label="Período del Contrato (Del)" value={form.periodoContrato || ''} onChange={(v) => updateForm('periodoContrato', v)} type="date" />
+          <FormInput label="Período del Contrato (Al)" value={form.periodoContratoFin || ''} onChange={(v) => updateForm('periodoContratoFin', v)} type="date" />
           <FormInput label="Fecha Inicio Servicio" value={form.fechaInicioServicio || ''} onChange={(v) => updateForm('fechaInicioServicio', v)} type="date" />
           <FormSelect label="Lugar de Prestación" value={form.lugarPrestacionServicios || ''} onChange={(v) => { updateForm('lugarPrestacionServicios', v); const branch = branches.find(b => b.name === v); if (branch?.direccion) updateForm('direccionPrestacionServicios', branch.direccion); }} options={branches.map(b => b.name)} placeholder="Seleccionar sucursal..." />
           <FormInput label="Dirección de Prestación" value={form.direccionPrestacionServicios || ''} onChange={(v) => updateForm('direccionPrestacionServicios', v)} />
@@ -1004,6 +1272,147 @@ export default function ContractsPage() {
         </Button>
       </div>
 
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className="w-full sm:w-auto">
+          <TabsTrigger value="google" className="gap-2"><Users className="h-4 w-4" /> Empleados Google</TabsTrigger>
+          <TabsTrigger value="contratos" className="gap-2"><FileSignature className="h-4 w-4" /> Contratos</TabsTrigger>
+        </TabsList>
+
+        {/* Tab: Empleados desde Google Sheets */}
+        <TabsContent value="google" className="space-y-4 pt-4">
+          <Card>
+            <CardHeader className="p-4 pb-2">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2">
+                <div>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <Users className="h-4 w-4 text-primary" /> Empleados desde Google Sheets
+                  </CardTitle>
+                  <CardDescription className="text-xs">
+                    {sheetEmployeesFull.length > 0
+                      ? `${sheetEmployeesFull.length} empleados sincronizados.`
+                      : 'Sin datos. Presiona "Actualizar" para descargarlos de Google Sheets.'}
+                    {sheetCacheInfo.updatedAt && ` Última actualización: ${new Date(sheetCacheInfo.updatedAt).toLocaleString('es-SV')}.`}
+                  </CardDescription>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      className="h-9 pl-8 w-full sm:w-72 text-sm"
+                      placeholder="Buscar por nombre, código o cargo..."
+                      value={sheetTableSearch}
+                      onChange={(e) => setSheetTableSearch(e.target.value)}
+                    />
+                  </div>
+                  <Button size="sm" variant="outline" onClick={syncSheetData} disabled={isSyncingSheet} className="gap-1">
+                    {isSyncingSheet ? <Loader2 className="h-3 w-3 animate-spin" /> : <RefreshCcw className="h-3 w-3" />}
+                    Actualizar
+                  </Button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="p-0">
+              {sheetEmployeesFull.length === 0 ? (
+                <div className="text-center py-8 text-sm text-muted-foreground">
+                  <Users className="h-8 w-8 mx-auto mb-2 opacity-20" />
+                  No hay empleados sincronizados.
+                </div>
+              ) : (
+                <ScrollArea className="h-[500px]">
+                  <Table>
+                    <TableHeader className="sticky top-0 bg-card z-10">
+                      <TableRow>
+                        <TableHead className="w-[120px]">ID</TableHead>
+                        <TableHead>Empleado</TableHead>
+                        <TableHead>Cargo</TableHead>
+                        <TableHead>DUI</TableHead>
+                        <TableHead className="text-right">Salario</TableHead>
+                        <TableHead>Estado</TableHead>
+                        <TableHead>Documentos</TableHead>
+                        <TableHead className="text-right">Acciones</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {sheetEmployeesFull
+                        .filter((emp) => {
+                          if (!sheetTableSearch.trim()) return true;
+                          const q = sheetTableSearch.trim().toLowerCase();
+                          return (emp.nombreEmpleado || '').toLowerCase().includes(q)
+                            || (emp.codigo || '').toLowerCase().includes(q)
+                            || (emp.cargoPuesto || '').toLowerCase().includes(q);
+                        })
+                        .map((emp) => {
+                          const contract = findContractByEmployee(emp);
+                          const status = contract ? (STATUS_MAP[contract.status] || STATUS_MAP.pendiente) : STATUS_MAP.pendiente;
+                          const StatusIcon = status.icon;
+                          const hasGen = !!contract?.contractGeneratedUrl;
+                          const hasSig = !!contract?.contractSignedUrl;
+                          const hasConf = !!contract?.confidentialityGeneratedUrl;
+                          const hasConfSig = !!contract?.confidentialitySignedUrl;
+                          const hasSalary = !!contract?.salaryCertificateUrl;
+                          const totalDocs = [hasGen, hasSig, hasConf, hasConfSig, hasSalary].filter(Boolean).length;
+
+                          return (
+                            <TableRow key={emp.codigo} className="cursor-pointer hover:bg-muted/30" onClick={() => contract && setShowDetail(contract)}>
+                              <TableCell className="font-mono text-xs">{emp.codigo}</TableCell>
+                              <TableCell className="font-medium">{emp.nombreEmpleado}</TableCell>
+                              <TableCell className="text-sm">{emp.cargoPuesto}</TableCell>
+                              <TableCell className="font-mono text-xs">{emp.duiEmpleado}</TableCell>
+                              <TableCell className="text-right font-mono text-sm">{emp.salarioEnNumeros}</TableCell>
+                              <TableCell>
+                                <Badge variant={status.variant} className="gap-1">
+                                  <StatusIcon className="h-3 w-3" /> {status.label}
+                                </Badge>
+                              </TableCell>
+                              <TableCell>
+                                <div className="flex gap-1">
+                                  {contractDocIcon(FileText, 'Contrato generado', contract?.contractGeneratedUrl, 'text-blue-500')}
+                                  {contractDocIcon(CheckCircle2, 'Contrato firmado', contract?.contractSignedUrl, 'text-green-500')}
+                                  {contractDocIcon(Shield, 'Confidencialidad generada', contract?.confidentialityGeneratedUrl, 'text-purple-500')}
+                                  {contractDocIcon(Shield, 'Confidencialidad firmada', contract?.confidentialitySignedUrl, 'text-green-500')}
+                                  {contractDocIcon(Receipt, 'Constancia de salario', contract?.salaryCertificateUrl, 'text-amber-500')}
+                                  {renderExtraDocIcons(emp.nombreEmpleado)}
+                                  {totalDocs === 0 && countExtraDocs(emp.nombreEmpleado) === 0 && <span className="text-xs text-muted-foreground">--</span>}
+                                  <Button
+                                    variant="ghost"
+                                    className="h-5 w-5 p-0 text-muted-foreground hover:text-primary"
+                                    title="Subir documento / amonestación"
+                                    onClick={(e) => { e.stopPropagation(); openDocDialog(emp.nombreEmpleado, emp.duiEmpleado, emp.cargoPuesto); }}
+                                  >
+                                    <Plus className="h-3.5 w-3.5" />
+                                  </Button>
+                                </div>
+                              </TableCell>
+                              <TableCell className="text-right">
+                                {contract ? (
+                                  <>
+                                    <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); setShowDetail(contract); }}>
+                                      <Eye className="h-4 w-4" />
+                                    </Button>
+                                    <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); openEdit(contract); }}>
+                                      <Edit3 className="h-4 w-4" />
+                                    </Button>
+                                  </>
+                                ) : (
+                                  <Button size="sm" variant="outline" className="gap-1" onClick={(e) => { e.stopPropagation(); openCreateFromEmployee(emp.codigo); }}>
+                                    <FileSignature className="h-3 w-3" /> Generar contrato
+                                  </Button>
+                                )}
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                    </TableBody>
+                  </Table>
+                </ScrollArea>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Tab: Contratos */}
+        <TabsContent value="contratos" className="space-y-4 pt-4">
+
       {/* Filtros */}
       <Card>
         <CardContent className="p-4">
@@ -1039,6 +1448,7 @@ export default function ContractsPage() {
                   <TableHead className="w-[120px]">ID</TableHead>
                   <TableHead>Empleado</TableHead>
                   <TableHead>Cargo</TableHead>
+                  <TableHead>DUI</TableHead>
                   <TableHead className="text-right">Salario</TableHead>
                   <TableHead>Estado</TableHead>
                   <TableHead>Documentos</TableHead>
@@ -1048,7 +1458,7 @@ export default function ContractsPage() {
               <TableBody>
                 {filteredContracts.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={7} className="h-32 text-center text-muted-foreground">
+                    <TableCell colSpan={8} className="h-32 text-center text-muted-foreground">
                       <FileSignature className="h-8 w-8 mx-auto mb-2 opacity-20" />
                       No hay contratos registrados
                     </TableCell>
@@ -1069,6 +1479,7 @@ export default function ContractsPage() {
                         <TableCell className="font-mono text-xs">{c.id}</TableCell>
                         <TableCell className="font-medium">{c.nombreEmpleado || c.employeeName}</TableCell>
                         <TableCell className="text-sm">{c.cargoPuesto}</TableCell>
+                        <TableCell className="font-mono text-xs">{c.duiEmpleado}</TableCell>
                         <TableCell className="text-right font-mono text-sm">{c.salarioEnNumeros || `$${c.salary}`}</TableCell>
                         <TableCell>
                           <Badge variant={status.variant} className="gap-1">
@@ -1077,12 +1488,21 @@ export default function ContractsPage() {
                         </TableCell>
                         <TableCell>
                           <div className="flex gap-1">
-                            {hasGen && <span title="Contrato generado"><FileText className="h-4 w-4 text-blue-500" /></span>}
-                            {hasSig && <span title="Contrato firmado"><CheckCircle2 className="h-4 w-4 text-green-500" /></span>}
-                            {hasConf && <span title="Confidencialidad generada"><Shield className="h-4 w-4 text-purple-500" /></span>}
-                            {hasConfSig && <span title="Confidencialidad firmada"><Shield className="h-4 w-4 text-green-500" /></span>}
-                            {hasSalary && <span title="Constancia de salario"><Receipt className="h-4 w-4 text-amber-500" /></span>}
-                            {totalDocs === 0 && <span className="text-xs text-muted-foreground">--</span>}
+                            {contractDocIcon(FileText, 'Contrato generado', c.contractGeneratedUrl, 'text-blue-500')}
+                            {contractDocIcon(CheckCircle2, 'Contrato firmado', c.contractSignedUrl, 'text-green-500')}
+                            {contractDocIcon(Shield, 'Confidencialidad generada', c.confidentialityGeneratedUrl, 'text-purple-500')}
+                            {contractDocIcon(Shield, 'Confidencialidad firmada', c.confidentialitySignedUrl, 'text-green-500')}
+                            {contractDocIcon(Receipt, 'Constancia de salario', c.salaryCertificateUrl, 'text-amber-500')}
+                            {renderExtraDocIcons(c.nombreEmpleado || c.employeeName)}
+                            {totalDocs === 0 && countExtraDocs(c.nombreEmpleado || c.employeeName) === 0 && <span className="text-xs text-muted-foreground">--</span>}
+                            <Button
+                              variant="ghost"
+                              className="h-5 w-5 p-0 text-muted-foreground hover:text-primary"
+                              title="Subir documento / amonestación"
+                              onClick={(e) => { e.stopPropagation(); openDocDialog(c.nombreEmpleado || c.employeeName || '', c.duiEmpleado || '', c.cargoPuesto || ''); }}
+                            >
+                              <Plus className="h-3.5 w-3.5" />
+                            </Button>
                           </div>
                         </TableCell>
                         <TableCell className="text-right">
@@ -1102,6 +1522,8 @@ export default function ContractsPage() {
           </ScrollArea>
         </CardContent>
       </Card>
+        </TabsContent>
+      </Tabs>
 
       {/* ===== DIALOG: CREAR CONTRATO ===== */}
       <Dialog open={showCreate} onOpenChange={setShowCreate}>
@@ -1216,7 +1638,7 @@ export default function ContractsPage() {
                     const genUrl = isContrato ? showDetail.contractGeneratedUrl : isConf ? showDetail.confidentialityGeneratedUrl : showDetail.salaryCertificateUrl;
                     const signedUrl = isContrato ? showDetail.contractSignedUrl : isConf ? showDetail.confidentialitySignedUrl : undefined;
                     const genType = isContrato ? 'contrato' : isConf ? 'confidencialidad' : 'salario';
-                    const signedType = isContrato ? 'contract_signed' : 'confidentiality_signed';
+                    const signedType = isContrato ? 'contract_signed' : isConf ? 'confidentiality_signed' : undefined;
                     const color = isContrato ? 'blue' : isConf ? 'purple' : 'amber';
                     const Icon = isContrato ? FileText : isConf ? Shield : Receipt;
 
@@ -1272,7 +1694,7 @@ export default function ContractsPage() {
                                         const file = e.target.files?.[0];
                                         if (file) {
                                           setShowUpload({ contract: showDetail, type: signedType, label: `${docName} Firmado` });
-                                          handleUpload(file);
+                                          handleUpload(file, showDetail, signedType);
                                         }
                                       }}
                                     />
@@ -1338,6 +1760,7 @@ export default function ContractsPage() {
                   <PreviewRow label="Estado Familiar" value={showGenerate?.contract.estadoFamiliarEmpleador} />
                   <PreviewRow label="Profesión" value={showGenerate?.contract.profesionEmpleador} />
                   <PreviewRow label="Domicilio" value={showGenerate?.contract.domicilioEmpleador} span />
+                  <PreviewRow label="Residencia" value={showGenerate?.contract.residenciaEmpleador} span />
                 </div>
               </div>
 
@@ -1473,6 +1896,84 @@ export default function ContractsPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowCompanySelect(false)}>Cancelar</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* ===== DIALOG: SUBIR DOCUMENTO / AMONESTACIÓN ===== */}
+      <Dialog open={!!docDialog} onOpenChange={(open) => !open && setDocDialog(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <IdCard className="h-5 w-5 text-primary" /> {docDialog?.name}
+            </DialogTitle>
+            <DialogDescription>Sube DUI, CV u otro documento, o registra una amonestación.</DialogDescription>
+          </DialogHeader>
+
+          <Tabs value={docTab} onValueChange={(v) => setDocTab(v as 'document' | 'warning')}>
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="document" className="gap-1"><FileText className="h-4 w-4" /> Documento</TabsTrigger>
+              <TabsTrigger value="warning" className="gap-1"><AlertCircle className="h-4 w-4" /> Amonestación</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="document" className="space-y-4 pt-4">
+              <div className="space-y-2">
+                <Label>Tipo de documento</Label>
+                <Select value={docType} onValueChange={setDocType}>
+                  <SelectTrigger><SelectValue placeholder="Selecciona el tipo" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="DUI / NIT">DUI / NIT</SelectItem>
+                    <SelectItem value="CV / HOJA DE VIDA">CV / Hoja de vida</SelectItem>
+                    <SelectItem value="FOTOGRAFIA">Fotografía</SelectItem>
+                    <SelectItem value="OTRO DOCUMENTO">Otro documento</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Archivo (PDF o imagen)</Label>
+                <Input
+                  type="file"
+                  accept=".pdf,image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    if (file.size > 10 * 1024 * 1024) {
+                      toast({ variant: 'destructive', title: 'Archivo muy grande', description: 'Máximo 10MB.' });
+                      return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = (ev) => setDocFile({ dataUri: ev.target?.result as string, fileName: file.name });
+                    reader.readAsDataURL(file);
+                  }}
+                />
+                {docFile && <p className="text-xs text-green-600 font-medium truncate">Listo: {docFile.fileName}</p>}
+              </div>
+
+              <div className="space-y-2">
+                <Label>Notas (opcional)</Label>
+                <Textarea value={docNotes} onChange={(e) => setDocNotes(e.target.value)} className="min-h-[60px]" placeholder="Ej: DUI vigente 2026..." />
+              </div>
+            </TabsContent>
+
+            <TabsContent value="warning" className="space-y-4 pt-4">
+              <div className="space-y-2">
+                <Label>Fecha de la falta</Label>
+                <Input type="date" value={warnIncidentDate} onChange={(e) => setWarnIncidentDate(e.target.value)} />
+              </div>
+              <div className="space-y-2">
+                <Label>Comentarios / descargo</Label>
+                <Textarea value={warnComments} onChange={(e) => setWarnComments(e.target.value)} className="min-h-[80px]" placeholder="Describe la falta o el derecho a descargo..." />
+              </div>
+            </TabsContent>
+          </Tabs>
+
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => setDocDialog(null)}>Cancelar</Button>
+            <Button onClick={docTab === 'document' ? handleUploadEmployeeDoc : handleCreateWarning} disabled={docSaving}>
+              {docSaving && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+              {docTab === 'document' ? 'Subir' : 'Guardar'}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

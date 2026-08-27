@@ -43,7 +43,7 @@ export async function POST(request: Request) {
   if (!auth) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   try {
-    const { documentType, fileName, fileDataUri, notes } = await request.json();
+    const { documentType, fileName, fileDataUri, notes, employeeName } = await request.json();
     const id = crypto.randomUUID();
     const uploadDate = new Date().toISOString();
 
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
 
     const newRecord: EmployeeHistoryRecord = {
       id,
-      employeeName: auth.name,
+      employeeName: (auth.role === 'admin' && employeeName) ? employeeName : auth.name,
       documentType,
       fileName,
       fileUrl: `/api/history/file?id=${id}&name=${encodeURIComponent(fileName)}`,

@@ -3,6 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import PizZip from 'pizzip';
 import Docxtemplater from 'docxtemplater';
+import { fechaCortaEnLetras } from '@/lib/utils';
 
 const templatesDir = path.join(process.cwd(), 'public', 'plantillas');
 
@@ -23,6 +24,7 @@ function mapContratoData(contractData: Record<string, any>): Record<string, stri
     ESTADO_FAMILIAR_EMPLEADOR: contractData.estadoFamiliarEmpleador || '',
     PROFESION_EMPLEADOR: contractData.profesionEmpleador || '',
     DOMICILIO_EMPLEADOR: contractData.domicilioEmpleador || '',
+    RESIDENCIA_EMPLEADOR: contractData.residenciaEmpleador || '',
     LUGAR_EXPEDICION_DUI_EMPLEADOR: contractData.lugarExpedicionDuiEmpleador || '',
     FECHA_EXPEDICION_DUI_EMPLEADOR: contractData.fechaExpedicionDuiEmpleador || '',
     NOMBRE_EMPLEADO: contractData.nombreEmpleado || '',
@@ -40,8 +42,8 @@ function mapContratoData(contractData: Record<string, any>): Record<string, stri
     CARGO_PUESTO: contractData.cargoPuesto || '',
     REPRESENTANTE_LEGAL_EMPRESA: contractData.representanteLegalEmpresa || contractData.nombreEmpleador || '',
     TIPO_DURACION_CONTRATO: contractData.tipoDuracionContrato || '',
-    PERIODO_CONTRATO: contractData.periodoContrato || '',
-    FECHA_INICIO_SERVICIO: contractData.fechaInicioServicio || contractData.startDate || '',
+    PERIODO_CONTRATO: fechaCortaEnLetras(contractData.periodoContrato || ''),
+    FECHA_INICIO_SERVICIO: fechaCortaEnLetras(contractData.fechaInicioServicio || contractData.startDate || ''),
     LUGAR_PRESTACION_SERVICIOS: contractData.lugarPrestacionServicios || '',
     DIRECCION_PRESTACION_SERVICIOS: contractData.direccionPrestacionServicios || '',
     HORAS_SEMANA_LABORAL: contractData.horasSemanaLaboral || '',
@@ -93,10 +95,10 @@ function mapConfidencialidadData(contractData: Record<string, any>): Record<stri
 function mapConstanciaData(contractData: Record<string, any>): Record<string, string> {
   return {
     RAZON_SOCIAL_EMPRESA: contractData.razonSocialEmpresa || '',
-    NOMBRE_EMPLEADO: contractData.nombreEmpleado || '',
+    NOMBRE_EMPLEADO: (contractData.nombreEmpleado || '').toUpperCase(),
     DUI_EMPLEADO: contractData.duiEmpleado || '',
     CARGO_PUESTO: contractData.cargoPuesto || '',
-    FECHA_INGRESO: contractData.fechaIngreso || contractData.fechaInicioServicio || contractData.startDate || '',
+    FECHA_INGRESO: fechaCortaEnLetras(contractData.fechaIngreso || contractData.fechaInicioServicio || contractData.startDate || ''),
     SALARIO_EN_NUMEROS: contractData.salarioEnNumeros || '',
     SALARIO_EN_LETRAS: contractData.salarioEnLetras || '',
     SUELDO_BASE: contractData.sueldoBase || contractData.salarioEnNumeros || '',

@@ -40,6 +40,7 @@ function getEmptyDefaults(): CompanyDefaults {
     estadoFamiliarEmpleador: '',
     profesionEmpleador: '',
     domicilioEmpleador: '',
+    residenciaEmpleador: '',
     lugarExpedicionDuiEmpleador: '',
     fechaExpedicionDuiEmpleador: '',
     distritoFirma: '',

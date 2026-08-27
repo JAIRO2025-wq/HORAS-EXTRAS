@@ -127,6 +127,7 @@ export default function AdminWarningsPage() {
                 <TableRow>
                   <TableHead>Fecha Emisión</TableHead>
                   <TableHead>Empleado</TableHead>
+                  <TableHead>Asunto</TableHead>
                   <TableHead>Fecha de la Falta</TableHead>
                   <TableHead>DUI Registrado</TableHead>
                   <TableHead className="text-right">Acciones</TableHead>
@@ -137,6 +138,7 @@ export default function AdminWarningsPage() {
                   <TableRow key={w.id}>
                     <TableCell>{format(parseISO(w.date), "dd/MM/yyyy")}</TableCell>
                     <TableCell className="font-bold">{w.employeeName}</TableCell>
+                    <TableCell className="text-xs font-medium">{w.motivo || w.tipoFalta || '—'}</TableCell>
                     <TableCell>{format(parseISO(w.incidentDate), "dd/MM/yyyy")}</TableCell>
                     <TableCell className="font-mono text-xs">{w.dui}</TableCell>
                     <TableCell className="text-right">
