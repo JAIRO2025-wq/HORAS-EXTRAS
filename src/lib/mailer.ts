@@ -44,13 +44,18 @@ export async function sendReminderEmail(
     return { delivered: false };
   }
 
-  await mailer.sendMail({
-    from: process.env.SMTP_FROM || process.env.SMTP_USER,
-    to: email,
-    subject: 'Tienes un recibo de pago pendiente de firma',
-    text: `Hola ${opts.employeeName},\n\nTienes pendiente la firma electrónica de tu recibo de pago correspondiente a ${opts.month} ${opts.year}, ${opts.quincena === '1' ? '1ra quincena' : '2da quincena'}.\n\nIngresa a la plataforma para revisarlo y firmarlo.`,
-    html: `<p>Hola <strong>${opts.employeeName}</strong>,</p><p>Tienes pendiente la firma electrónica de tu recibo de pago correspondiente a <strong>${opts.month} ${opts.year}</strong> (${opts.quincena === '1' ? '1ra quincena' : '2da quincena'}).</p><p>Ingresa a la plataforma para revisarlo y firmarlo.</p>`,
-  });
+  try {
+    await mailer.sendMail({
+      from: process.env.SMTP_FROM || process.env.SMTP_USER,
+      to: email,
+      subject: 'Tienes un recibo de pago pendiente de firma',
+      text: `Hola ${opts.employeeName},\n\nTienes pendiente la firma electrónica de tu recibo de pago correspondiente a ${opts.month} ${opts.year}, ${opts.quincena === '1' ? '1ra quincena' : '2da quincena'}.\n\nIngresa a la plataforma para revisarlo y firmarlo.`,
+      html: `<p>Hola <strong>${opts.employeeName}</strong>,</p><p>Tienes pendiente la firma electrónica de tu recibo de pago correspondiente a <strong>${opts.month} ${opts.year}</strong> (${opts.quincena === '1' ? '1ra quincena' : '2da quincena'}).</p><p>Ingresa a la plataforma para revisarlo y firmarlo.</p>`,
+    });
+  } catch (error) {
+    console.error(`[Recordatorio] Error enviando correo a ${email}:`, error);
+    return { delivered: false };
+  }
 
   return { delivered: true };
 }
@@ -64,13 +69,18 @@ export async function sendOtpEmail(email: string, code: string): Promise<{ deliv
     return { delivered: false };
   }
 
-  await mailer.sendMail({
-    from: process.env.SMTP_FROM || process.env.SMTP_USER,
-    to: email,
-    subject: 'Código de verificación para firmar tu recibo',
-    text: `Tu código de verificación es: ${code}\n\nEste código expira en 5 minutos.`,
-    html: `<p>Tu código de verificación es:</p><h2>${code}</h2><p>Este código expira en 5 minutos.</p>`,
-  });
+  try {
+    await mailer.sendMail({
+      from: process.env.SMTP_FROM || process.env.SMTP_USER,
+      to: email,
+      subject: 'Código de verificación para firmar tu recibo',
+      text: `Tu código de verificación es: ${code}\n\nEste código expira en 5 minutos.`,
+      html: `<p>Tu código de verificación es:</p><h2>${code}</h2><p>Este código expira en 5 minutos.</p>`,
+    });
+  } catch (error) {
+    console.error(`[OTP] Error enviando correo a ${email}:`, error);
+    return { delivered: false };
+  }
 
   return { delivered: true };
 }
