@@ -1,0 +1,111 @@
+﻿npx :  ÔÜá Linting is disabled.
+En línea: 1 Carácter: 5
++ & { npx next build --no-lint 2>&1 | Out-File -FilePath build-out.txt  ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( ÔÜá Linting is disabled.:String) 
+    [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ ÔÜá Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of 
+C:\Users\jairo\Desktop\DESAROLLO\package-lock.json as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, 
+or consider removing one of the lockfiles if it's not needed.
+   See 
+https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats 
+for more information.
+ Detected additional lockfiles: 
+   * C:\Users\jairo\Desktop\DESAROLLO\HORAS-EXTRAS\package-lock.json
+
+   Ôû▓ Next.js 15.5.9
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ Ô£ô Compiled successfully in 17.7s
+   Skipping validation of types
+   Collecting page data ...
+   Generating static pages (0/67) ...
+   Generating static pages (16/67) 
+   Generating static pages (33/67) 
+Warning: Please use the `legacy` build in Node.js environments.
+   Generating static pages (50/67) 
+ Ô£ô Generating static pages (67/67)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                    Size  First Load JS
+Ôöî Ôùï /                                       7.48 kB         184 kB
+Ôö£ Ôùï /_not-found                                1 kB         103 kB
+Ôö£ Ôùï /admin/admins                           7.61 kB         171 kB
+Ôö£ Ôùï /admin/attendance                       99.1 kB         250 kB
+Ôö£ Ôùï /admin/branches                         7.53 kB         194 kB
+Ôö£ Ôùï /admin/contracts                        13.2 kB         178 kB
+Ôö£ Ôùï /admin/dashboard                         106 kB         226 kB
+Ôö£ Ôùï /admin/datos-c                          8.04 kB         162 kB
+Ôö£ Ôùï /admin/devices                          7.17 kB         140 kB
+Ôö£ Ôùï /admin/employees                         6.6 kB         174 kB
+Ôö£ Ôùï /admin/history                          4.71 kB         274 kB
+Ôö£ Ôùï /admin/login                            7.45 kB         178 kB
+Ôö£ Ôùï /admin/notifications                    7.46 kB         161 kB
+Ôö£ Ôùï /admin/pay-stubs                         281 kB         550 kB
+Ôö£ Ôùï /admin/payroll                           6.7 kB         412 kB
+Ôö£ Ôùï /admin/pdf                              8.18 kB         311 kB
+Ôö£ Ôùï /admin/permits                          33.5 kB         711 kB
+Ôö£ Ôùï /admin/pins                             3.93 kB         162 kB
+Ôö£ Ôùï /admin/reports                          11.9 kB         466 kB
+Ôö£ Ôùï /admin/settings                         2.91 kB         154 kB
+Ôö£ Ôùï /admin/supervisor-reports               8.12 kB         280 kB
+Ôö£ Ôùï /admin/warnings                         6.49 kB         324 kB
+Ôö£ ãÆ /api/admin/admins                         233 B         102 kB
+Ôö£ ãÆ /api/admin/all-records                    233 B         102 kB
+Ôö£ ãÆ /api/admin/attendance                     233 B         102 kB
+Ôö£ ãÆ /api/admin/contracts                      233 B         102 kB
+Ôö£ ãÆ /api/admin/contracts/generate             233 B         102 kB
+Ôö£ ãÆ /api/admin/contracts/upload               233 B         102 kB
+Ôö£ ãÆ /api/admin/datos-c                        233 B         102 kB
+Ôö£ ãÆ /api/admin/login                          233 B         102 kB
+Ôö£ ãÆ /api/admin/logout                         233 B         102 kB
+Ôö£ ãÆ /api/admin/notifications/confirm          233 B         102 kB
+Ôö£ ãÆ /api/admin/notifications/send             233 B         102 kB
+Ôö£ ãÆ /api/admin/notifications/subscriptions    233 B         102 kB
+Ôö£ ãÆ /api/admin/pay-stubs/delete               233 B         102 kB
+Ôö£ ãÆ /api/admin/pay-stubs/identify             233 B         102 kB
+Ôö£ ãÆ /api/admin/pay-stubs/list                 233 B         102 kB
+Ôö£ ãÆ /api/admin/pay-stubs/save                 233 B         102 kB
+Ôö£ ãÆ /api/admin/pay-stubs/view                 233 B         102 kB
+Ôö£ ãÆ /api/admin/records                        233 B         102 kB
+Ôö£ ãÆ /api/admin/stats/yearly-overtime          233 B         102 kB
+Ôö£ ãÆ /api/admin/warnings                       233 B         102 kB
+Ôö£ ãÆ /api/attendance                           233 B         102 kB
+Ôö£ ãÆ /api/auth/employee/login                  233 B         102 kB
+Ôö£ ãÆ /api/auth/login                           233 B         102 kB
+Ôö£ ãÆ /api/branches                             233 B         102 kB
+Ôö£ ãÆ /api/contracts                            233 B         102 kB
+Ôö£ ãÆ /api/employees                            233 B         102 kB
+Ôö£ ãÆ /api/history                              233 B         102 kB
+Ôö£ ãÆ /api/history/file                         233 B         102 kB
+Ôö£ ãÆ /api/log-event                            233 B         102 kB
+Ôö£ ãÆ /api/notifications                        233 B         102 kB
+Ôö£ ãÆ /api/overtime/all-records                 233 B         102 kB
+Ôö£ ãÆ /api/overtime/records                     233 B         102 kB
+Ôö£ ãÆ /api/pay-stubs/my-list                    233 B         102 kB
+Ôö£ ãÆ /api/pay-stubs/view                       233 B         102 kB
+Ôö£ ãÆ /api/permits                              233 B         102 kB
+Ôö£ ãÆ /api/permits/evidence                     233 B         102 kB
+Ôö£ ãÆ /api/push/keys                            233 B         102 kB
+Ôö£ ãÆ /api/push/subscribe                       233 B         102 kB
+Ôö£ ãÆ /api/settings                             233 B         102 kB
+Ôö£ ãÆ /api/supervisor-reports                   233 B         102 kB
+Ôö£ ãÆ /api/supervisor-reports/evidence          233 B         102 kB
+Ôöö Ôùï /dashboard                              30.8 kB         504 kB
++ First Load JS shared by all                102 kB
+  Ôö£ chunks/1255-de0c1abd22c7cccd.js         45.2 kB
+  Ôö£ chunks/4bd1b696-182b6b13bdad92e3.js     54.2 kB
+  Ôöö other shared chunks (total)             2.13 kB
+
+
+ãÆ Middleware                                33.2 kB
+
+Ôùï  (Static)   prerendered as static content
+ãÆ  (Dynamic)  server-rendered on demand
+

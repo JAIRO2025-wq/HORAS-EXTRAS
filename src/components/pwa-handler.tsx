@@ -33,16 +33,26 @@ export function PWAHandler() {
 
       const storedUser = localStorage.getItem('overtimeUser');
       const storedAdmin = localStorage.getItem('overtimeAdmin');
-      
+
+      // El admin tiene prioridad: si hay sesión de admin, se registra como admin.
+      // Esto evita que un dispositivo con restos de una sesión de empleado
+      // registre al admin bajo el nombre del colaborador.
       let name = "";
-      if (storedUser) {
-        name = JSON.parse(storedUser).name;
-      } else if (storedAdmin) {
-        name = JSON.parse(storedAdmin).name;
+      let role = "";
+      if (storedAdmin) {
+        const parsed = JSON.parse(storedAdmin);
+        name = parsed.name;
+        role = 'admin';
+      } else if (storedUser) {
+        const parsed = JSON.parse(storedUser);
+        name = parsed.name;
+        role = 'employee';
       }
 
       if (!name) return;
-      if (lastSubscribedUser.current === name) return;
+
+      const identityKey = `${role}:${name}`;
+      if (lastSubscribedUser.current === identityKey) return;
 
       const existingSubscription = await registration.pushManager.getSubscription();
       if (existingSubscription) {
@@ -61,10 +71,10 @@ export function PWAHandler() {
       await fetch('/api/push/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ subscription, employeeName: name })
+        body: JSON.stringify({ subscription, employeeName: name, role })
       });
       
-      lastSubscribedUser.current = name;
+      lastSubscribedUser.current = identityKey;
     } catch (error) {
       console.error('[PWA] Error en suscripción Push:', error);
     }

@@ -2,43 +2,17 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
-import webpush from 'web-push';
+import { sendPushToUser } from '@/lib/push-server';
 
 const dataDir = path.join(process.cwd(), 'data');
 
 async function sendPushNotification(employeeName: string, month: string, quincena: string) {
-  try {
-    // 1. Cargar llaves VAPID
-    const keysPath = path.join(dataDir, 'vapid.json');
-    const keysContent = await fs.readFile(keysPath, 'utf-8');
-    const keys = JSON.parse(keysContent);
-
-    webpush.setVapidDetails(
-      'mailto:admin@flynet.com',
-      keys.publicKey,
-      keys.privateKey
-    );
-
-    // 2. Cargar suscripciones
-    const subsPath = path.join(dataDir, 'push_subscriptions.json');
-    const subsContent = await fs.readFile(subsPath, 'utf-8');
-    const subscriptions = JSON.parse(subsContent);
-
-    const subscription = subscriptions[employeeName];
-
-    if (subscription) {
-      const payload = JSON.stringify({
-        title: 'OVERTIME: Nuevo Recibo Disponible',
-        body: `Hola ${employeeName.split(' ')[0]}, ya puedes revisar tu recibo de la Q${quincena} de ${month}.`,
-        url: '/dashboard?tab=paystubs'
-      });
-
-      await webpush.sendNotification(subscription, payload);
-      console.log(`Notificación enviada a ${employeeName}`);
-    }
-  } catch (error) {
-    console.error('No se pudo enviar la notificación push:', error);
-  }
+  await sendPushToUser(
+    employeeName,
+    'OVERTIME: Nuevo Recibo Disponible',
+    `Hola ${employeeName.split(' ')[0]}, ya puedes revisar tu recibo de la Q${quincena} de ${month}.`,
+    '/dashboard?tab=paystubs'
+  );
 }
 
 export async function POST(request: Request) {

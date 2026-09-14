@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -30,6 +30,8 @@ import type { EmployeeHistoryRecord } from '@/lib/types';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { PdfViewer } from '@/components/ui/pdf-viewer';
+import { useMonthlySettings } from '@/hooks/use-monthly-settings';
+import { months } from '@/lib/data';
 
 export function HistoryTracker() {
   const [records, setRecords] = useState<EmployeeHistoryRecord[]>([]);
@@ -37,6 +39,8 @@ export function HistoryTracker() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [viewingDoc, setViewingDoc] = useState<EmployeeHistoryRecord | null>(null);
   const { toast } = useToast();
+
+  const { month } = useMonthlySettings();
 
   const fetchHistory = useCallback(async () => {
     try {
@@ -54,6 +58,18 @@ export function HistoryTracker() {
   useEffect(() => {
     fetchHistory();
   }, [fetchHistory]);
+
+  // Los documentos no tienen estado de aprobación ni quincena: se filtran
+  // únicamente por el MES CONTABLE activo (según su fecha de carga).
+  const visibleRecords = useMemo(() => {
+    if (!month) return [];
+    const monthIndex = months.indexOf(month);
+    if (monthIndex === -1) return [];
+    return records.filter(doc => {
+      const d = parseISO(doc.uploadDate);
+      return !isNaN(d.getTime()) && d.getMonth() === monthIndex;
+    });
+  }, [records, month]);
 
   const handleDelete = async (id: string) => {
     if (!confirm('¿Estás seguro de eliminar este documento de tu expediente?')) return;
@@ -91,8 +107,8 @@ export function HistoryTracker() {
       </div>
 
       <div className="grid gap-4">
-        {records.length > 0 ? (
-          records.map((doc) => (
+        {visibleRecords.length > 0 ? (
+          visibleRecords.map((doc) => (
             <Card key={doc.id} className="group hover:shadow-md transition-all border-l-4 border-l-primary/40 bg-card">
               <CardContent className="p-4">
                 <div className="flex flex-col md:flex-row justify-between gap-4">

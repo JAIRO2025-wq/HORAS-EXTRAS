@@ -7,6 +7,37 @@ import { getAuthContext } from '@/lib/auth-server';
 
 const dataDir = path.join(process.cwd(), 'data');
 
+/**
+ * Lee recursivamente todos los JSON dentro de una carpeta.
+ */
+async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): Promise<string[]> {
+  try {
+    const entries = await fs.readdir(dirPath, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = path.join(dirPath, entry.name);
+      if (entry.isDirectory()) {
+        await getAllFiles(fullPath, arrayOfFiles);
+      } else if (entry.name.toLowerCase().endsWith('.json')) {
+        arrayOfFiles.push(fullPath);
+      }
+    }
+  } catch (e) {}
+  return arrayOfFiles;
+}
+
+/**
+ * Acumula las horas aprobadas de un arreglo de registros en el mes indicado.
+ */
+function accumulate(records: any, month: string, stats: Record<string, { day: number; night: number }>) {
+  if (!Array.isArray(records) || !stats[month]) return;
+  records.forEach((rec: any) => {
+    if (rec.status === 'approved') {
+      stats[month].day += (rec.dayHours || 0);
+      stats[month].night += (rec.nightHours || 0);
+    }
+  });
+}
+
 export async function GET() {
   const auth = await getAuthContext();
   if (!auth || auth.role !== 'admin') {
@@ -30,6 +61,24 @@ export async function GET() {
         'PERMITS.JSON', 'NOTIFICATIONS_CONFIRM.JSON'
     ];
 
+    // 1. Estructura jerárquica: data/records/[AÑO]/[MES]/[Q1|Q2]/[NOMBRE].json
+    const recordsRoot = path.join(dataDir, 'records');
+    const hierarchicalFiles = await getAllFiles(recordsRoot);
+    for (const filePath of hierarchicalFiles) {
+      try {
+        // El mes es el nombre de la carpeta contenedora (ej. .../2026/JUNIO/Q2/NOMBRE.json)
+        const monthFolder = path.basename(path.dirname(path.dirname(filePath)));
+        const fileMonth = months.find(m => m.toUpperCase() === monthFolder.toUpperCase());
+        if (!fileMonth) continue;
+
+        const content = await fs.readFile(filePath, 'utf-8');
+        accumulate(JSON.parse(content), fileMonth, stats);
+      } catch (e) {
+        console.error(`Error procesando archivo ${filePath}:`, e);
+      }
+    }
+
+    // 2. Estructura legacy (flat): data/[NOMBRE]-[MES].json
     const recordFiles = files.filter(f => {
         const fUpper = f.toUpperCase();
         return f.endsWith('.json') && 
@@ -40,9 +89,10 @@ export async function GET() {
     for (const file of recordFiles) {
       try {
         // Extraer el mes del nombre del archivo (Mes Contable)
-        // El formato es NOMBRE-MES.json
-        const parts = file.split('-');
-        const fileMonthRaw = parts[parts.length - 1].replace('.json', '');
+        // El formato es NOMBRE-MES.json (puede llevar sufijo "(1)")
+        const base = file.replace(/\.json$/i, '').replace(/\(\d+\)$/, '');
+        const parts = base.split('-');
+        const fileMonthRaw = parts[parts.length - 1];
         
         // Normalizar el nombre del mes para que coincida con nuestro array 'months'
         const fileMonth = months.find(m => m.toLowerCase() === fileMonthRaw.toLowerCase());
@@ -50,18 +100,7 @@ export async function GET() {
         if (!fileMonth) continue;
 
         const content = await fs.readFile(path.join(dataDir, file), 'utf-8');
-        const records = JSON.parse(content);
-        
-        if (Array.isArray(records)) {
-          records.forEach((rec: any) => {
-            // Solo contar registros aprobados
-            if (rec.status === 'approved') {
-              // Sumar al mes del archivo (Nómina) para que coincida con los reportes
-              stats[fileMonth].day += (rec.dayHours || 0);
-              stats[fileMonth].night += (rec.nightHours || 0);
-            }
-          });
-        }
+        accumulate(JSON.parse(content), fileMonth, stats);
       } catch (e) {
         console.error(`Error procesando archivo ${file}:`, e);
       }

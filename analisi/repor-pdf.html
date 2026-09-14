@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html lang="es" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reporte de Registro de Horas Adicionales - Flynet Business System</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- SheetJS / xlsx for native client-side Excel export -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    @page {
+      size: letter landscape;
+      margin: 6mm 8mm;
+    }
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-shadow-none {
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
+      }
+      .page-sheet {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 10px 14px !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+      .kpi-grid { display: grid !important; grid-template-columns: repeat(12, minmax(0, 1fr)) !important; gap: 0.5rem !important; }
+      .kpi-grid > div:nth-child(1) { grid-column: span 4 / span 4 !important; }
+      .kpi-grid > div:nth-child(2) { grid-column: span 2 / span 2 !important; }
+      .kpi-grid > div:nth-child(3) { grid-column: span 3 / span 3 !important; }
+      .kpi-grid > div:nth-child(4) { grid-column: span 3 / span 3 !important; }
+    }
+  </style>
+</head>
+<body class="p-3 md:p-5 flex flex-col items-center justify-start min-h-screen text-slate-800 antialiased text-xs">
+<!-- BARRA DE ACCIÓN SUPERIOR FLOTANTE / HERRAMIENTAS (No imprimible) -->
+<header class="w-full max-w-[1320px] mb-3 flex flex-wrap items-center justify-between gap-3 bg-white/95 backdrop-blur px-4 py-2 rounded-xl shadow-sm border border-slate-200/80 no-print">
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full font-semibold text-[11px]">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        SISTEMA RRHH ACTIVO • REPORTE HORIZONTAL
+      </div>
+<span class="text-slate-400">|</span>
+<span class="text-slate-600 font-medium text-[11px]">Diseño Ultra-Compacto (Landscape / Padding Mínimo)</span>
+</div>
+<!-- BOTONES DE EXPORTACIÓN (EXCEL & PDF) -->
+<div class="flex items-center gap-2">
+<!-- EXPORTAR A EXCEL -->
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs transition-colors shadow-sm active:scale-95 cursor-pointer" onclick="exportToExcel()">
+<svg class="w-4 h-4 text-emerald-200" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="">Exportar a Excel (.xlsx)</span>
+</button>
+<!-- IMPRIMIR / GUARDAR EN PDF -->
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0a2540] hover:bg-[#071a2d] text-white font-semibold text-xs transition-colors shadow-sm active:scale-95 cursor-pointer" onclick="window.print()">
+<svg class="w-4 h-4 text-sky-300" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="">Imprimir / Guardar en PDF</span>
+</button>
+</div>
+</header>
+<!-- CONTENEDOR DE PÁGINA HORIZONTAL TIPO HOJA (LANDSCAPE CORPORATIVO) -->
+<main class="page-sheet w-full max-w-[1320px] bg-white rounded-lg shadow-md border border-slate-200 p-3 sm:p-4 text-slate-800">
+<!-- ENCABEZADO CORPORATIVO INTEGRADO (FLYNET BUSINESS SYSTEM) -->
+<div class="flex items-center justify-between pb-2 mb-2 border-b-2 border-slate-800">
+<div class="flex items-center gap-2.5">
+<!-- Logo Icon Shield Flynet -->
+<div class="w-9 h-9 rounded-lg bg-[#0080c8] flex items-center justify-center text-white shadow-sm flex-shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+</svg>
+</div>
+<div>
+<h1 class="text-sm font-extrabold tracking-tight text-[#0a2540] uppercase leading-tight">Flynet Business System</h1>
+<p class="text-[10px] font-semibold text-[#0080c8] uppercase tracking-wider">Departamento de Recursos Humanos • Gestión de Talento y Nómina</p>
+</div>
+</div>
+<!-- Título de Documento y Folios en Header -->
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Fecha de Emisión</div>
+<div class="text-[11px] font-bold text-slate-700">09 de agosto de 2026</div>
+</div>
+<div class="bg-[#0a2540] text-white px-3 py-1.5 rounded-md text-right">
+<span class="block text-[8px] font-semibold tracking-widest uppercase text-sky-200">Tipo de Documento</span>
+<span class="text-xs font-black uppercase tracking-wide">Reporte de Horas Adicionales</span>
+</div>
+<div class="bg-slate-100 border border-slate-300 px-2.5 py-1.5 rounded-md text-center">
+<span class="block text-[8px] font-semibold uppercase text-slate-500">ID Ref</span>
+<span class="text-[10px] font-mono font-bold text-slate-800">b9ddbe51</span>
+</div>
+</div>
+</div>
+<!-- TARJETAS SINTÉTICAS KPI (4 INDICADORES COMPACTOS DE IMPACTO DIRECTO) -->
+<div class="kpi-grid grid grid-cols-12 gap-2 mb-2.5 items-stretch w-full">
+<!-- Empleado Resumen -->
+<div class="kpi-employee col-span-4 bg-slate-50 border border-slate-200/90 rounded-md p-2 flex items-center justify-between">
+<div>
+<div class="text-[9px] uppercase font-bold tracking-wider text-slate-500">Colaborador / Empleado</div>
+<div class="text-[11px] font-black text-slate-900 leading-tight uppercase">ADELIA NOHEMY VALVERDE ROMERO</div>
+<div class="text-[9px] text-slate-500 mt-0.5">Quincena: <strong class="text-slate-700">Q1 (Primera Quincena)</strong> • Modo: <span class="font-semibold text-slate-700">Jornada Adicionall</span></div>
+</div>
+<span class="px-2 py-0.5 text-[9px] font-bold rounded bg-slate-200 text-slate-700 uppercase">Activo</span>
+</div>
+<!-- Horas Totales -->
+<div class="col-span-2 bg-sky-50/70 border border-sky-200/80 rounded-md p-2 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[9px] uppercase font-bold text-sky-800">Total Horas</span>
+<svg class="w-3.5 h-3.5 text-sky-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="text-lg font-black text-sky-950">4.00</span>
+<span class="text-[9px] font-semibold text-sky-700">horas reg.</span>
+</div>
+</div>
+<!-- Desglose Diurno / Nocturno -->
+<div class="col-span-3 bg-amber-50/70 border border-amber-200/80 rounded-md p-2 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[9px] uppercase font-bold text-amber-800">Distribución Jornada</span>
+<span class="text-[9px] font-mono font-bold text-amber-900">1h D / 3h N</span>
+</div>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-200/80 text-amber-900">Diurna: 1h</span>
+<span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-indigo-100 text-indigo-900">Nocturna: 3h</span>
+</div>
+</div>
+<!-- Estado Dictamen -->
+<div class="col-span-3 bg-emerald-50 border border-emerald-300 rounded-md p-2 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[9px] uppercase font-bold text-emerald-800">Dictamen RRHH</span>
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+</div>
+<div class="flex items-center gap-1 mt-0.5 text-emerald-800 font-black text-xs uppercase">
+<svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path></svg>
+<span class="">Aprobado</span>
+</div>
+</div>
+</div>
+<!-- TABLA PRINCIPAL DE DATOS NORMALIZADOS (MATRIZ COMPACTA DE MÍNIMO PADDING) -->
+<div class="border border-slate-200 rounded-md overflow-hidden mb-2 bg-white">
+<div class="bg-slate-100/90 px-3 py-1.5 border-b border-slate-200 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-[#0080c8] rounded-full"></span>
+<h2 class="text-[11px] font-bold text-slate-800 uppercase tracking-wider">Matriz Normalizada de Horas Extras y Jornadas Adicionales</h2>
+</div>
+<span class="text-[10px] text-slate-500 font-medium">1 Registro Total • Filtro: Quincena 1</span>
+</div>
+<!-- Tabla responsiva y compacta con IDs explícitos para exportación a Excel -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse text-[11px]" id="table-additional-hours">
+<thead>
+<tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-[10px] uppercase font-bold tracking-wider">
+<th class="py-1 px-2.5 border-r border-slate-200 text-center w-8">#</th>
+<th class="py-1 px-2.5 border-r border-slate-200">Fecha</th>
+<th class="py-1 px-2.5 border-r border-slate-200 text-center">Horario</th>
+<th class="py-1 px-2.5 border-r border-slate-200 text-center">Total</th>
+<th class="py-1 px-2.5 border-r border-slate-200 text-center">Diurnas</th>
+<th class="py-1 px-2.5 border-r border-slate-200 text-center">Nocturnas</th>
+<th class="py-1 px-2.5 border-r border-slate-200">Tipo</th>
+<th class="py-1 px-2.5 border-r border-slate-200">Actividad Realizada</th>
+<th class="py-1 px-2.5 border-r border-slate-200">compañeros</th>
+<th class="py-1 px-2.5 border-r border-slate-200 text-center">Estado</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200">
+<tr class="hover:bg-slate-50/80 transition-colors">
+<td class="py-1 px-2.5 border-r border-slate-200 text-center font-bold text-slate-400">1</td>
+<td class="py-1 px-2.5 border-r border-slate-200 font-medium whitespace-nowrap text-slate-800">
+                09/08/2026 <span class="text-[9px] text-slate-400">(Dom)</span>
+</td>
+<td class="py-1 px-2.5 border-r border-slate-200 text-center whitespace-nowrap font-mono text-[10px]">
+<span class="text-slate-700 font-semibold">03:00 AM</span> → <span class="text-slate-700 font-semibold">07:00 AM</span>
+</td>
+<td class="py-1 px-2.5 border-r border-slate-200 text-center font-extrabold text-sky-900 bg-sky-50/40">
+                4.0 h
+              </td>
+<td class="py-1 px-2.5 border-r border-slate-200 text-center font-bold text-amber-900">
+                1.0 h
+              </td>
+<td class="py-1 px-2.5 border-r border-slate-200 text-center font-bold text-indigo-900">
+                3.0 h
+              </td>
+<td class="py-1 px-2.5 border-r border-slate-200 whitespace-nowrap"><font color="#334155"><span class="" style="font-size: 10px; background-color: rgb(241, 245, 249);"><b>Dia Adicional</b></span></font></td>
+<td class="py-1 px-2.5 border-r border-slate-200 font-semibold text-slate-800 max-w-[200px] truncate" title="Carrera la peñona">
+                Carrera la peñona
+              </td>
+<td class="py-1 px-2.5 border-r border-slate-200 text-slate-400 italic text-[10px] text-center">
+                (Sin acompañantes)
+              </td>
+<td class="py-1 px-2.5 border-r border-slate-200 text-center font-bold text-slate-700">Aprobado</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="bg-slate-100/90 font-bold text-slate-900 border-t-2 border-slate-300">
+<td class="py-1 px-2.5 text-right uppercase text-[10px] tracking-wider text-slate-600 border-r border-slate-200" colspan="4">
+                Total Acumulado del Período:
+              </td>
+<td class="py-1 px-2.5 text-center text-sky-900 font-black border-r border-slate-200 bg-sky-100/60">
+                4.0 hrs
+              </td>
+<td class="py-1 px-2.5 text-center text-amber-900 font-bold border-r border-slate-200">
+                1.0 hr
+              </td>
+<td class="py-1 px-2.5 text-center text-indigo-900 font-bold border-r border-slate-200">
+                3.0 hrs
+              </td>
+<td class="py-1 px-2.5 text-slate-500 text-[10px] font-normal italic" colspan="6">
+                Cálculo conforme al Código de Trabajo y política interna de remuneración de horas extraordinarias.
+              </td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+<!-- DOS COLUMNAS COMPACTAS: DETALLE DE AUDITORÍA Y TRAZABILIDAD + CADENA DE FIRMAS -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-2 mb-2">
+<!-- DETALLE DE AUDITORÍA TÉCNICA (Dispositivo y Sello de Tiempo) -->
+<div class="md:col-span-5 bg-slate-50/80 border border-slate-200 rounded-md p-2 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between border-b border-slate-200 pb-1 mb-1.5">
+<span class="text-[9px] font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1">
+<svg class="w-3 h-3 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Trazabilidad y Auditoría de Registro Digital
+            </span>
+<span class="text-[8px] font-mono text-emerald-700 bg-emerald-100 px-1.5 py-0.2 rounded font-semibold">Integridad Verificada</span>
+</div>
+<div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[10px]">
+<div>
+<span class="text-slate-400 block text-[9px] uppercase">Registro en Sistema:</span>
+<span class="font-mono text-slate-800 font-semibold">09/08/2026 23:36:06 UTC</span>
+</div>
+<div>
+<span class="text-slate-400 block text-[9px] uppercase">Identificador Único:</span>
+<span class="font-mono text-slate-800 text-[9px] truncate block" title="b9ddbe51-d99f-4c68-bc2f-4f21f906a17d">b9ddbe51...4f21f906a17d</span>
+</div>
+<div class="col-span-2">
+<span class="text-slate-400 block text-[9px] uppercase">Dispositivo y Agente:</span>
+<span class="text-slate-600 text-[9px] font-mono truncate block bg-white px-1.5 py-0.5 rounded border border-slate-200" title="Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1">
+                iOS 18.7 (iPhone) Mobile Safari • Registro Móvil
+              </span>
+</div>
+<div class="col-span-2">
+<span class="text-slate-400 block text-[9px] uppercase">Notas de Administración:</span>
+<span class="text-slate-500 italic text-[10px]">Sin observaciones adicionales registradas. Aprobación estándar directa.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SECCIÓN DE FIRMAS DE VALIDACIÓN (3 BLOQUES EN LÍNEA HORIZONTAL COMPACTOS) -->
+<div class="md:col-span-7 bg-white border border-slate-200 rounded-md p-2">
+<div class="text-[9px] font-bold uppercase tracking-wider text-slate-600 border-b border-slate-200 pb-1 mb-1.5 flex items-center justify-between">
+<span class="">Cadena de Firmas y Validación Ejecutiva</span>
+<span class="text-[8px] text-slate-400">Resolución Oficial de Planilla</span>
+</div>
+<div class="grid grid-cols-3 gap-2 text-center">
+<!-- Firma 1: Colaborador -->
+<div class="border border-slate-200 rounded p-1.5 bg-slate-50/50 flex flex-col justify-between h-[76px]">
+<div class="text-[8px] text-slate-400 uppercase italic">Conformidad del Colaborador</div>
+<div class="my-auto font-semibold text-slate-800 text-[10px] leading-tight">
+              ADELIA NOHEMY VALVERDE R.
+            </div>
+<div class="border-t border-slate-300 pt-0.5 text-[8px] font-bold text-slate-500 uppercase tracking-tighter">
+              Firma del Solicitante
+            </div>
+</div>
+<!-- Firma 2: Jefe Inmediato -->
+<div class="border border-slate-200 rounded p-1.5 bg-slate-50/50 flex flex-col justify-between h-[76px]">
+<div class="text-[8px] text-emerald-600 uppercase font-semibold">Visto Bueno Digital</div>
+<div class="my-auto">
+<div class="text-[9px] font-bold text-slate-800 leading-tight">SUPERVISOR DE OPERACIONES</div>
+<div class="text-[8px] text-slate-400 font-mono">10/08/2026 08:15</div>
+</div>
+<div class="border-t border-slate-300 pt-0.5 text-[8px] font-bold text-slate-500 uppercase tracking-tighter">
+              Jefatura Inmediata
+            </div>
+</div>
+<!-- Firma 3: RRHH / Autorización -->
+<div class="border border-emerald-300 rounded p-1.5 bg-emerald-50/30 flex flex-col justify-between h-[76px]">
+<div class="text-[8px] text-emerald-700 font-bold uppercase bg-emerald-100/80 rounded px-1 py-0.2 inline-block mx-auto">
+              Sello Aprobado RRHH
+            </div>
+<div class="my-auto">
+<div class="text-[9px] font-black text-slate-900 leading-tight">DEPTO. TALENTO HUMANO</div>
+<div class="text-[8px] text-emerald-700 font-mono font-semibold">APROBACIÓN NÓMINA</div>
+</div>
+<div class="border-t border-emerald-300 pt-0.5 text-[8px] font-bold text-emerald-900 uppercase tracking-tighter">
+              Resolución RRHH
+            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- FOOTER INSTITUCIONAL / LEGAL / CÓDIGO DE BARRAS -->
+<footer class="pt-1.5 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 text-[9px] text-slate-500">
+<div class="flex items-center gap-3">
+<span class="">DOCUMENTO OFICIAL GENERADO POR <strong>FLYNET BUSINESS SYSTEM</strong></span>
+<span class="">•</span>
+<span class="font-mono">UUID: b9ddbe51-d99f-4c68-bc2f-4f21f906a17d</span>
+<span class="">•</span>
+<span class="">AUTENTICACIÓN SHA-256</span>
+</div>
+<div class="flex items-center gap-3">
+<!-- Gráfico Vectorial Simulado de Código de Barras Corporativo -->
+<div class="flex items-end gap-[1.5px] h-3.5 px-1 bg-white border border-slate-200 rounded">
+<span class="w-[2px] h-3.5 bg-slate-800"></span>
+<span class="w-[1px] h-3.5 bg-slate-800"></span>
+<span class="w-[3px] h-3.5 bg-slate-800"></span>
+<span class="w-[1px] h-3.5 bg-slate-800"></span>
+<span class="w-[2px] h-3.5 bg-slate-800"></span>
+<span class="w-[4px] h-3.5 bg-slate-800"></span>
+<span class="w-[1px] h-3.5 bg-slate-800"></span>
+<span class="w-[2px] h-3.5 bg-slate-800"></span>
+<span class="w-[1px] h-3.5 bg-slate-800"></span>
+<span class="w-[3px] h-3.5 bg-slate-800"></span>
+<span class="w-[2px] h-3.5 bg-slate-800"></span>
+</div>
+<span class="font-semibold text-slate-600">Pág. 1 de 1 (Hoja Única)</span>
+</div>
+</footer>
+</main>
+<!-- SCRIPT CLIENT-SIDE EXPORT TO EXCEL Y MODALIDADES -->
+<script>
+    function exportToExcel() {
+      // Datos normalizados provistos por el usuario
+      const reportData = [
+        {
+          "ID": "b9ddbe51-d99f-4c68-bc2f-4f21f906a17d",
+          "Fecha": "2026-08-09",
+          "Colaborador": "ADELIA NOHEMY VALVERDE ROMERO",
+          "Hora Inicio": "03:00 AM",
+          "Hora Fin": "07:00 AM",
+          "Actividad": "Carrera la peñona",
+          "Acompañantes": "",
+          "Quincena": 1,
+          "Total Horas": 4,
+          "Horas Diurnas": 1,
+          "Horas Nocturnas": 3,
+          "Tipo": "additional_day (Día Adicional)",
+          "Estado": "approved (Aprobado)",
+          "Notas Admin": "",
+          "Fecha Creación": "2026-08-09T23:36:06.030Z",
+          "Dispositivo": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X)"
+        }
+      ];
+
+      // Construcción del libro de Excel mediante SheetJS
+      const worksheet = XLSX.utils.json_to_sheet(reportData);
+      
+      // Auto-ancho de columnas para máxima legibilidad
+      const colWidths = [
+        { wch: 38 }, // ID
+        { wch: 12 }, // Fecha
+        { wch: 34 }, // Colaborador
+        { wch: 12 }, // Hora Inicio
+        { wch: 12 }, // Hora Fin
+        { wch: 22 }, // Actividad
+        { wch: 14 }, // Acompañantes
+        { wch: 10 }, // Quincena
+        { wch: 12 }, // Total Horas
+        { wch: 14 }, // Horas Diurnas
+        { wch: 15 }, // Horas Nocturnas
+        { wch: 28 }, // Tipo
+        { wch: 18 }, // Estado
+        { wch: 15 }, // Notas Admin
+        { wch: 25 }, // Fecha Creación
+        { wch: 35 }  // Dispositivo
+      ];
+      worksheet['!cols'] = colWidths;
+
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Horas_Adicionales");
+
+      // Descarga directa con nombre formal corporativo
+      XLSX.writeFile(workbook, "Reporte_Horas_Adicionales_ADELIA_VALVERDE_20260809.xlsx");
+    }
+  </script>
+</body></html>

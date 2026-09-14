@@ -29,6 +29,23 @@ async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []) {
   return arrayOfFiles;
 }
 
+/**
+ * Busca recursivamente la carpeta del mes dentro de data/records/[AÑO],
+ * comparando en MAYÚSCULAS para evitar fallos por case-sensitivity
+ * (en Linux "Junio" !== "JUNIO").
+ */
+async function findMonthDir(year: string, month: string): Promise<string | null> {
+  const yearDir = path.join(dataDir, 'records', year);
+  try {
+    const entries = await fs.readdir(yearDir, { withFileTypes: true });
+    const target = month.toUpperCase();
+    const match = entries.find(e => e.isDirectory() && e.name.toUpperCase() === target);
+    return match ? path.join(yearDir, match.name) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const month = sanitize(searchParams.get('month') || '');
@@ -42,8 +59,9 @@ export async function GET(request: Request) {
 
     try {
         // 1. Intentar leer la nueva estructura jerárquica
-        const monthDir = path.join(dataDir, 'records', year, month);
-        const newFiles = await getAllFiles(monthDir);
+        //    (búsqueda case-insensitive de la carpeta del mes)
+        const monthDir = await findMonthDir(year, month);
+        const newFiles = monthDir ? await getAllFiles(monthDir) : [];
 
         for (const file of newFiles) {
             try {
@@ -55,11 +73,13 @@ export async function GET(request: Request) {
         }
 
         // 2. Compatibilidad con el directorio raíz (flat files)
+        //    Se aceptan sufijos como "-JUNIO(1).json" o "-Junio(2).json"
         const rootFiles = await fs.readdir(dataDir);
         const oldMonthFiles = rootFiles.filter(file => {
             const fileUpper = file.toUpperCase();
-            return fileUpper.endsWith(`-${month}.JSON`) && 
-                   !fileUpper.startsWith('ATTENDANCE-');
+            if (!fileUpper.endsWith('.JSON') || fileUpper.startsWith('ATTENDANCE-')) return false;
+            const base = fileUpper.replace(/\.JSON$/, '').replace(/\(\d+\)$/, '');
+            return base.endsWith(`-${month}`);
         });
 
         for (const file of oldMonthFiles) {

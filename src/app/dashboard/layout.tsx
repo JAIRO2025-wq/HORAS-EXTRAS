@@ -35,6 +35,7 @@ import {
   FileSearch,
   Bell,
   FolderArchive,
+  UserX,
 } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState, useMemo } from 'react';
@@ -54,6 +55,7 @@ export default function DashboardLayout({
   const [user, setUser] = useState<User | null>(null);
   const [isClient, setIsClient] = useState(false);
   const [isAttendanceVisible, setIsAttendanceVisible] = useState(false);
+  const [isSupervisor, setIsSupervisor] = useState(false);
   const [isLoadingPerms, setIsLoadingPerms] = useState(true);
   const [unreadNotifs, setUnreadNotifs] = useState(0);
   const router = useRouter();
@@ -105,6 +107,7 @@ export default function DashboardLayout({
       const me = employees.find(e => e.name === name);
       
       if (me) {
+        setIsSupervisor(me.isSupervisor === true);
         const myBranch = branches.find(b => b.name === me.branch);
         const localDeviceId = localStorage.getItem('overtimeDeviceId');
         
@@ -139,12 +142,17 @@ export default function DashboardLayout({
       { label: 'Horas Extra', icon: Timer, value: 'overtime' },
       { label: 'Inasistencias', icon: FileSearch, value: 'inasistencias' },
       { label: 'Recibos Pago', icon: FileBadge, value: 'paystubs' },
-      { label: 'Permisos RRHH', icon: Scale, value: 'permits' },
-      { label: 'Mis Documentos', icon: FolderArchive, value: 'history' }
+      { label: 'Permisos RRHH', icon: Scale, value: 'permits' }
     );
 
+    if (isSupervisor) {
+      base.push({ label: 'Reporte Colaborador', icon: UserX, value: 'supervisor-reports' });
+    }
+
+    base.push({ label: 'Mis Documentos', icon: FolderArchive, value: 'history' });
+
     return base;
-  }, [isAttendanceVisible]);
+  }, [isAttendanceVisible, isSupervisor]);
 
   if (!isClient || !user) {
     return (

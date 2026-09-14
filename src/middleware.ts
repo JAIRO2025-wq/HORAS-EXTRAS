@@ -13,6 +13,7 @@ export function middleware(request: NextRequest) {
   const isPublicRoute = 
     pathname === '/' || 
     pathname === '/admin/login' || 
+    pathname.startsWith('/r/') || // Consulta pública de reportes vía QR
     pathname.startsWith('/api/auth/') || 
     pathname.startsWith('/api/admin/login') ||
     pathname.startsWith('/api/push/keys') ||

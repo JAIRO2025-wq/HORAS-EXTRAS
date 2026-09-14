@@ -46,6 +46,7 @@ import {
   FolderArchive,
   FileSignature,
   Database,
+  UserX,
 } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -59,6 +60,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { months } from '@/lib/data';
+import { NotificationBanner } from '@/components/dashboard/notification-banner';
 
 type AdminUser = {
   admin: boolean;
@@ -108,6 +110,23 @@ export default function AdminRootLayout({
   }, [pathname]);
 
   const handleLogout = async () => {
+    // Desvincular este dispositivo para que no siga recibiendo notificaciones
+    // del admin que cierra sesión.
+    try {
+      const reg = await navigator.serviceWorker?.ready;
+      const sub = await reg?.pushManager.getSubscription();
+      if (sub) {
+        await fetch('/api/push/subscribe', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ endpoint: sub.endpoint, employeeName: adminUser?.name }),
+        });
+        await sub.unsubscribe();
+      }
+    } catch (e) {
+      console.error('[PUSH] Error al desvincular dispositivo:', e);
+    }
+
     await fetch('/api/admin/logout', { method: 'POST' });
     localStorage.removeItem('overtimeAdmin');
     router.push('/admin/login');
@@ -135,6 +154,7 @@ export default function AdminRootLayout({
     { href: '/admin/notifications', label: 'Notificaciones', icon: Bell, badge: unreadNotifs },
     { href: '/admin/attendance', label: 'Asistencia', icon: Clock },
     { href: '/admin/permits', label: 'Permisos RRHH', icon: Scale },
+    { href: '/admin/supervisor-reports', label: 'Reporte Jefes', icon: UserX },
     { href: '/admin/warnings', label: 'Amonestaciones', icon: Gavel },
     { href: '/admin/contracts', label: 'Contratos', icon: FileSignature },
     { href: '/admin/datos-c', label: 'Datos-C', icon: Database },
@@ -152,6 +172,8 @@ export default function AdminRootLayout({
   ];
 
   const showBackButton = pathname !== '/admin/dashboard';
+
+  const currentPageTitle = navLinks.find(link => link.href === pathname)?.label;
 
   return (
     <SidebarProvider>
@@ -215,6 +237,10 @@ export default function AdminRootLayout({
               </Button>
             )}
 
+            {currentPageTitle && (
+              <h1 className="text-base sm:text-lg font-bold font-headline truncate">{currentPageTitle}</h1>
+            )}
+
             <div className="flex-1"></div>
 
             <div className="flex items-center gap-4">
@@ -249,6 +275,7 @@ export default function AdminRootLayout({
             </div>
           </header>
           <main className="flex-1 p-4 lg:p-6 bg-background">
+            <NotificationBanner />
             {children}
           </main>
         </SidebarInset>

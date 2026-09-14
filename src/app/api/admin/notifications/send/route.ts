@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
-import webpush from 'web-push';
 import { getAuthContext } from '@/lib/auth-server';
+import { sendPushToUser } from '@/lib/push-server';
 import type { UserNotification, Employee } from '@/lib/types';
 
 const dataDir = path.join(process.cwd(), 'data');
@@ -22,15 +22,11 @@ export async function POST(request: Request) {
     }
 
     // 1. Cargar datos necesarios
-    const [keysContent, subsContent, empContent, notifContent] = await Promise.all([
-      fs.readFile(path.join(dataDir, 'vapid.json'), 'utf-8').catch(() => null),
-      fs.readFile(path.join(dataDir, 'push_subscriptions.json'), 'utf-8').catch(() => '{}'),
+    const [empContent, notifContent] = await Promise.all([
       fs.readFile(path.join(dataDir, 'employees.json'), 'utf-8').catch(() => '[]'),
       fs.readFile(notificationsFile, 'utf-8').catch(() => '[]')
     ]);
 
-    const keys = keysContent ? JSON.parse(keysContent) : null;
-    const subscriptions = JSON.parse(subsContent);
     const employees: Employee[] = JSON.parse(empContent);
     let allNotifications: UserNotification[] = JSON.parse(notifContent);
 
@@ -57,33 +53,14 @@ export async function POST(request: Request) {
     allNotifications = [...newNotifications, ...allNotifications];
     await fs.writeFile(notificationsFile, JSON.stringify(allNotifications, null, 2));
 
-    // 4. Enviar Push
-    let pushCount = 0;
-    if (keys) {
-      webpush.setVapidDetails('mailto:admin@flynet.com', keys.publicKey, keys.privateKey);
-      
-      const pushPromises = targetNames.map(async (name) => {
-        const sub = subscriptions[name];
-        if (sub) {
-          try {
-            await webpush.sendNotification(sub, JSON.stringify({
-              title: `🔔 ${title.toUpperCase()}`,
-              body: message,
-              // URL específica para el buzón del empleado
-              url: url || '/dashboard?tab=notifications',
-              employeeName: name,
-              timestamp: new Date().toISOString()
-            }));
-            pushCount++;
-          } catch (e) {
-            console.error(`Error push a ${name}:`, e);
-          }
-        }
-      });
-      await Promise.all(pushPromises);
-    }
+    // 4. Enviar Push a todos los dispositivos de cada destinatario
+    await Promise.all(
+      targetNames.map(name =>
+        sendPushToUser(name, title.toUpperCase(), message, url || '/dashboard?tab=notifications')
+      )
+    );
 
-    return NextResponse.json({ success: true, count: targetNames.length, pushCount });
+    return NextResponse.json({ success: true, count: targetNames.length });
 
   } catch (error) {
     console.error('Error enviando notificación:', error);

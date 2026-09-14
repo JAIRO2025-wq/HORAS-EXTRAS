@@ -35,6 +35,12 @@ import {
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -57,6 +63,7 @@ import { Badge } from '@/components/ui/badge';
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import { RecordActions } from '@/components/admin/record-actions';
+import { RecordAuditModal } from '@/components/admin/record-audit-modal';
 import { cn, getOvertimeHoursFromRecord } from '@/lib/utils';
 
 type OvertimeRecordWithEmployee = OvertimeRecord & { employeeName: string };
@@ -104,6 +111,10 @@ export default function AdminReportsPage() {
 
   const [editingRecord, setEditingRecord] = useState<Partial<OvertimeRecordWithEmployee> | null>(null);
   const [recordToDelete, setRecordToDelete] = useState<OvertimeRecordWithEmployee | null>(null);
+
+  // Auditoría
+  const [auditRecord, setAuditRecord] = useState<OvertimeRecordWithEmployee | null>(null);
+  const [adminRole, setAdminRole] = useState<string>('');
   
   const fetchAllData = useCallback(async (currentMonth: string) => {
     setIsLoading(true);
@@ -147,6 +158,7 @@ export default function AdminReportsPage() {
     if (storedAdmin) {
       const parsedAdmin = JSON.parse(storedAdmin);
       setMonth(parsedAdmin.month);
+      setAdminRole(parsedAdmin.role || '');
       if (parsedAdmin.month) {
         fetchAllData(parsedAdmin.month);
       }
@@ -526,6 +538,7 @@ export default function AdminReportsPage() {
           : (
             <>
             <div className="overflow-auto rounded-md border">
+                <TooltipProvider>
                 <Table>
                 <TableHeader>
                     <TableRow className="bg-muted/50">
@@ -549,7 +562,12 @@ export default function AdminReportsPage() {
                       const isSameDay = regDateStr && regDateStr === laborDateStr;
 
                       return (
-                        <TableRow key={record.id} className="even:bg-muted/10 hover:bg-muted/30 transition-colors">
+                        <TableRow
+                          key={record.id}
+                          onDoubleClick={() => setAuditRecord(record)}
+                          title="Doble clic para ver la auditoría"
+                          className="even:bg-muted/10 hover:bg-muted/30 transition-colors cursor-pointer select-none"
+                        >
                             <TableCell className="font-medium py-1">{record.employeeName}</TableCell>
                             <TableCell className="whitespace-nowrap py-1">
                               <span className="text-[11px] font-bold">
@@ -559,12 +577,20 @@ export default function AdminReportsPage() {
                             <TableCell className="font-mono text-[10px] whitespace-nowrap py-1 text-muted-foreground">{record.startTime} - {record.endTime}</TableCell>
                             <TableCell className="text-right font-mono font-semibold py-1">{(record.totalHours ?? 0).toFixed(2)}</TableCell>
                             <TableCell className="py-1 min-w-[200px]">
-                              <div className="flex items-start gap-2 max-w-[300px]">
-                                <FileText className="h-3 w-3 text-muted-foreground shrink-0 mt-0.5" />
-                                <span className="text-[11px] text-zinc-600 line-clamp-2 leading-tight">
-                                  {record.activity}
-                                </span>
-                              </div>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <div className="flex items-start gap-2 max-w-[300px] cursor-help group">
+                                    <FileText className="h-3 w-3 text-muted-foreground shrink-0 mt-0.5 group-hover:text-primary transition-colors" />
+                                    <span className="text-[11px] text-zinc-600 line-clamp-2 leading-tight">
+                                      {record.activity}
+                                    </span>
+                                  </div>
+                                </TooltipTrigger>
+                                <TooltipContent className="max-w-[320px] p-4 text-xs bg-zinc-900 text-zinc-50 border-none shadow-2xl z-50 rounded-xl">
+                                  <p className="font-black mb-2 uppercase text-[9px] text-primary tracking-widest border-b border-white/10 pb-1">Actividad Realizada:</p>
+                                  <p className="leading-relaxed">{record.activity}</p>
+                                </TooltipContent>
+                              </Tooltip>
                             </TableCell>
                             <TableCell className={cn("py-1 transition-colors", isSameDay && "bg-green-50/50", isDelayed && "bg-red-50/50")}>
                               <div className={cn(
@@ -590,6 +616,7 @@ export default function AdminReportsPage() {
                     })}
                 </TableBody>
                 </Table>
+                </TooltipProvider>
             </div>
             
             {/* CONTROLES DE PAGINACIÓN */}
@@ -653,6 +680,13 @@ export default function AdminReportsPage() {
             </AlertDialogFooter>
         </AlertDialogContent>
     </AlertDialog>
+
+    <RecordAuditModal
+        record={auditRecord}
+        isOpen={!!auditRecord}
+        onClose={() => setAuditRecord(null)}
+        adminRole={adminRole}
+    />
     </>
   );
 }

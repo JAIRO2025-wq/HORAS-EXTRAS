@@ -6,6 +6,7 @@ import OvertimeTracker from '@/components/dashboard/overtime-tracker';
 import { AttendanceTracker } from '@/components/dashboard/attendance-tracker';
 import { PayStubsViewer } from '@/components/dashboard/pay-stubs-viewer';
 import { PermitTracker } from '@/components/dashboard/permit-tracker';
+import { SupervisorReportTracker } from '@/components/dashboard/supervisor-report-tracker';
 import { HistoryTracker } from '@/components/dashboard/history-tracker';
 import { NotificationBanner } from '@/components/dashboard/notification-banner';
 import { NotificationCenter } from '@/components/dashboard/notification-center';
@@ -19,6 +20,8 @@ import { PermitForm } from '@/components/dashboard/permit-form';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { useMonthlySettings } from '@/hooks/use-monthly-settings';
+import { resolveActiveQuincena } from '@/lib/quincena-utils';
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState('home');
@@ -28,6 +31,9 @@ export default function DashboardPage() {
   const [permits, setPermits] = useState<PermitRequest[]>([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [unreadNotifs, setUnreadNotifs] = useState(0);
+  const [isSupervisor, setIsSupervisor] = useState(false);
+
+  const { settings, month } = useMonthlySettings();
 
   const fetchNotifCount = async () => {
     try {
@@ -41,9 +47,10 @@ export default function DashboardPage() {
 
   const fetchData = useCallback(async (name: string, month: string) => {
     try {
-        const [permitsRes, recordsRes] = await Promise.all([
+        const [permitsRes, recordsRes, empRes] = await Promise.all([
             fetch(`/api/permits?user=${encodeURIComponent(name)}`),
-            fetch(`/api/overtime/records?user=${encodeURIComponent(name)}&month=${encodeURIComponent(month)}`)
+            fetch(`/api/overtime/records?user=${encodeURIComponent(name)}&month=${encodeURIComponent(month)}`),
+            fetch('/api/employees')
         ]);
 
         if (permitsRes.ok) {
@@ -53,6 +60,11 @@ export default function DashboardPage() {
         if (recordsRes.ok) {
             const data = await recordsRes.json();
             setRecords(data);
+        }
+        if (empRes.ok) {
+            const emps: Employee[] = await empRes.json();
+            const me = Array.isArray(emps) ? emps.find(e => e.name === name) : null;
+            setIsSupervisor(me?.isSupervisor === true);
         }
     } catch (e) {
         console.error(e);
@@ -96,10 +108,19 @@ export default function DashboardPage() {
     };
   }, [fetchData]);
 
+  // Solo se consideran los trámites APROBADOS que caen en una QUINCENA ACTIVA
+  const activePermits = useMemo(() => {
+    if (!settings || !month) return [];
+    return permits.filter(p => {
+      if (p.status !== 'approved') return false;
+      return resolveActiveQuincena(p.startDate || p.requestDate, month, settings) !== null;
+    });
+  }, [permits, settings, month]);
+
   // Cálculos para el resumen
   const stats = useMemo(() => {
-    const inasistencias = permits.filter(p => p.action === 'INASISTENCIA');
-    const otrosPermisos = permits.filter(p => p.action !== 'INASISTENCIA');
+    const inasistencias = activePermits.filter(p => p.action === 'INASISTENCIA');
+    const otrosPermisos = activePermits.filter(p => p.action !== 'INASISTENCIA');
     
     return {
         inasistenciasTotal: inasistencias.length,
@@ -107,9 +128,9 @@ export default function DashboardPage() {
         permisosTotal: otrosPermisos.length,
         permisosPendientes: otrosPermisos.filter(p => p.status === 'pending' || p.status === 'pending_admin').length
     };
-  }, [permits]);
+  }, [activePermits]);
 
-  const inasistenciasList = permits.filter(p => p.action === 'INASISTENCIA');
+  const inasistenciasList = activePermits.filter(p => p.action === 'INASISTENCIA');
 
   if (isLoading) return <div className="flex h-[60vh] items-center justify-center"><Loader2 className="animate-spin h-8 w-8 text-primary" /></div>;
 
@@ -288,6 +309,12 @@ export default function DashboardPage() {
         <TabsContent value="permits">
             <PermitTracker />
         </TabsContent>
+
+        {isSupervisor && (
+            <TabsContent value="supervisor-reports">
+                <SupervisorReportTracker />
+            </TabsContent>
+        )}
 
         <TabsContent value="history">
             <HistoryTracker />

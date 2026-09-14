@@ -33,6 +33,10 @@ import {
   CalendarDays,
   ShieldAlert,
   AlertTriangle,
+  Info,
+  CalendarPlus,
+  Repeat,
+  PartyPopper,
 } from 'lucide-react';
 import {
   format,
@@ -64,6 +68,14 @@ import {
 } from '@/components/ui/collapsible';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { Input } from '../ui/input';
 
 const hours = Array.from({ length: 12 }, (_, i) =>
@@ -76,6 +88,7 @@ const FormSchema = z.object({
   date: z.date({
     required_error: 'La fecha es requerida.',
   }),
+  type: z.enum(['overtime', 'additional_day']).default('overtime'),
   startHour: z.string(),
   startMinute: z.string(),
   startPeriod: z.string(),
@@ -95,6 +108,40 @@ type Settings = {
   quincena2_cutoff: number;
 };
 
+/**
+ * Tipos de registro disponibles en el formulario.
+ * - overtime: Horas Extra → se cobran por hora (flujo original con horario).
+ * - additional_day: Cubrir Turno / Asueto / Día Adicional → jornada completa (8h), sin horario.
+ */
+const RECORD_TYPES = [
+  {
+    value: 'overtime' as const,
+    label: 'Horas Extras',
+    hint: 'Labor adicional fuera de su jornada',
+    icon: Clock,
+  },
+  {
+    value: 'additional_day' as const,
+    label: 'Cubrir Turno',
+    hint: 'Reemplazo de un compañero ausente',
+    icon: Repeat,
+  },
+  {
+    value: 'additional_day' as const,
+    label: 'Asueto',
+    hint: 'Labor en día de asueto o feriado',
+    icon: PartyPopper,
+  },
+  {
+    value: 'additional_day' as const,
+    label: 'Día Adicional',
+    hint: 'Jornada completa adicional (8h)',
+    icon: CalendarPlus,
+  },
+];
+
+const TYPE_INFO_KEY = 'overtime_record_types_info_v1';
+
 type AddHoursFormProps = {
   onRecordAdded: (record: OvertimeRecord) => void;
   closeSheet: () => void;
@@ -110,6 +157,26 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
   const [myPermits, setMyPermits] = useState<PermitRequest[]>([]);
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showTypeInfo, setShowTypeInfo] = useState(false);
+  const [selectedTypeLabel, setSelectedTypeLabel] = useState('Horas Extras');
+
+  // Cartel informativo de tipos de registro: se muestra UNA sola vez por usuario.
+  useEffect(() => {
+    const storedUser = localStorage.getItem('overtimeUser');
+    const userName = storedUser ? JSON.parse(storedUser)?.name || 'anon' : 'anon';
+    const seenKey = `${TYPE_INFO_KEY}_${userName}`;
+    if (!localStorage.getItem(seenKey)) {
+      const timer = setTimeout(() => setShowTypeInfo(true), 600);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const dismissTypeInfo = () => {
+    const storedUser = localStorage.getItem('overtimeUser');
+    const userName = storedUser ? JSON.parse(storedUser)?.name || 'anon' : 'anon';
+    localStorage.setItem(`${TYPE_INFO_KEY}_${userName}`, 'true');
+    setShowTypeInfo(false);
+  };
 
   useEffect(() => {
     setCurrentTime(new Date());
@@ -238,15 +305,17 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      startHour: '05', startMinute: '00', startPeriod: 'PM',
-      endHour: '06', endMinute: '00', endPeriod: 'PM',
+      type: 'overtime',
+      startHour: '00', startMinute: '00', startPeriod: 'AM',
+      endHour: '00', endMinute: '00', endPeriod: 'AM',
       activity: '', coworkers: [],
     },
   });
 
   const { control, watch, setValue, getValues } = form;
   const watchedTime = watch(['date', 'startHour', 'startMinute', 'startPeriod', 'endHour', 'endMinute', 'endPeriod']);
-
+  const watchedType = watch('type');
+  const isAdditionalDay = watchedType === 'additional_day';
   const calculatedHours = React.useMemo(() => {
     const [date, sh, sm, sp, eh, em, ep] = watchedTime;
     if (!date || !sh || !sm || !sp || !eh || !em || !ep) return { totalHours: 0, dayHours: 0, nightHours: 0 };
@@ -259,12 +328,51 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
     }
   }, [availableDates, setValue, getValues]);
 
+  // Al elegir Cubrir Turno / Asueto / Día Adicional, precargamos la jornada
+  // ordinaria (08:00 AM - 05:00 PM). En Horas Extras el horario queda en 00:00.
+  useEffect(() => {
+    if (isAdditionalDay) {
+      setValue('startHour', '08');
+      setValue('startMinute', '00');
+      setValue('startPeriod', 'AM');
+      setValue('endHour', '05');
+      setValue('endMinute', '00');
+      setValue('endPeriod', 'PM');
+    } else {
+      setValue('startHour', '00');
+      setValue('startMinute', '00');
+      setValue('startPeriod', 'AM');
+      setValue('endHour', '00');
+      setValue('endMinute', '00');
+      setValue('endPeriod', 'AM');
+    }
+  }, [isAdditionalDay, setValue]);
+
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     if (!user || !settings) return;
     const st = `${data.startHour}:${data.startMinute} ${data.startPeriod}`;
     const et = `${data.endHour}:${data.endMinute} ${data.endPeriod}`;
+    const isAdditional = data.type === 'additional_day';
 
-    if (existingRecords.some(rec => isTimeOverlapping(data.date, st, et, rec.date, rec.startTime, rec.endTime))) {
+    // Cubrir Turno / Asueto / Día Adicional: solo un registro de este tipo por día.
+    if (isAdditional) {
+      const alreadyRegistered = existingRecords.some(rec =>
+        rec.type === 'additional_day' &&
+        rec.status !== 'rejected' &&
+        isSameDay(new Date(rec.date), data.date)
+      );
+      if (alreadyRegistered) {
+        toast({
+          variant: 'destructive',
+          title: 'Registro Duplicado',
+          description: `Ya existe un registro de ${selectedTypeLabel} para el día ${format(data.date, "dd 'de' MMMM", { locale: es })}.`,
+        });
+        return;
+      }
+    }
+
+    // El día adicional se paga como jornada completa: no valida traslape de horas.
+    if (!isAdditional && existingRecords.some(rec => isTimeOverlapping(data.date, st, et, rec.date, rec.startTime, rec.endTime))) {
       toast({ variant: 'destructive', title: 'Horario en Conflicto', description: 'Ya tienes horas registradas en este lapso.' });
       return;
     }
@@ -281,7 +389,7 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
       return;
     }
 
-    if (calculatedHours.totalHours <= 0) {
+    if (!isAdditional && calculatedHours.totalHours <= 0) {
       toast({ variant: 'destructive', title: 'Hora Inválida', description: 'La hora de fin debe ser posterior a la de inicio.' });
       return;
     }
@@ -305,11 +413,11 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
         activity: data.activity, 
         coworkers: data.coworkers.join(', '),
         quincena: quincena,
-        totalHours: calculatedHours.totalHours, 
-        dayHours: calculatedHours.dayHours, 
-        nightHours: calculatedHours.nightHours,
-        type: 'overtime', 
-        status: 'pending', 
+        totalHours: isAdditional ? 8 : calculatedHours.totalHours,
+        dayHours: isAdditional ? 0 : calculatedHours.dayHours,
+        nightHours: isAdditional ? 0 : calculatedHours.nightHours,
+        type: data.type,
+        status: 'pending',
         adminNotes: '',
       });
       closeSheet();
@@ -372,6 +480,54 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField control={control} name="type" render={({ field }) => (
+              <FormItem>
+                <div className="flex items-center justify-between">
+                  <FormLabel className="text-sm font-bold">Tipo de Registro</FormLabel>
+                  <button
+                    type="button"
+                    onClick={() => setShowTypeInfo(true)}
+                    className="text-[10px] font-bold text-primary hover:underline flex items-center gap-1"
+                  >
+                    <Info className="h-3 w-3" /> ¿Cuál es la diferencia?
+                  </button>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {RECORD_TYPES.map((t) => {
+                    const Icon = t.icon;
+                    const active = field.value === t.value && selectedTypeLabel === t.label;
+                    return (
+                      <button
+                        key={t.label}
+                        type="button"
+                        onClick={() => {
+                          field.onChange(t.value);
+                          setSelectedTypeLabel(t.label);
+                        }}
+                        className={cn(
+                          'flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 text-center transition-all',
+                          active
+                            ? 'border-primary bg-primary/5 shadow-sm'
+                            : 'border-muted bg-muted/30 hover:border-primary/40'
+                        )}
+                      >
+                        <Icon className={cn('h-5 w-5', active ? 'text-primary' : 'text-muted-foreground')} />
+                        <span className={cn('text-[11px] font-black uppercase leading-tight', active ? 'text-primary' : 'text-muted-foreground')}>
+                          {t.label}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+                <FormDescription className="text-[10px] font-medium">
+                  {isAdditionalDay
+                    ? 'Se registrará como jornada completa (8 horas) y no requiere horario.'
+                    : 'Se registrará por horas según el horario indicado abajo.'}
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )} />
+
             <FormField control={control} name="date" render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-sm font-bold">Fecha de la Labor</FormLabel>
@@ -448,6 +604,24 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
               </div>
             </div>
 
+            {isAdditionalDay ? (
+              <Card className="border-dashed bg-emerald-50/60 border-emerald-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-emerald-100 p-2 rounded-full">
+                      <CalendarPlus className="h-5 w-5 text-emerald-700" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-black text-emerald-900 uppercase tracking-tight">{selectedTypeLabel}</p>
+                      <p className="text-[11px] text-emerald-700 font-medium">
+                        Se registrará como jornada completa equivalente a <strong>8.00 hrs</strong>.
+                        Si realizó horas extra adicionales ese día, regístrelas aparte como <strong>Horas Extras</strong>.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
             <Card className="border-dashed bg-muted/50 border-primary/20">
               <CardContent className="p-4">
                 <div className="flex justify-between items-center text-sm">
@@ -465,6 +639,7 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
                 </div>
               </CardContent>
             </Card>
+            )}
 
             <FormField control={control} name="activity" render={({ field }) => (
               <FormItem>
@@ -506,6 +681,82 @@ export function AddHoursForm({ onRecordAdded, closeSheet, existingRecords }: Add
           </form>
         </Form>
       </div>
+
+      {/* Cartel informativo: se muestra una sola vez por usuario */}
+      <Dialog open={showTypeInfo} onOpenChange={(open) => { if (!open) dismissTypeInfo(); }}>
+        <DialogContent className="max-w-lg p-0 overflow-hidden border-none shadow-2xl">
+          <DialogHeader className="p-0 space-y-0">
+            <div className="bg-primary p-5 text-primary-foreground flex items-center gap-3">
+              <div className="bg-white/20 p-2.5 rounded-full">
+                <Info className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <DialogTitle className="text-lg font-black tracking-tighter uppercase leading-none text-primary-foreground">
+                  Tipos de Registro
+                </DialogTitle>
+                <DialogDescription className="text-[10px] font-bold opacity-80 mt-1 uppercase tracking-widest text-primary-foreground/80">
+                  Guía rápida para clasificar correctamente su jornada
+                </DialogDescription>
+              </div>
+            </div>
+          </DialogHeader>
+
+          <div className="p-6 space-y-3 bg-white">
+            <div className="flex items-start gap-3 p-3 rounded-lg border border-indigo-200 bg-indigo-50">
+              <Clock className="h-5 w-5 text-indigo-700 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-black uppercase text-indigo-900">Horas Extras</p>
+                <p className="text-[11px] text-indigo-800 leading-snug mt-0.5">
+                  Cuando labora tiempo adicional fuera de su jornada habitual.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3 rounded-lg border border-sky-200 bg-sky-50">
+              <Repeat className="h-5 w-5 text-sky-700 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-black uppercase text-sky-900">Cubrir Turno</p>
+                <p className="text-[11px] text-sky-800 leading-snug mt-0.5">
+                  Cuando usted cubre el turno de un compañero ausente, dentro de su jornada habitual.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3 rounded-lg border border-amber-200 bg-amber-50">
+              <PartyPopper className="h-5 w-5 text-amber-700 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-black uppercase text-amber-900">Asueto</p>
+                <p className="text-[11px] text-amber-800 leading-snug mt-0.5">
+                  Cuando labora en un día de asueto, feriado o descanso oficial.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-3 rounded-lg border border-emerald-200 bg-emerald-50">
+              <CalendarPlus className="h-5 w-5 text-emerald-700 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-black uppercase text-emerald-900">Día Adicional</p>
+                <p className="text-[11px] text-emerald-800 leading-snug mt-0.5">
+                  Cuando trabaja una jornada completa que no corresponde a horas extra.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2 p-3 rounded-lg bg-red-50 border border-red-200">
+              <AlertTriangle className="h-4 w-4 text-red-600 shrink-0 mt-0.5" />
+              <p className="text-[10px] text-red-800 font-semibold leading-snug">
+                No registre un día adicional como horas extra: el cálculo de planilla es distinto y el registro será rechazado.
+              </p>
+            </div>
+          </div>
+
+          <DialogFooter className="p-5 bg-zinc-50 border-t">
+            <Button onClick={dismissTypeInfo} className="w-full h-11 font-bold gap-2">
+              <Check className="h-4 w-4" /> Entendido
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </ScrollArea>
   );
 }

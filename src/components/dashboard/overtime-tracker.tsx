@@ -75,7 +75,9 @@ export default function OvertimeTracker() {
     const url = `/api/overtime/records?user=${encodeURIComponent(user.name)}&month=${encodeURIComponent(user.month)}`;
     
     const successTitle = "¡Registro de Jornada Exitoso!";
-    const successMessage = `Se han contabilizado ${newRecord.totalHours.toFixed(2)} horas correspondientes al día ${format(newRecord.date, "dd 'de' MMMM", { locale: es })} en el horario de ${newRecord.startTime} a ${newRecord.endTime}. La información ha sido remitida al sistema central; se integrará automáticamente a la planilla principal posterior a su validación reglamentaria.`;
+    const successMessage = newRecord.type === 'additional_day'
+      ? `Se ha registrado un Día Adicional equivalente a ${newRecord.totalHours.toFixed(2)} horas correspondiente al día ${format(newRecord.date, "dd 'de' MMMM", { locale: es })}. La información ha sido remitida al sistema central; se integrará automáticamente a la planilla principal posterior a su validación reglamentaria.`
+      : `Se han contabilizado ${newRecord.totalHours.toFixed(2)} horas correspondientes al día ${format(newRecord.date, "dd 'de' MMMM", { locale: es })} en el horario de ${newRecord.startTime} a ${newRecord.endTime}. La información ha sido remitida al sistema central; se integrará automáticamente a la planilla principal posterior a su validación reglamentaria.`;
 
     if (!navigator.onLine) {
       OfflineManager.saveAction({

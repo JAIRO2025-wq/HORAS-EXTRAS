@@ -45,9 +45,7 @@ import { useToast } from '@/hooks/use-toast';
 import type { PermitRequest } from '@/lib/types';
 import { format, parseISO, startOfMonth, endOfMonth, isAfter } from 'date-fns';
 import { es } from 'date-fns/locale';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import { PermitPdfTemplate } from '@/components/admin/permit-pdf-template';
+import { openPermitPdfWindow } from '@/lib/permit-pdf-window';
 import { PdfViewer } from '@/components/ui/pdf-viewer';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -80,9 +78,10 @@ export default function AdminPermitsPage() {
   const [resolutionType, setResolutionType] = useState<'approved' | 'rejected'>('approved');
 
   // Estado para PDF y Evidencia
-  const [printingPermit, setPrintingPermit] = useState<PermitRequest | null>(null);
   const [viewingEvidence, setViewingEvidence] = useState<string | null>(null);
-  const pdfRef = useRef<HTMLDivElement>(null);
+
+  // Estado para el detalle de resolución (doble clic sobre el registro)
+  const [detailPermit, setDetailPermit] = useState<PermitRequest | null>(null);
 
   const fetchPermits = useCallback(async (selectedMonth?: string) => {
     setIsLoading(true);
@@ -143,17 +142,18 @@ export default function AdminPermitsPage() {
     }
   };
 
+  // ORDEN: primero TODOS los pendientes (por orden de llegada), luego el resto
+  // (aprobados y rechazados mezclados) también por orden de llegada.
   const sortedPermits = useMemo(() => {
+    const isPending = (s: string) => s === 'pending' || s === 'pending_admin';
     return [...permits].sort((a, b) => {
-      const priority = { 'pending_admin': 0, 'pending': 1, 'approved': 2, 'rejected': 3 };
-      const statusA = a.status as keyof typeof priority;
-      const statusB = b.status as keyof typeof priority;
-      
-      if (priority[statusA] !== priority[statusB]) {
-        return priority[statusA] - priority[statusB];
-      }
-      
-      return new Date(b.requestDate).getTime() - new Date(a.requestDate).getTime();
+      const pendingA = isPending(a.status) ? 0 : 1;
+      const pendingB = isPending(b.status) ? 0 : 1;
+
+      if (pendingA !== pendingB) return pendingA - pendingB;
+
+      // Dentro de cada grupo: orden de llegada (más antiguo primero)
+      return new Date(a.requestDate).getTime() - new Date(b.requestDate).getTime();
     });
   }, [permits]);
 
@@ -196,27 +196,8 @@ export default function AdminPermitsPage() {
     }
   };
 
-  const handleDownloadPdf = async (permit: PermitRequest) => {
-    setPrintingPermit(permit);
-    setTimeout(async () => {
-      if (!pdfRef.current) return;
-      try {
-        const canvas = await html2canvas(pdfRef.current, { scale: 2 });
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF({ orientation: 'portrait', unit: 'px', format: 'a4' });
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const imgWidth = canvas.width;
-        const imgHeight = canvas.height;
-        const ratio = Math.min(pdfWidth / imgWidth, 1);
-        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth * ratio, imgHeight * ratio);
-        pdf.save(`Accion_Personal_${permit.employeeName.replace(/ /g, '_')}.pdf`);
-        toast({ title: "PDF Generado" });
-      } catch (error) {
-        console.error("PDF Error:", error);
-      } finally {
-        setPrintingPermit(null);
-      }
-    }, 500);
+  const handleDownloadPdf = (permit: PermitRequest) => {
+    openPermitPdfWindow(permit);
   };
 
   const getStatusBadge = (status: string) => {
@@ -329,7 +310,15 @@ export default function AdminPermitsPage() {
                   </TableHeader>
                   <TableBody>
                     {paginatedPermits.map((p) => (
-                      <TableRow key={p.id} className={p.status === 'pending_admin' ? "bg-blue-50/40 border-l-4 border-l-blue-500 hover:bg-blue-100/40 transition-colors" : ""}>
+                      <TableRow
+                        key={p.id}
+                        onDoubleClick={() => setDetailPermit(p)}
+                        title="Doble clic para ver el comentario del administrador"
+                        className={cn(
+                          "cursor-pointer select-none",
+                          p.status === 'pending_admin' ? "bg-blue-50/40 border-l-4 border-l-blue-500 hover:bg-blue-100/40 transition-colors" : ""
+                        )}
+                      >
                         <TableCell>
                           <div className="flex flex-col">
                             <span className="font-bold text-sm">{p.employeeName}</span>
@@ -458,6 +447,62 @@ export default function AdminPermitsPage() {
         </DialogContent>
       </Dialog>
 
+      {/* DETALLE DE RESOLUCIÓN (doble clic sobre el registro) */}
+      <Dialog open={!!detailPermit} onOpenChange={(open) => !open && setDetailPermit(null)}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <MessageSquare className="h-5 w-5 text-primary" />
+              Comentario de la Administración
+            </DialogTitle>
+            <DialogDescription>
+              {detailPermit?.employeeName} | {detailPermit?.action}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-2">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Estado</span>
+              {detailPermit && getStatusBadge(detailPermit.status)}
+            </div>
+
+            <div className="bg-muted/30 p-4 rounded-xl border border-dashed text-xs space-y-2">
+              <p className="font-bold text-zinc-600 uppercase tracking-widest border-b pb-1">Resumen del Trámite:</p>
+              <p>• Sucursal: <strong>{detailPermit?.branch}</strong></p>
+              <p>• Periodo: <strong>{detailPermit?.startDate}</strong> al <strong>{detailPermit?.endDate}</strong></p>
+              <p>• Aval Jefatura: <Badge variant="outline" className="h-4 text-[9px]">{detailPermit?.approvedBySupervisorAt ? "RECIBIDO" : "PENDIENTE"}</Badge></p>
+              <p>• Justificación: <span className="italic">"{detailPermit?.justification}"</span></p>
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-1.5">
+                <MessageSquare className="h-3 w-3" /> Observaciones Administrativas
+              </p>
+              {detailPermit?.adminNotes ? (
+                <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
+                  <p className="text-sm leading-relaxed italic text-zinc-700">"{detailPermit.adminNotes}"</p>
+                </div>
+              ) : (
+                <div className="text-center py-6 text-muted-foreground text-xs italic border-2 border-dashed rounded-xl">
+                  Este trámite aún no tiene observaciones de la administración.
+                </div>
+              )}
+            </div>
+
+            {detailPermit?.approvedByAdminName && (
+              <p className="text-[10px] text-muted-foreground text-right">
+                Resuelto por: <strong>{detailPermit.approvedByAdminName}</strong>
+                {detailPermit.approvedByAdminAt ? ` · ${format(parseISO(detailPermit.approvedByAdminAt), 'dd/MM/yyyy HH:mm')}` : ''}
+              </p>
+            )}
+          </div>
+
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setDetailPermit(null)}>Cerrar</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* VISOR DE JUSTIFICANTE */}
       <Dialog open={!!viewingEvidence} onOpenChange={(open) => !open && setViewingEvidence(null)}>
         <DialogContent className="max-w-4xl h-[95vh] flex flex-col p-0 overflow-hidden bg-zinc-100">
@@ -487,12 +532,6 @@ export default function AdminPermitsPage() {
           </div>
         </DialogContent>
       </Dialog>
-
-      <div className="fixed top-[-9999px] left-[-9999px]">
-        <div ref={pdfRef}>
-          {printingPermit && <PermitPdfTemplate permit={printingPermit} />}
-        </div>
-      </div>
     </div>
   );
 }

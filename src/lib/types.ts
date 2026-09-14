@@ -30,6 +30,25 @@ export type Branch = {
   direccion?: string;
 };
 
+/**
+ * Entrada del historial de auditoría de un registro de horas extra.
+ * Guarda el valor anterior y el nuevo de cada campo modificado.
+ */
+export type AuditChange = {
+  field: string;
+  label: string;
+  before: string;
+  after: string;
+};
+
+export type AuditEntry = {
+  timestamp: string;      // ISO
+  adminName: string;      // Quién ejecutó la acción
+  adminRole: string;      // ADMIN_1 (Control) | ADMIN_2 (Gerencia)
+  action: 'created' | 'updated' | 'approved' | 'rejected' | 'pending' | 'deleted';
+  changes: AuditChange[];
+};
+
 export type OvertimeRecord = {
   id: string;
   date: Date;
@@ -46,6 +65,14 @@ export type OvertimeRecord = {
   status: 'pending' | 'approved' | 'rejected';
   type: 'overtime' | 'additional_day';
   adminNotes?: string;
+  // --- Auditoría ---
+  approvedBy?: string;        // Nombre del admin que aprobó/rechazó
+  approvedByRole?: string;    // Rol del admin que aprobó/rechazó
+  approvedAt?: string;        // ISO
+  lastEditedBy?: string;      // Nombre del último admin que editó
+  lastEditedByRole?: string;
+  lastEditedAt?: string;      // ISO
+  auditLog?: AuditEntry[];    // Historial completo de cambios
 };
 
 export type AttendanceRecord = {
@@ -82,7 +109,26 @@ export type PermitRequest = {
   evidenceFileDataUri?: string;
 };
 
+export type SupervisorReport = {
+  id: string;
+  reportDate: string;        // Fecha/hora en que el jefe envió el reporte (ISO)
+  supervisorName: string;    // Jefe que reporta (tomado de la sesión)
+  branch: string;            // Agencia/sucursal del jefe
+  employeeName: string;      // Colaborador reportado (de la misma sucursal)
+  employeePosition?: string;
+  absenceDate: string;       // Fecha en que el colaborador no se presentó (yyyy-MM-dd)
+  quincena: 1 | 2;           // Quincena contable a la que pertenece la falta
+  reason: string;            // Motivo (lista)
+  justification: string;     // Detalle del motivo
+  status: 'pending' | 'reviewed' | 'dismissed';
+  reviewedAt?: string;
+  reviewedBy?: string;
+  adminNotes?: string;
+  evidenceFileDataUri?: string;
+};
+
 export type UserNotification = {
+  [x: string]: any;
   id: string;
   recipientName: string;
   title: string;

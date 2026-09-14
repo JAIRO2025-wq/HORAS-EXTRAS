@@ -24,6 +24,8 @@ import { OfflineManager } from '@/lib/offline-manager';
 import Image from 'next/image';
 import { months } from '@/lib/data';
 import { cn } from '@/lib/utils';
+import { useMonthlySettings } from '@/hooks/use-monthly-settings';
+import { resolveActiveQuincena } from '@/lib/quincena-utils';
 
 export function AttendanceTracker() {
   const [records, setRecords] = useState<AttendanceRecord[]>([]);
@@ -36,6 +38,8 @@ export function AttendanceTracker() {
   const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
   const [localDeviceId, setLocalDeviceId] = useState<string | null>(null);
   const { toast } = useToast();
+
+  const { settings, month } = useMonthlySettings();
 
   useEffect(() => {
     setLocalDeviceId(localStorage.getItem('overtimeDeviceId'));
@@ -89,15 +93,18 @@ export function AttendanceTracker() {
     }
   };
 
-  // FILTRO ESTRICTO: Solo mostrar registros de asistencia que pertenezcan al mes calendario seleccionado
+  // FILTRO ESTRICTO: Solo mostrar marcaciones que pertenezcan al mes contable
+  // seleccionado Y que caigan dentro de una QUINCENA ACTIVA.
   const filteredRecords = useMemo(() => {
     if (!user) return records;
     const selectedMonthIndex = months.indexOf(user.month);
     return records.filter(rec => {
         const recDate = parseISO(rec.timestamp);
-        return recDate.getMonth() === selectedMonthIndex;
+        if (recDate.getMonth() !== selectedMonthIndex) return false;
+        if (!settings || !month) return false;
+        return resolveActiveQuincena(recDate, month, settings) !== null;
     });
-  }, [records, user]);
+  }, [records, user, settings, month]);
 
   const isAuthorizedDevice = useMemo(() => {
     if (!branch) return false;

@@ -1,14 +1,83 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
-import type { OvertimeRecord } from '@/lib/types';
+import type { OvertimeRecord, AuditChange, AuditEntry } from '@/lib/types';
 import { isSameRecordContent } from '@/lib/record-utils';
+import { getAuthContext } from '@/lib/auth-server';
 
 const dataDir = path.join(process.cwd(), 'data');
 const logFilePath = path.join(dataDir, 'events.log');
+const adminsFile = path.join(dataDir, 'admins.json');
 
 function sanitize(str: string) {
   return str.replace(/[^a-z0-9]/gi, '_').toUpperCase();
+}
+
+/**
+ * Obtiene el nombre y rol del admin autenticado para la auditoría.
+ */
+async function getAdminIdentity(): Promise<{ name: string; role: string }> {
+  const auth = await getAuthContext();
+  const name = auth?.name || 'DESCONOCIDO';
+  let role = '';
+  try {
+    const admins = JSON.parse(await fs.readFile(adminsFile, 'utf-8'));
+    const found = admins.find((a: any) => (a.name || '').toUpperCase().trim() === name.toUpperCase().trim());
+    role = found?.role || '';
+  } catch (e) {}
+  return { name, role };
+}
+
+/**
+ * Etiquetas legibles para los campos auditables de un registro.
+ */
+const FIELD_LABELS: Record<string, string> = {
+  date: 'Fecha',
+  startTime: 'Hora Inicio',
+  endTime: 'Hora Fin',
+  activity: 'Actividad',
+  coworkers: 'Compañeros',
+  quincena: 'Quincena',
+  totalHours: 'Horas Totales',
+  dayHours: 'Horas Diurnas',
+  nightHours: 'Horas Nocturnas',
+  status: 'Estado',
+  type: 'Tipo',
+  adminNotes: 'Notas de Admin',
+};
+
+function formatAuditValue(field: string, value: any): string {
+  if (value === undefined || value === null || value === '') return '(vacío)';
+  if (field === 'status') {
+    return value === 'approved' ? 'Aprobado' : value === 'rejected' ? 'Rechazado' : 'Pendiente';
+  }
+  if (field === 'type') {
+    return value === 'additional_day' ? 'Día Adicional' : 'Horas Extra';
+  }
+  if (field === 'quincena') return `Q${value}`;
+  if (field === 'date') {
+    const d = new Date(value);
+    return isNaN(d.getTime()) ? String(value) : d.toLocaleDateString('es-ES');
+  }
+  if (typeof value === 'number') return value.toFixed(2);
+  return String(value);
+}
+
+/**
+ * Compara el registro anterior con el nuevo y devuelve la lista de cambios.
+ */
+function buildChanges(oldRecord: any, newRecord: any): AuditChange[] {
+  const changes: AuditChange[] = [];
+  for (const field of Object.keys(FIELD_LABELS)) {
+    const before = oldRecord[field];
+    const after = newRecord[field];
+    const beforeStr = formatAuditValue(field, before);
+    const afterStr = formatAuditValue(field, after);
+    if (beforeStr !== afterStr) {
+      changes.push({ field, label: FIELD_LABELS[field], before: beforeStr, after: afterStr });
+    }
+  }
+  return changes;
 }
 
 async function logToBackend(eventType: string, message: string) {
@@ -164,16 +233,29 @@ export async function POST(request: Request) {
             return NextResponse.json(duplicate, { status: 200 });
         }
 
-        const newRecord = { 
+        const admin = await getAdminIdentity();
+        const now = new Date().toISOString();
+
+        const newRecord: OvertimeRecord = { 
             ...record, 
             id: clientId, 
-            createdAt: new Date().toISOString() 
+            createdAt: now,
+            lastEditedBy: admin.name,
+            lastEditedByRole: admin.role,
+            lastEditedAt: now,
+            auditLog: [{
+                timestamp: now,
+                adminName: admin.name,
+                adminRole: admin.role,
+                action: 'created',
+                changes: [],
+            }],
         };
         records.push(newRecord);
         await writeRecords(filePath, records);
         
         const dateStr = new Date(newRecord.date).toLocaleDateString('es-ES');
-        await logToBackend('record_created', `ADMIN CREÓ registro para '${employeeName}' (Fecha: ${dateStr}). Actividad: ${newRecord.activity}.`);
+        await logToBackend('record_created', `${admin.name} CREÓ registro para '${employeeName}' (Fecha: ${dateStr}). Actividad: ${newRecord.activity}.`);
 
         return NextResponse.json(newRecord, { status: 201 });
     } catch (error) {
@@ -201,13 +283,48 @@ export async function PUT(request: Request) {
         }
 
         const oldRecord = records[idx];
-        records[idx] = { ...records[idx], ...updatedRecord };
+        const admin = await getAdminIdentity();
+        const now = new Date().toISOString();
+
+        // Calcular cambios reales (antes de aplicar el merge)
+        const changes = buildChanges(oldRecord, { ...oldRecord, ...updatedRecord });
+
+        const merged: OvertimeRecord = { ...records[idx], ...updatedRecord };
+
+        // Determinar la acción de auditoría
+        let action: AuditEntry['action'] = 'updated';
+        if (oldRecord.status !== merged.status) {
+            action = merged.status === 'approved' ? 'approved'
+                : merged.status === 'rejected' ? 'rejected' : 'pending';
+        }
+
+        // Registrar auditoría
+        merged.lastEditedBy = admin.name;
+        merged.lastEditedByRole = admin.role;
+        merged.lastEditedAt = now;
+
+        if (action === 'approved' || action === 'rejected') {
+            merged.approvedBy = admin.name;
+            merged.approvedByRole = admin.role;
+            merged.approvedAt = now;
+        }
+
+        const entry: AuditEntry = {
+            timestamp: now,
+            adminName: admin.name,
+            adminRole: admin.role,
+            action,
+            changes,
+        };
+        merged.auditLog = [...(oldRecord.auditLog || []), entry];
+
+        records[idx] = merged;
         await writeRecords(filePath, records);
         
         const dateStr = new Date(records[idx].date).toLocaleDateString('es-ES');
-        let logMsg = `ADMIN ACTUALIZÓ registro de '${employeeName}' (${dateStr}).`;
+        let logMsg = `${admin.name} ACTUALIZÓ registro de '${employeeName}' (${dateStr}).`;
         if (oldRecord.status !== records[idx].status) {
-            logMsg = `ADMIN ${records[idx].status === 'approved' ? 'APROBÓ' : records[idx].status === 'rejected' ? 'RECHAZÓ' : 'puso en PENDIENTE'} el registro de '${employeeName}' del ${dateStr}.`;
+            logMsg = `${admin.name} ${records[idx].status === 'approved' ? 'APROBÓ' : records[idx].status === 'rejected' ? 'RECHAZÓ' : 'puso en PENDIENTE'} el registro de '${employeeName}' del ${dateStr}.`;
         }
         await logToBackend('record_updated', logMsg);
 

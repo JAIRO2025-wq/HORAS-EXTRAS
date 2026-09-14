@@ -37,11 +37,11 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import { PermitPdfTemplate } from '@/components/admin/permit-pdf-template';
+import { openPermitPdfWindow } from '@/lib/permit-pdf-window';
 import { useToast } from '@/hooks/use-toast';
 import { PdfViewer } from '@/components/ui/pdf-viewer';
+import { useMonthlySettings } from '@/hooks/use-monthly-settings';
+import { resolveActiveQuincena } from '@/lib/quincena-utils';
 
 const ITEMS_PER_PAGE = 5;
 
@@ -54,8 +54,8 @@ export function PermitTracker() {
   const { toast } = useToast();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [printingPermit, setPrintingPermit] = useState<PermitRequest | null>(null);
-  const pdfRef = useRef<HTMLDivElement>(null);
+
+  const { settings, month } = useMonthlySettings();
 
   const fetchPermits = useCallback(async (name: string) => {
     try {
@@ -96,35 +96,24 @@ export function PermitTracker() {
     }
   };
 
-  const handleDownloadPdf = async (permit: PermitRequest) => {
-    setPrintingPermit(permit);
-    setTimeout(async () => {
-      if (!pdfRef.current) return;
-      try {
-        const canvas = await html2canvas(pdfRef.current, { scale: 2 });
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF({ orientation: 'portrait', unit: 'px', format: 'a4' });
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const imgWidth = canvas.width;
-        const imgHeight = canvas.height;
-        const ratio = Math.min(pdfWidth / imgWidth, 1);
-        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth * ratio, imgHeight * ratio);
-        pdf.save(`Mi_Accion_Personal_${permit.id.substring(0,8)}.pdf`);
-        toast({ title: "Descarga completada" });
-      } catch (error) {
-        console.error("PDF Error:", error);
-      } finally {
-        setPrintingPermit(null);
-      }
-    }, 500);
+  const handleDownloadPdf = (permit: PermitRequest) => {
+    openPermitPdfWindow(permit);
   };
 
   // NORMALIZACIÓN DE FILTROS PARA EL USUARIO
+  // Solo se muestran los trámites de la QUINCENA ACTIVA que fueron APROBADOS
+  // por la administración. Los pendientes/rechazados no se listan aquí.
   const myRequests = useMemo(() => {
     if (!user) return [];
     const normalizedMe = user.name.toUpperCase().trim();
-    return permits.filter(p => (p.employeeName || "").toUpperCase().trim() === normalizedMe);
-  }, [permits, user]);
+    return permits.filter(p => {
+      if ((p.employeeName || "").toUpperCase().trim() !== normalizedMe) return false;
+      if (p.status !== 'approved') return false;
+      if (!settings || !month) return false;
+      // La fecha de inicio del trámite debe caer en una quincena activa
+      return resolveActiveQuincena(p.startDate || p.requestDate, month, settings) !== null;
+    });
+  }, [permits, user, settings, month]);
 
   const pendingForMe = useMemo(() => {
     if (!user) return [];
@@ -357,12 +346,6 @@ export function PermitTracker() {
           </div>
         </DialogContent>
       </Dialog>
-
-      <div className="fixed top-[-9999px] left-[-9999px]">
-        <div ref={pdfRef}>
-          {printingPermit && <PermitPdfTemplate permit={printingPermit} />}
-        </div>
-      </div>
     </div>
   );
 }

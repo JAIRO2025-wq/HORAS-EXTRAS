@@ -93,6 +93,12 @@ export default function AdminDashboardPage() {
     };
   }, [records, employees, permits]);
 
+  // La API devuelve el mes abreviado (ej. "Jun"); el localStorage guarda el nombre completo (ej. "Junio")
+  const currentMonthData = useMemo(
+    () => yearlyData.find(d => d.month === month?.substring(0, 3)),
+    [yearlyData, month]
+  );
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -255,11 +261,11 @@ export default function AdminDashboardPage() {
             <CardContent className="space-y-3">
               <div className="flex items-center justify-between text-xs">
                 <span className="flex items-center gap-1.5"><Sun className="h-3 w-3 text-primary" /> Diurnas</span>
-                <span className="font-bold">{(yearlyData.find(d => d.month === month?.substring(0,3))?.day || 0).toFixed(1)}h</span>
+                <span className="font-bold">{(currentMonthData?.day || 0).toFixed(1)}h</span>
               </div>
               <div className="flex items-center justify-between text-xs">
                 <span className="flex items-center gap-1.5"><Moon className="h-3 w-3 text-accent" /> Nocturnas</span>
-                <span className="font-bold">{(yearlyData.find(d => d.month === month?.substring(0,3))?.night || 0).toFixed(1)}h</span>
+                <span className="font-bold">{(currentMonthData?.night || 0).toFixed(1)}h</span>
               </div>
               <p className="text-[10px] text-muted-foreground pt-2 border-t italic">
                 *Los datos de esta gráfica corresponden exclusivamente a horas extra aprobadas.
