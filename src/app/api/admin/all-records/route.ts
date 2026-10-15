@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 import type { OvertimeRecord } from '@/lib/types';
-import { dedupeRecords } from '@/lib/record-utils';
+import { dedupeRecords, normalizeEmployeeName } from '@/lib/record-utils';
 
 const dataDir = path.join(process.cwd(), 'data');
 
@@ -96,7 +96,24 @@ export async function GET(request: Request) {
             } catch (e) {}
         }
         
-        allRecords = dedupeRecords(allRecords);
+        // La deduplicación SIEMPRE se hace dentro de cada empleado, nunca entre
+        // empleados distintos: dos personas que trabajaron juntas describen la
+        // misma actividad con la misma fecha y horario, y antes una de las dos
+        // jornadas se descartaba por error.
+        const groupedByEmployee = new Map<string, any[]>();
+        for (const record of allRecords) {
+            const key = normalizeEmployeeName(record.employeeName) || '__SIN_NOMBRE__';
+            const group = groupedByEmployee.get(key);
+            if (group) group.push(record);
+            else groupedByEmployee.set(key, [record]);
+        }
+
+        const deduped: any[] = [];
+        for (const group of groupedByEmployee.values()) {
+            deduped.push(...dedupeRecords(group));
+        }
+        allRecords = deduped;
+
         allRecords.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         return NextResponse.json(allRecords);
     } catch (error) {

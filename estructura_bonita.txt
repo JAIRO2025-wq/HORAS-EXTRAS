@@ -1,0 +1,1590 @@
+📁 Estructura de directorios: C:\Users\jairo\OneDrive\Desktop\PROYECTOS\HORAS EXTRAS
+======================================================================
+
+📁 HORAS EXTRAS/
+│   ├── 📁 analisi/
+│   │   ├── 📋 VICTOR_MANUEL_HERNANDEZ_FUENTES copy.json
+│   │   ├── 📋 VICTOR_MANUEL_HERNANDEZ_FUENTES.json
+│   │   └── 📋 VICTOR_MANUEL_HERNANDEZ_FUENTES_Q2.json
+│   ├── 📁 data/
+│   │   ├── 📁 attachments/
+│   │   │   ├── 📁 3def0a75-642c-4c60-8634-660ed50cdace/
+│   │   │   │   ├── 📁 2025/
+│   │   │   │   │   ├── 📁 buzon/
+│   │   │   │   │   ├── 📁 documentos/
+│   │   │   │   │   └── 📁 partidas/
+│   │   │   │   ├── 📁 2026/
+│   │   │   │   │   ├── 📁 buzon/
+│   │   │   │   │   ├── 📁 documentos/
+│   │   │   │   │   └── 📁 partidas/
+│   │   │   │   │       └── 📁 P-81/
+│   │   │   │   │           ├── 📕 p-P-81-11-Documento_2019816115312.pdf
+│   │   │   │   │           ├── 📕 p-P-81-1102-dui jennifercarolina.pdf
+│   │   │   │   │           ├── 📕 p-P-81-Documento_2019816115312.pdf
+│   │   │   │   │           ├── 📕 p-P-81-Reporte_Integral_VICTOR_MANUEL_HERNANDEZ_FUENTES_Marzo.pdf
+│   │   │   │   │           └── 📋 p-P-81-tsconfig.json
+│   │   │   │   └── 📁 general/
+│   │   │   │       ├── 📁 buzon/
+│   │   │   │       ├── 📁 documentos/
+│   │   │   │       └── 📁 partidas/
+│   │   │   ├── 📁 7c621c3b-80e7-4b19-9431-376bf7bcf810/
+│   │   │   │   ├── 📁 2026/
+│   │   │   │   │   ├── 📁 buzon/
+│   │   │   │   │   ├── 📁 documentos/
+│   │   │   │   │   └── 📁 partidas/
+│   │   │   │   └── 📁 general/
+│   │   │   │       ├── 📁 buzon/
+│   │   │   │       ├── 📁 documentos/
+│   │   │   │       └── 📁 partidas/
+│   │   │   └── 📁 fed885f7-1dd0-4a2c-9900-d74465954859/
+│   │   │       └── 📁 2026/
+│   │   │           ├── 📁 buzon/
+│   │   │           ├── 📁 documentos/
+│   │   │           └── 📁 partidas/
+│   │   ├── 📁 company-data/
+│   │   │   ├── 📁 067493fe-8f4d-4618-ba4f-2ae2709cf33d/
+│   │   │   │   ├── 📋 inventario.json
+│   │   │   │   ├── 📋 ordenes-compra.json
+│   │   │   │   └── 📋 ordenes-venta.json
+│   │   │   ├── 📁 1beb6e08-9a37-4456-86a8-5a8cc3b1fd1b/
+│   │   │   │   ├── 📋 cuentas.json
+│   │   │   │   ├── 📋 partidas.json
+│   │   │   │   └── 📋 plantillas.json
+│   │   │   ├── 📁 1cdc34de-027e-4c5d-959e-86d5edd5d551/
+│   │   │   │   ├── 📋 cuentas.json
+│   │   │   │   ├── 📋 partidas.json
+│   │   │   │   └── 📋 plantillas.json
+│   │   │   ├── 📁 4d663e1f-6d4e-4c68-aa17-c771f7930b7e/
+│   │   │   │   ├── 📋 activos.json
+│   │   │   │   ├── 📋 cuentas.json
+│   │   │   │   ├── 📋 partidas.json
+│   │   │   │   └── 📋 plantillas.json
+│   │   │   ├── 📁 58db9aa8-2ce2-491e-b7e3-57400c55d988/
+│   │   │   │   └── 📋 cuentas.json
+│   │   │   ├── 📁 6578354f-d73c-4e6c-a75f-25389fc523ea/
+│   │   │   │   ├── 📋 cuentas.json
+│   │   │   │   ├── 📋 partidas.json
+│   │   │   │   └── 📋 plantillas.json
+│   │   │   ├── 📁 8618f28c-a09b-4a3c-af33-c785a971535d/
+│   │   │   │   ├── 📋 cuentas.json
+│   │   │   │   ├── 📋 partidas.json
+│   │   │   │   └── 📋 plantillas.json
+│   │   │   ├── 📁 91db15bd-ea90-4fd5-b7e8-74c73ce2dfa9/
+│   │   │   │   ├── 📋 clientes.json
+│   │   │   │   ├── 📋 cuentas.json
+│   │   │   │   ├── 📋 partidas.json
+│   │   │   │   ├── 📋 plantillas.json
+│   │   │   │   └── 📋 proveedores.json
+│   │   │   └── 📁 e528541c-2904-4ad7-9176-7fb7a2fbb6ee/
+│   │   │       ├── 📋 cuentas.json
+│   │   │       ├── 📋 partidas.json
+│   │   │       └── 📋 plantillas.json
+│   │   ├── 📁 evidences/
+│   │   │   ├── 🖼️ 15eed72e-00c1-4c23-9668-867fd3f5520c.jpg
+│   │   │   ├── 🖼️ 228d8f3b-f77c-4abc-9eb6-182f0fe77b3f.jpg
+│   │   │   ├── 🖼️ 29382900-0b4d-4a78-8033-a21273c8431b.jpg
+│   │   │   ├── 🖼️ 3b653eac-f4a6-49f4-babc-7cf69aeebfa5.jpg
+│   │   │   ├── 🖼️ 433f8b10-13cd-45b8-a733-b3500ddec90f.jpg
+│   │   │   ├── 🖼️ 4fd1684d-f096-4195-947c-fe9896113f55.jpg
+│   │   │   ├── 🖼️ 5003c40f-fca9-4e97-9937-ba49ece18ad7.jpg
+│   │   │   ├── 🖼️ 505b63bb-fcfc-46f4-8517-5c4034928d35.jpg
+│   │   │   ├── 🖼️ 53821d3f-8f32-4a76-8891-5dde3053b1fe.jpg
+│   │   │   ├── 🖼️ 554f6503-62ae-4389-8575-4fd4fc1a3a1e.jpg
+│   │   │   ├── 🖼️ 5bef0c97-9501-4ccc-9950-353c7428a237.jpg
+│   │   │   ├── 🖼️ 5c41492e-cab6-4358-bbdc-523ceac65a5c.jpg
+│   │   │   ├── 🖼️ 603cd5fe-ce47-4c74-9702-d928b4795213.jpg
+│   │   │   ├── 🖼️ 7a916275-d529-4a9d-b9cc-00a1b9e69fdd.jpg
+│   │   │   ├── 🖼️ 83c21476-5a79-4e60-a0e6-f15e53a720fc.jpg
+│   │   │   ├── 🖼️ 87e7e48c-f31a-4cf8-8ba3-3560abd0ff0c.jpg
+│   │   │   ├── 🖼️ 8a4f980b-8bb9-4537-96cc-479e7ed55ad2.jpg
+│   │   │   ├── 🖼️ 8ba7d751-ec20-4986-afed-f0332e21e4dc.jpg
+│   │   │   ├── 🖼️ 8c299eab-d3a0-4ffe-9c3a-e95f5d9ee2ab.jpg
+│   │   │   ├── 🖼️ 8cd43368-84dd-4a8f-8cbb-01805e429e93.jpg
+│   │   │   ├── 🖼️ 8f4dfedc-0033-4aab-84d6-ddfd0a4ffd3d.jpg
+│   │   │   ├── 🖼️ 91e93c84-bda1-4fa0-a2d8-31c760989979.jpg
+│   │   │   ├── 📕 a1158dea-7aa5-4fbb-8542-0dfe2231f3ca.pdf
+│   │   │   ├── 🖼️ aa98d0de-b514-4d56-8cec-5b7cf77349fa.jpg
+│   │   │   ├── 🖼️ b36f9c53-6688-4261-87f8-ddae7da2ce39.jpg
+│   │   │   ├── 🖼️ b5b1ca85-5563-48e5-92fa-2294fe2cd2fb.jpg
+│   │   │   ├── 🖼️ b6f95172-66a4-4ff8-be98-dab7fd408fbd.jpg
+│   │   │   ├── 🖼️ b74a65d2-ab42-49f6-a81c-a2c4f9015a51.jpg
+│   │   │   ├── 📕 bb1eddb4-5329-4838-9c76-43a4f6046814.pdf
+│   │   │   ├── 🖼️ c5e1dd05-e3db-4b59-9e7b-3c279e612578.jpg
+│   │   │   ├── 🖼️ c9b3e0ac-a428-4cdd-b11b-c5e01bb2a69e.jpg
+│   │   │   ├── 📕 d07db756-0b19-43ed-accc-70d65ffdee16.pdf
+│   │   │   ├── 🖼️ d8d1a4c7-470e-4251-bbde-ce0849cdc676.jpg
+│   │   │   ├── 🖼️ dd88e3e0-700a-4bb3-8ffe-c05d32a427e8.jpg
+│   │   │   ├── 🖼️ eb8dabda-98b3-44cc-8269-cee3c9e43190.jpg
+│   │   │   ├── 🖼️ ee422374-60ba-4acd-b4bb-27ed36fa035d.jpg
+│   │   │   ├── 🖼️ f2843ffb-f794-4a32-a7b2-36a9ba937b1a.jpg
+│   │   │   └── 📕 fc2278d1-c540-4536-ad6f-36c95f6d3418.pdf
+│   │   ├── 📁 history_docs/
+│   │   │   ├── 🖼️ 010806a6-1041-40ac-8a7c-733558b0fda8.jpeg
+│   │   │   ├── 🖼️ 7198eb91-e4dd-4c23-99fc-a2ef8b0e3db0.jpeg
+│   │   │   ├── 🖼️ 762254d9-cd8f-4f9f-9876-82279c5428af.jpeg
+│   │   │   ├── 🖼️ 79a147a6-027f-4373-b66e-eae088f37982.jpeg
+│   │   │   ├── 🖼️ 7b09813d-85f4-4b89-b897-78e5e0a087ce.jpg
+│   │   │   ├── 🖼️ 846e3219-e932-4bff-a3e3-0e89dd74ae1b.jpeg
+│   │   │   ├── 🖼️ 8d9e629a-7fbe-48c3-83da-fc69f5188bc9.jpg
+│   │   │   ├── 🖼️ 978f02e6-bc00-49b2-98b6-93e654cc1e9f.png
+│   │   │   ├── 🖼️ b0779be3-eb47-4ef8-b0bf-d8cf2d898ff1.jpeg
+│   │   │   ├── 🖼️ b9feeb50-7dc4-4fcb-b3e4-8a2b5d915a8e.jpg
+│   │   │   ├── 📕 bb62d704-4743-475e-8d13-40bf3931f53e.PDF
+│   │   │   ├── 🖼️ e4969e0c-00aa-4f7e-88fc-6028656ca7e1.jpg
+│   │   │   └── 🖼️ f114217b-583f-43f3-9eb4-56ff5b766a54.jpg
+│   │   ├── 📁 logos/
+│   │   │   └── 🖼️ fed885f7-1dd0-4a2c-9900-d74465954859.png
+│   │   ├── 📁 pay-stubs/
+│   │   │   └── 📁 2026/
+│   │   │       ├── 📁 Abril/
+│   │   │       │   ├── 📁 Q1/
+│   │   │       │   │   ├── 📕 ADELIA_NOHEMY_VALVERDE_ROMERO.pdf
+│   │   │       │   │   ├── 📕 ALEXANDER_ARNOLDO_GOMEZ_QUINTANILLA.pdf
+│   │   │       │   │   ├── 📕 ANDRE_DUARTE_SOSA.pdf
+│   │   │       │   │   ├── 📕 BRAYAN_ESTIVEN_AYALA_AYALA.pdf
+│   │   │       │   │   ├── 📕 CARLOS_EDUARDO_MEJIA_LUNA.pdf
+│   │   │       │   │   ├── 📕 CARLOS_ENRIQUE_BARQUERO_FLORES.pdf
+│   │   │       │   │   ├── 📕 CARLOS_MAURO_CHAVEZ_ALVARENGA.pdf
+│   │   │       │   │   ├── 📕 CHRISTIAN_DE_JESUS_SEGOVIA.pdf
+│   │   │       │   │   ├── 📕 CRISTY_YAMILETH_RAMOS_CHICAS.pdf
+│   │   │       │   │   ├── 📕 DANIEL_ALESSANDRO_ROSALES_GONZALEZ.pdf
+│   │   │       │   │   ├── 📕 DAVID_ULISES_VELIS_REYES.pdf
+│   │   │       │   │   ├── 📕 DOUGLAS_ENRIQUE_ARGUETA_AYALA.pdf
+│   │   │       │   │   ├── 📕 EDITH_XIOMARA_BENITEZ_DE_ROBLES.pdf
+│   │   │       │   │   ├── 📕 EDWIN_ALEXANDER_PALACIOS_LINO.pdf
+│   │   │       │   │   ├── 📕 ELSA_MARCELA_FLORES_SERPAS.pdf
+│   │   │       │   │   ├── 📕 ERICK_EDMUNDO_CANDRAY_RUIZ.pdf
+│   │   │       │   │   ├── 📕 FANNY_YAMILETH_CRUZ_COREAS.pdf
+│   │   │       │   │   ├── 📕 FERNANDO_JAVIER_SORTO_MEDRANO.pdf
+│   │   │       │   │   ├── 📕 FERNANDO_JOSE_ALFARO_PALACIOS.pdf
+│   │   │       │   │   ├── 📕 FIDEL_ANGEL_MARTINEZ_NIETO.pdf
+│   │   │       │   │   ├── 📕 FRANKLIN_WILFREDO_COREAS_AQUINO.pdf
+│   │   │       │   │   ├── 📕 FREDY_ALBERTO_VASQUEZ_VIGIL.pdf
+│   │   │       │   │   ├── 📕 GLENDA_CAROLINA_MEJIA_CHAVEZ.pdf
+│   │   │       │   │   ├── 📕 GUILLERMO_ALEXANDER_ZELAYA_PORTILLO.pdf
+│   │   │       │   │   ├── 📕 HENRY_ALEXANDER_SANTACRUZ_BLANCO.pdf
+│   │   │       │   │   ├── 📕 IRVIN_WILFREDO_HERNANDEZ_LIPE.pdf
+│   │   │       │   │   ├── 📕 IVAN_ANTONIO_ZELAYA_PORTILLO.pdf
+│   │   │       │   │   ├── 📕 JAIRO_ANTONIO_HERNANDEZ_GUEVARA.pdf
+│   │   │       │   │   ├── 📕 JAVIER_ARMANDO_PORTILLO_CHAVEZ.pdf
+│   │   │       │   │   ├── 📕 JEFFRY_FRANCISCO_RAMOS_GOMEZ.pdf
+│   │   │       │   │   ├── 📕 JESSICA_BEATRIZ_HERNANDEZ_CHICA.pdf
+│   │   │       │   │   ├── 📕 JOEL_WILLIAM_HERNANDEZ_RODRIGUEZ.pdf
+│   │   │       │   │   ├── 📕 JORGE_MARLON_HERNANDEZ_LUNA.pdf
+│   │   │       │   │   ├── 📕 JOSE_GUILLERMO_HENRIQUEZ.pdf
+│   │   │       │   │   ├── 📕 JOSE_RODOLFO_VASQUEZ.pdf
+│   │   │       │   │   ├── 📕 JOSE_ROLANDO_CHICA_MENDEZ.pdf
+│   │   │       │   │   ├── 📕 JOSUE_DANIEL_SOSA_GODINEZ.pdf
+│   │   │       │   │   ├── 📕 JOSUE__DANIEL_ROMERO_CHICAS.pdf
+│   │   │       │   │   ├── 📕 JUAN_CARLOS_VIERA_VILLAVICENCIO.pdf
+│   │   │       │   │   ├── 📕 JUAN_EMILIO_ULLOA_GOMEZ.pdf
+│   │   │       │   │   ├── 📕 KARLA_SOFIA_LOVO_CORDOVA.pdf
+│   │   │       │   │   ├── 📕 KATHERINE_ELIZABETH_VANEGAS_DIAZ.pdf
+│   │   │       │   │   ├── 📕 KATHERINE_TATIANA_AMAYA_RAMOS.pdf
+│   │   │       │   │   ├── 📕 KEILY_YAMILETH_NAVARRO_DIAZ.pdf
+│   │   │       │   │   ├── 📕 KEVIN_ALEXANDER_MARTINEZ_PINTO.pdf
+│   │   │       │   │   ├── 📕 KEVIN_ANTONIO_MUNTO_RAMIREZ.pdf
+│   │   │       │   │   ├── 📕 MARIA_GLORIA_HERNANDEZ_ZELAYA.pdf
+│   │   │       │   │   ├── 📕 MARIA_TOMASA_REYES_MEJIA.pdf
+│   │   │       │   │   ├── 📕 MARIO_ERNESTO_GOMEZ_ROMERO.pdf
+│   │   │       │   │   ├── 📕 MARJORIE_MARIELA_LARA_MOLINA.pdf
+│   │   │       │   │   ├── 📕 MARVIN_JOSUE_ALVARENGA_GUERRERO.pdf
+│   │   │       │   │   ├── 📕 MILTON_DAVID_MENJIVAR_GRANILLO.pdf
+│   │   │       │   │   ├── 📕 NAOMI_LINETTE_CHAVEZ_GARCIA.pdf
+│   │   │       │   │   ├── 📕 NELSY_JOHANNA_DIAZ_DE_CHICAS.pdf
+│   │   │       │   │   ├── 📕 OSCAR_ADAN_RAMIREZ_RAMIREZ.pdf
+│   │   │       │   │   ├── 📕 PATRICIA_GUADALUPE_COLON_SORTO.pdf
+│   │   │       │   │   ├── 📕 PEDRO_VICENTE_CHICAS.pdf
+│   │   │       │   │   ├── 📕 RAFAEL_ANTONIO_ALFARO_RIVAS.pdf
+│   │   │       │   │   ├── 📕 RAFAEL_ANTONIO_DIAZ.pdf
+│   │   │       │   │   ├── 📕 RAUL_ALEXANDER_CHICAS_GUTIERREZ.pdf
+│   │   │       │   │   ├── 📕 RICARDO_JOSUE_ALAS_DIAZ.pdf
+│   │   │       │   │   ├── 📕 ROBERTH_JONATHAN_CORTEZ_PEREZ.pdf
+│   │   │       │   │   ├── 📕 ROBERTO_ANTONIO_VELIS_DIAZ.pdf
+│   │   │       │   │   ├── 📕 ROSA_DE_LA_PAZ_CALIX_SERRANO.pdf
+│   │   │       │   │   ├── 📕 RUDY_ARTEMYS_RIVERA.pdf
+│   │   │       │   │   ├── 📕 STEFANY_YAMILETH_RIVAS_MENDIOLA.pdf
+│   │   │       │   │   ├── 📕 STEPHANIE_LISETH_SALAZAR_DIAZ.pdf
+│   │   │       │   │   ├── 📕 STEVEN_EFRAIN_MEDRANO_DEL_CID.pdf
+│   │   │       │   │   ├── 📕 VICTOR_MANUEL_HERNANDEZ_FUENTES.pdf
+│   │   │       │   │   ├── 📕 WALTER_ALEXANDER_VELASQUEZ_GOMEZ.pdf
+│   │   │       │   │   ├── 📕 WIDMAN_RAFAEL_LUCHA_GALLARDO.pdf
+│   │   │       │   │   ├── 📕 WILFREDO_ALEXANDER_ESPINOZA_HERRERA.pdf
+│   │   │       │   │   ├── 📕 WILLIAM_ALEXANDER_SEGOVIA.pdf
+│   │   │       │   │   ├── 📕 WILLIAM_ULISES_PARADA_BONILLA.pdf
+│   │   │       │   │   ├── 📕 YANIRA_CECILIA_LEMUS_ROMERO.pdf
+│   │   │       │   │   ├── 📕 YANIRA_ESTEFANY_GOMEZ_ASCENCIO.pdf
+│   │   │       │   │   └── 📕 ZAYRA_LISSETH_REYES_DE_GOMEZ.pdf
+│   │   │       │   └── 📁 Q2/
+│   │   │       │       ├── 📕 ADELIA_NOHEMY_VALVERDE_ROMERO.pdf
+│   │   │       │       ├── 📕 ALEXANDER_ARNOLDO_GOMEZ_QUINTANILLA.pdf
+│   │   │       │       ├── 📕 ANDRE_DUARTE_SOSA.pdf
+│   │   │       │       ├── 📕 BRAYAN_ESTIVEN_AYALA_AYALA.pdf
+│   │   │       │       ├── 📕 BRYAN_ARTURO_HERRERA_RODRIGUEZ.pdf
+│   │   │       │       ├── 📕 CARLOS_EDUARDO_MEJIA_LUNA.pdf
+│   │   │       │       ├── 📕 CARLOS_ENRIQUE_BARQUERO_FLORES.pdf
+│   │   │       │       ├── 📕 CARLOS_MAURO_CHAVEZ_ALVARENGA.pdf
+│   │   │       │       ├── 📕 CHRISTIAN_DE_JESUS_SEGOVIA.pdf
+│   │   │       │       ├── 📕 DANIEL_ALESSANDRO_ROSALES_GONZALEZ.pdf
+│   │   │       │       ├── 📕 DAVID_ULISES_VELIS_REYES.pdf
+│   │   │       │       ├── 📕 DOUGLAS_ENRIQUE_ARGUETA_AYALA.pdf
+│   │   │       │       ├── 📕 EDITH_XIOMARA_BENITEZ_DE_ROBLES.pdf
+│   │   │       │       ├── 📕 EDWIN_ALEXANDER_PALACIOS_LINO.pdf
+│   │   │       │       ├── 📕 ELSA_MARCELA_FLORES_SERPAS.pdf
+│   │   │       │       ├── 📕 ERICK_EDMUNDO_CANDRAY_RUIZ.pdf
+│   │   │       │       ├── 📕 FANNY_YAMILETH_CRUZ_COREAS.pdf
+│   │   │       │       ├── 📕 FERNANDO_JAVIER_SORTO_MEDRANO.pdf
+│   │   │       │       ├── 📕 FERNANDO_JOSE_ALFARO_PALACIOS.pdf
+│   │   │       │       ├── 📕 FIDEL_ANGEL_MARTINEZ_NIETO.pdf
+│   │   │       │       ├── 📕 FRANKLIN_WILFREDO_COREAS_AQUINO.pdf
+│   │   │       │       ├── 📕 FREDY_ALBERTO_VASQUEZ_VIGIL.pdf
+│   │   │       │       ├── 📕 GLENDA_CAROLINA_MEJIA_CHAVEZ.pdf
+│   │   │       │       ├── 📕 GRICELDA_XIOMARA_MAGANA_BARRIENTOS.pdf
+│   │   │       │       ├── 📕 GUILLERMO_ALEXANDER_ZELAYA_PORTILLO.pdf
+│   │   │       │       ├── 📕 HENRY_ALEXANDER_SANTACRUZ_BLANCO.pdf
+│   │   │       │       ├── 📕 HEYDI_MELISA_COREAS_PONCE.pdf
+│   │   │       │       ├── 📕 IRVIN_WILFREDO_HERNANDEZ_LIPE.pdf
+│   │   │       │       ├── 📕 IVAN_ANTONIO_ZELAYA_PORTILLO.pdf
+│   │   │       │       ├── 📕 JAVIER_ARMANDO_PORTILLO_CHAVEZ.pdf
+│   │   │       │       ├── 📕 JEFFRY_FRANCISCO_RAMOS_GOMEZ.pdf
+│   │   │       │       ├── 📕 JESSICA_BEATRIZ_HERNANDEZ_CHICA.pdf
+│   │   │       │       ├── 📕 JOEL_WILLIAM_HERNANDEZ_RODRIGUEZ.pdf
+│   │   │       │       ├── 📕 JONATHAN_MARCELO_HERNANDEZ_GONZALEZ.pdf
+│   │   │       │       ├── 📕 JORGE_MARLON_HERNANDEZ_LUNA.pdf
+│   │   │       │       ├── 📕 JOSE_EVELIO_RAMIREZ_RAMIREZ.pdf
+│   │   │       │       ├── 📕 JOSE_GUILLERMO_HENRIQUEZ.pdf
+│   │   │       │       ├── 📕 JOSE_RODOLFO_VASQUEZ.pdf
+│   │   │       │       ├── 📕 JOSE_ROLANDO_CHICA_MENDEZ.pdf
+│   │   │       │       ├── 📕 JOSIA_OBED_MANCIA_OLMEDO.pdf
+│   │   │       │       ├── 📕 JOSUE_DANIEL_SOSA_GODINEZ.pdf
+│   │   │       │       ├── 📕 JOSUE__DANIEL_ROMERO_CHICAS.pdf
+│   │   │       │       ├── 📕 JUAN_CARLOS_VIERA_VILLAVICENCIO.pdf
+│   │   │       │       ├── 📕 JUAN_EMILIO_ULLOA_GOMEZ.pdf
+│   │   │       │       ├── 📕 KARLA_SOFIA_LOVO_CORDOVA.pdf
+│   │   │       │       ├── 📕 KATHERINE_ELIZABETH_VANEGAS_DIAZ.pdf
+│   │   │       │       ├── 📕 KATHERINE_TATIANA_AMAYA_RAMOS.pdf
+│   │   │       │       ├── 📕 KEILY_YAMILETH_NAVARRO_DIAZ.pdf
+│   │   │       │       ├── 📕 KEVIN_ALEXANDER_MARTINEZ_PINTO.pdf
+│   │   │       │       ├── 📕 KEVIN_ANTONIO_MUNTO_RAMIREZ.pdf
+│   │   │       │       ├── 📕 MARIA_GLORIA_HERNANDEZ_ZELAYA.pdf
+│   │   │       │       ├── 📕 MARIA_TOMASA_REYES_MEJIA.pdf
+│   │   │       │       ├── 📕 MARVIN_JOSUE_ALVARENGA_GUERRERO.pdf
+│   │   │       │       ├── 📕 MILTON_DAVID_MENJIVAR_GRANILLO.pdf
+│   │   │       │       ├── 📕 NAOMI_LINETTE_CHAVEZ_GARCIA.pdf
+│   │   │       │       ├── 📕 NELSY_JOHANNA_DIAZ_DE_CHICAS.pdf
+│   │   │       │       ├── 📕 ODIR_OSWALDO_AGUILAR_MENDEZ.pdf
+│   │   │       │       ├── 📕 OSCAR_ADAN_RAMIREZ_RAMIREZ.pdf
+│   │   │       │       ├── 📕 PATRICIA_GUADALUPE_COLON_SORTO.pdf
+│   │   │       │       ├── 📕 PEDRO_VICENTE_CHICAS.pdf
+│   │   │       │       ├── 📕 RAFAEL_ANTONIO_ALFARO_RIVAS.pdf
+│   │   │       │       ├── 📕 RAFAEL_ANTONIO_DIAZ.pdf
+│   │   │       │       ├── 📕 RAUL_ALEXANDER_CHICAS_GUTIERREZ.pdf
+│   │   │       │       ├── 📕 RICARDO_JOSUE_ALAS_DIAZ.pdf
+│   │   │       │       ├── 📕 ROBERTH_JONATHAN_CORTEZ_PEREZ.pdf
+│   │   │       │       ├── 📕 ROBERTO_ANTONIO_VELIS_DIAZ.pdf
+│   │   │       │       ├── 📕 RONALD_ANTONIO_GOMEZ_PRIVADO.pdf
+│   │   │       │       ├── 📕 ROSA_DE_LA_PAZ_CALIX_SERRANO.pdf
+│   │   │       │       ├── 📕 RUDY_ARTEMYS_RIVERA.pdf
+│   │   │       │       ├── 📕 STEFANY_YAMILETH_RIVAS_MENDIOLA.pdf
+│   │   │       │       ├── 📕 STEPHANIE_LISETH_SALAZAR_DIAZ.pdf
+│   │   │       │       ├── 📕 STEVEN_EFRAIN_MEDRANO_DEL_CID.pdf
+│   │   │       │       ├── 📕 VICTOR_MANUEL_HERNANDEZ_FUENTES.pdf
+│   │   │       │       ├── 📕 VICTOR_MANUEL_PALOMO_ORELLANA.pdf
+│   │   │       │       ├── 📕 WALTER_ALEXANDER_VELASQUEZ_GOMEZ.pdf
+│   │   │       │       ├── 📕 WIDMAN_RAFAEL_LUCHA_GALLARDO.pdf
+│   │   │       │       ├── 📕 WILFREDO_ALEXANDER_ESPINOZA_HERRERA.pdf
+│   │   │       │       ├── 📕 WILLIAM_ALEXANDER_SEGOVIA.pdf
+│   │   │       │       ├── 📕 WILLIAM_ULISES_PARADA_BONILLA.pdf
+│   │   │       │       ├── 📕 YANIRA_CECILIA_LEMUS_ROMERO.pdf
+│   │   │       │       ├── 📕 YANIRA_ESTEFANY_GOMEZ_ASCENCIO.pdf
+│   │   │       │       └── 📕 ZAYRA_LISSETH_REYES_DE_GOMEZ.pdf
+│   │   │       ├── 📁 Julio/
+│   │   │       │   └── 📁 Q1/
+│   │   │       │       ├── 📕 ADELIA_NOHEMY_VALVERDE_ROMERO.pdf
+│   │   │       │       ├── 📕 ALEXANDER_ARNOLDO_GOMEZ_QUINTANILLA.pdf
+│   │   │       │       ├── 📕 ANDRE_DUARTE_SOSA.pdf
+│   │   │       │       ├── 📕 ARGELIA_GRACIELA_HENRIQUEZ_GARCIA.pdf
+│   │   │       │       ├── 📕 BEATRIZ_ADRIANA_AREVALO_TOBAR.pdf
+│   │   │       │       ├── 📕 BRAYAN_ESTIVEN_AYALA_AYALA.pdf
+│   │   │       │       ├── 📕 BRYAN_ARTURO_HERRERA_RODRIGUEZ.pdf
+│   │   │       │       ├── 📕 CARLOS_EDUARDO_MEJIA_LUNA.pdf
+│   │   │       │       ├── 📕 CARLOS_ENRIQUE_BARQUERO_FLORES.pdf
+│   │   │       │       ├── 📕 CARLOS_MAURO_CHAVEZ_ALVARENGA.pdf
+│   │   │       │       ├── 📕 CESIA_NATHALY__ESCOBAR.pdf
+│   │   │       │       ├── 📕 DANIEL_ALESSANDRO_ROSALES_GONZALEZ.pdf
+│   │   │       │       ├── 📕 DANYS_JEFFERSON_GARCIA_CHICAS.pdf
+│   │   │       │       ├── 📕 DOUGLAS_ENRIQUE_ARGUETA_AYALA.pdf
+│   │   │       │       ├── 📕 EDITH_XIOMARA_BENITEZ_DE_ROBLES.pdf
+│   │   │       │       ├── 📕 EDUARDO_JOSUE_LANDAVERDE_GIRON.pdf
+│   │   │       │       ├── 📕 EDWIN_ALEXANDER_PALACIOS_LINO.pdf
+│   │   │       │       ├── 📕 ELSA_MARCELA_FLORES_SERPAS.pdf
+│   │   │       │       ├── 📕 ERNESTO_DAGOBERTO_JOYA_MENDEZ.pdf
+│   │   │       │       ├── 📕 FERNANDO_JAVIER_SORTO_MEDRANO.pdf
+│   │   │       │       ├── 📕 FERNANDO_JOSE_ALFARO_PALACIOS.pdf
+│   │   │       │       ├── 📕 FIDEL_ANGEL_MARTINEZ_NIETO.pdf
+│   │   │       │       ├── 📕 FRANCISCO_RENE_RUIZ_BOLANOS.pdf
+│   │   │       │       ├── 📕 FRANKLIN_WILFREDO_COREAS_AQUINO.pdf
+│   │   │       │       ├── 📕 GERSON_FRANCISCO_MADRID_UTO.pdf
+│   │   │       │       ├── 📕 GLENDA_CAROLINA_MEJIA_CHAVEZ.pdf
+│   │   │       │       ├── 📕 GUILLERMO_ALEXANDER_ZELAYA_PORTILLO.pdf
+│   │   │       │       ├── 📕 HENRY_ALEXANDER_SANTACRUZ_BLANCO.pdf
+│   │   │       │       ├── 📕 HEYDI_MELISA_COREAS_PONCE.pdf
+│   │   │       │       ├── 📕 IRVIN_WILFREDO_HERNANDEZ_LIPE.pdf
+│   │   │       │       ├── 📕 IVAN_ANTONIO_ZELAYA_PORTILLO.pdf
+│   │   │       │       ├── 📕 JAIRO_ANTONIO_HERNANDEZ_GUEVARA.pdf
+│   │   │       │       ├── 📕 JAVIER_ARMANDO_PORTILLO_CHAVEZ.pdf
+│   │   │       │       ├── 📕 JEFFRY_FRANCISCO_RAMOS_GOMEZ.pdf
+│   │   │       │       ├── 📕 JENNIFER_MAYENSY_GARCIA_DE_FUENTES.pdf
+│   │   │       │       ├── 📕 JOEL_WILLIAM_HERNANDEZ_RODRIGUEZ.pdf
+│   │   │       │       ├── 📕 JONATHAN_MARCELO_HERNANDEZ_GONZALEZ.pdf
+│   │   │       │       ├── 📕 JORGE_MARLON_HERNANDEZ_LUNA.pdf
+│   │   │       │       ├── 📕 JOSE_EVELIO_RAMIREZ_RAMIREZ.pdf
+│   │   │       │       ├── 📕 JOSE_FERNANDO_GUEVARA_ARGUETA.pdf
+│   │   │       │       ├── 📕 JOSE_GUILLERMO_HENRIQUEZ_MEDRANO.pdf
+│   │   │       │       ├── 📕 JOSE_RODOLFO_VASQUEZ.pdf
+│   │   │       │       ├── 📕 JOSE_ROLANDO_CHICA_MENDEZ.pdf
+│   │   │       │       ├── 📕 JOSIA_OBED_MANCIA_OLMEDO.pdf
+│   │   │       │       ├── 📕 JOSUE__DANIEL_ROMERO_CHICAS.pdf
+│   │   │       │       ├── 📕 JUAN_CARLOS_VIERA_VILLAVICENCIO.pdf
+│   │   │       │       ├── 📕 JUAN_EMILIO_ULLOA_GOMEZ.pdf
+│   │   │       │       ├── 📕 KARLA_SOFIA_LOVO_CORDOVA.pdf
+│   │   │       │       ├── 📕 KATHERINE_ELIZABETH_VANEGAS_DIAZ.pdf
+│   │   │       │       ├── 📕 KATHERINE_TATIANA_AMAYA_RAMOS.pdf
+│   │   │       │       ├── 📕 KEILY_YAMILETH_NAVARRO_DIAZ.pdf
+│   │   │       │       ├── 📕 KEVIN_ALEXANDER_MOLINA_RIVAS.pdf
+│   │   │       │       ├── 📕 KEVIN_ANTONIO_MUNTO_RAMIREZ.pdf
+│   │   │       │       ├── 📕 KIMBERLY_CECILIA_ALVARENGA_MORALES.pdf
+│   │   │       │       ├── 📕 LAZARO_ARMANDO_CASTILLO_CRUZ.pdf
+│   │   │       │       ├── 📕 MARIA_GLORIA_HERNANDEZ_ZELAYA.pdf
+│   │   │       │       ├── 📕 MARIO_ENRIQUE_BERRIOS_PORTILLO.pdf
+│   │   │       │       ├── 📕 MARIO_ERNESTO_GOMEZ_ROMERO.pdf
+│   │   │       │       ├── 📕 MARVIN_JOSUE_ALVARENGA_GUERRERO.pdf
+│   │   │       │       ├── 📕 MAX_STEVEN_HERNANDEZ_CRUZ.pdf
+│   │   │       │       ├── 📕 MIGUEL_ANGEL_HERNANDEZ_ORTIZ.pdf
+│   │   │       │       ├── 📕 MILTON_DAVID_MENJIVAR_GRANILLO.pdf
+│   │   │       │       ├── 📕 NAOMI_LINETTE_CHAVEZ_GARCIA.pdf
+│   │   │       │       ├── 📕 OSCAR_ADAN_RAMIREZ_RAMIREZ.pdf
+│   │   │       │       ├── 📕 PABLO_ENRIQUE_JUAREZ_ORTEGA.pdf
+│   │   │       │       ├── 📕 PATRICIA_GUADALUPE_COLON_SORTO.pdf
+│   │   │       │       ├── 📕 PEDRO_VICENTE_CHICAS.pdf
+│   │   │       │       ├── 📕 RAFAEL_ANTONIO_DIAZ.pdf
+│   │   │       │       ├── 📕 RAUL_ALEXANDER_CHICAS_GUTIERREZ.pdf
+│   │   │       │       ├── 📕 REINA_BEATRIZ_LIMA_GRANADOS.pdf
+│   │   │       │       ├── 📕 RICARDO_JOSUE_ALAS_DIAZ.pdf
+│   │   │       │       ├── 📕 ROBERTH_JONATHAN_CORTEZ_PEREZ.pdf
+│   │   │       │       ├── 📕 ROBERTO_ANTONIO_VELIS_DIAZ.pdf
+│   │   │       │       ├── 📕 RONALD_ANTONIO_GOMEZ_PRIVADO.pdf
+│   │   │       │       ├── 📕 RUDY_ARTEMYS_RIVERA.pdf
+│   │   │       │       ├── 📕 STEFANY_YAMILETH_RIVAS_MENDIOLA.pdf
+│   │   │       │       ├── 📕 STEPHANIE_LISETH_SALAZAR_DIAZ.pdf
+│   │   │       │       ├── 📕 STEVEN_EFRAIN_MEDRANO_DEL_CID.pdf
+│   │   │       │       ├── 📕 VICTORIA_INDALFIDIA_RODRIGUEZ_TARIO.pdf
+│   │   │       │       ├── 📕 VICTOR_MANUEL_HERNANDEZ_FUENTES.pdf
+│   │   │       │       ├── 📕 WALTER_ALEXANDER_VELASQUEZ_GOMEZ.pdf
+│   │   │       │       ├── 📕 WILFREDO_ALEXANDER_ESPINOZA_HERRERA.pdf
+│   │   │       │       ├── 📕 WILLIAM_ALEXANDER_SEGOVIA_MARTINEZ.pdf
+│   │   │       │       ├── 📕 WILLIAM_ULISES_PARADA_BONILLA.pdf
+│   │   │       │       ├── 📕 YANIRA_CECILIA_LEMUS_ROMERO.pdf
+│   │   │       │       ├── 📕 YANIRA_ESTEFANY_GOMEZ_ASCENCIO.pdf
+│   │   │       │       ├── 📕 YOHANA_VERENICE_LOZANO_OLIVAR.pdf
+│   │   │       │       └── 📕 ZAYRA_LISSETH_REYES_DE_GOMEZ.pdf
+│   │   │       ├── 📁 Junio/
+│   │   │       │   ├── 📁 Q1/
+│   │   │       │   │   ├── 📕 ADELIA_NOHEMY_VALVERDE_ROMERO.pdf
+│   │   │       │   │   ├── 📕 ALEXANDER_ARNOLDO_GOMEZ_QUINTANILLA.pdf
+│   │   │       │   │   ├── 📕 ANDRE_DUARTE_SOSA.pdf
+│   │   │       │   │   ├── 📕 ARGELIA_GRACIELA_HENRIQUEZ_GARCIA.pdf
+│   │   │       │   │   ├── 📕 BRAYAN_ESTIVEN_AYALA_AYALA.pdf
+│   │   │       │   │   ├── 📕 BRYAN_ARTURO_HERRERA_RODRIGUEZ.pdf
+│   │   │       │   │   ├── 📕 CARLOS_EDUARDO_MEJIA_LUNA.pdf
+│   │   │       │   │   ├── 📕 CARLOS_ENRIQUE_BARQUERO_FLORES.pdf
+│   │   │       │   │   ├── 📕 CARLOS_MAURO_CHAVEZ_ALVARENGA.pdf
+│   │   │       │   │   ├── 📕 DANIEL_ALESSANDRO_ROSALES_GONZALEZ.pdf
+│   │   │       │   │   ├── 📕 DOUGLAS_ENRIQUE_ARGUETA_AYALA.pdf
+│   │   │       │   │   ├── 📕 EDITH_XIOMARA_BENITEZ_DE_ROBLES.pdf
+│   │   │       │   │   ├── 📕 EDWIN_ALEXANDER_PALACIOS_LINO.pdf
+│   │   │       │   │   ├── 📕 ELSA_MARCELA_FLORES_SERPAS.pdf
+│   │   │       │   │   ├── 📕 ERNESTO_DAGOBERTO_JOYA_MENDEZ.pdf
+│   │   │       │   │   ├── 📕 FERNANDO_JAVIER_SORTO_MEDRANO.pdf
+│   │   │       │   │   ├── 📕 FERNANDO_JOSE_ALFARO_PALACIOS.pdf
+│   │   │       │   │   ├── 📕 FIDEL_ANGEL_MARTINEZ_NIETO.pdf
+│   │   │       │   │   ├── 📕 FRANKLIN_WILFREDO_COREAS_AQUINO.pdf
+│   │   │       │   │   ├── 📕 GLENDA_CAROLINA_MEJIA_CHAVEZ.pdf
+│   │   │       │   │   ├── 📕 GUILLERMO_ALEXANDER_ZELAYA_PORTILLO.pdf
+│   │   │       │   │   ├── 📕 HENRY_ALEXANDER_SANTACRUZ_BLANCO.pdf
+│   │   │       │   │   ├── 📕 HEYDI_MELISA_COREAS_PONCE.pdf
+│   │   │       │   │   ├── 📕 IRVIN_WILFREDO_HERNANDEZ_LIPE.pdf
+│   │   │       │   │   ├── 📕 IVAN_ANTONIO_ZELAYA_PORTILLO.pdf
+│   │   │       │   │   ├── 📕 JAIRO_ANTONIO_HERNANDEZ_GUEVARA.pdf
+│   │   │       │   │   ├── 📕 JAVIER_ARMANDO_PORTILLO_CHAVEZ.pdf
+│   │   │       │   │   ├── 📕 JEFFRY_FRANCISCO_RAMOS_GOMEZ.pdf
+│   │   │       │   │   ├── 📕 JESSICA_BEATRIZ_HERNANDEZ_CHICA.pdf
+│   │   │       │   │   ├── 📕 JOEL_WILLIAM_HERNANDEZ_RODRIGUEZ.pdf
+│   │   │       │   │   ├── 📕 JONATHAN_MARCELO_HERNANDEZ_GONZALEZ.pdf
+│   │   │       │   │   ├── 📕 JORGE_MARLON_HERNANDEZ_LUNA.pdf
+│   │   │       │   │   ├── 📕 JOSE_EVELIO_RAMIREZ_RAMIREZ.pdf
+│   │   │       │   │   ├── 📕 JOSE_GUILLERMO_HENRIQUEZ.pdf
+│   │   │       │   │   ├── 📕 JOSE_RODOLFO_VASQUEZ.pdf
+│   │   │       │   │   ├── 📕 JOSE_ROLANDO_CHICA_MENDEZ.pdf
+│   │   │       │   │   ├── 📕 JOSIA_OBED_MANCIA_OLMEDO.pdf
+│   │   │       │   │   ├── 📕 JOSUE_DANIEL_SOSA_GODINEZ.pdf
+│   │   │       │   │   ├── 📕 JOSUE__DANIEL_ROMERO_CHICAS.pdf
+│   │   │       │   │   ├── 📕 JUAN_CARLOS_VIERA_VILLAVICENCIO.pdf
+│   │   │       │   │   ├── 📕 JUAN_EMILIO_ULLOA_GOMEZ.pdf
+│   │   │       │   │   ├── 📕 KARLA_SOFIA_LOVO_CORDOVA.pdf
+│   │   │       │   │   ├── 📕 KATHERINE_ELIZABETH_VANEGAS_DIAZ.pdf
+│   │   │       │   │   ├── 📕 KATHERINE_TATIANA_AMAYA_RAMOS.pdf
+│   │   │       │   │   ├── 📕 KEILY_YAMILETH_NAVARRO_DIAZ.pdf
+│   │   │       │   │   ├── 📕 KEVIN_ALEXANDER_MARTINEZ_PINTO.pdf
+│   │   │       │   │   ├── 📕 KEVIN_ANTONIO_MUNTO_RAMIREZ.pdf
+│   │   │       │   │   ├── 📕 KIMBERLY_CECILIA_ALVARENGA_MORALES.pdf
+│   │   │       │   │   ├── 📕 MARIA_GLORIA_HERNANDEZ_ZELAYA.pdf
+│   │   │       │   │   ├── 📕 MARIO_ERNESTO_GOMEZ_ROMERO.pdf
+│   │   │       │   │   ├── 📕 MARVIN_JOSUE_ALVARENGA_GUERRERO.pdf
+│   │   │       │   │   ├── 📕 MAX_STEVEN_HERNANDEZ_CRUZ.pdf
+│   │   │       │   │   ├── 📕 MILTON_DAVID_MENJIVAR_GRANILLO.pdf
+│   │   │       │   │   ├── 📕 NAOMI_LINETTE_CHAVEZ_GARCIA.pdf
+│   │   │       │   │   ├── 📕 OSCAR_ADAN_RAMIREZ_RAMIREZ.pdf
+│   │   │       │   │   ├── 📕 PATRICIA_GUADALUPE_COLON_SORTO.pdf
+│   │   │       │   │   ├── 📕 PEDRO_VICENTE_CHICAS.pdf
+│   │   │       │   │   ├── 📕 RAFAEL_ANTONIO_ALFARO_RIVAS.pdf
+│   │   │       │   │   ├── 📕 RAFAEL_ANTONIO_DIAZ.pdf
+│   │   │       │   │   ├── 📕 RAUL_ALEXANDER_CHICAS_GUTIERREZ.pdf
+│   │   │       │   │   ├── 📕 RICARDO_JOSUE_ALAS_DIAZ.pdf
+│   │   │       │   │   ├── 📕 ROBERTH_JONATHAN_CORTEZ_PEREZ.pdf
+│   │   │       │   │   ├── 📕 ROBERTO_ANTONIO_VELIS_DIAZ.pdf
+│   │   │       │   │   ├── 📕 RONALD_ANTONIO_GOMEZ_PRIVADO.pdf
+│   │   │       │   │   ├── 📕 ROSA_DE_LA_PAZ_CALIX_SERRANO.pdf
+│   │   │       │   │   ├── 📕 RUDY_ARTEMYS_RIVERA.pdf
+│   │   │       │   │   ├── 📕 STEFANY_YAMILETH_RIVAS_MENDIOLA.pdf
+│   │   │       │   │   ├── 📕 STEPHANIE_LISETH_SALAZAR_DIAZ.pdf
+│   │   │       │   │   ├── 📕 STEVEN_EFRAIN_MEDRANO_DEL_CID.pdf
+│   │   │       │   │   ├── 📕 VICTOR_MANUEL_HERNANDEZ_FUENTES.pdf
+│   │   │       │   │   ├── 📕 WALTER_ALEXANDER_VELASQUEZ_GOMEZ.pdf
+│   │   │       │   │   ├── 📕 WILFREDO_ALEXANDER_ESPINOZA_HERRERA.pdf
+│   │   │       │   │   ├── 📕 WILLIAM_ALEXANDER_SEGOVIA.pdf
+│   │   │       │   │   ├── 📕 WILLIAM_ULISES_PARADA_BONILLA.pdf
+│   │   │       │   │   ├── 📕 YANIRA_CECILIA_LEMUS_ROMERO.pdf
+│   │   │       │   │   ├── 📕 YANIRA_ESTEFANY_GOMEZ_ASCENCIO.pdf
+│   │   │       │   │   └── 📕 ZAYRA_LISSETH_REYES_DE_GOMEZ.pdf
+│   │   │       │   └── 📁 Q2/
+│   │   │       │       ├── 📕 ADELIA_NOHEMY_VALVERDE_ROMERO.pdf
+│   │   │       │       ├── 📕 ALEXANDER_ARNOLDO_GOMEZ_QUINTANILLA.pdf
+│   │   │       │       ├── 📕 ANDRE_DUARTE_SOSA.pdf
+│   │   │       │       ├── 📕 ARGELIA_GRACIELA_HENRIQUEZ_GARCIA.pdf
+│   │   │       │       ├── 📕 BRAYAN_ESTIVEN_AYALA_AYALA.pdf
+│   │   │       │       ├── 📕 BRYAN_ARTURO_HERRERA_RODRIGUEZ.pdf
+│   │   │       │       ├── 📕 CARLOS_EDUARDO_MEJIA_LUNA.pdf
+│   │   │       │       ├── 📕 CARLOS_ENRIQUE_BARQUERO_FLORES.pdf
+│   │   │       │       ├── 📕 CARLOS_MAURO_CHAVEZ_ALVARENGA.pdf
+│   │   │       │       ├── 📕 DANIEL_ALESSANDRO_ROSALES_GONZALEZ.pdf
+│   │   │       │       ├── 📕 DOUGLAS_ENRIQUE_ARGUETA_AYALA.pdf
+│   │   │       │       ├── 📕 EDITH_XIOMARA_BENITEZ_DE_ROBLES.pdf
+│   │   │       │       ├── 📕 EDWIN_ALEXANDER_PALACIOS_LINO.pdf
+│   │   │       │       ├── 📕 ELSA_MARCELA_FLORES_SERPAS.pdf
+│   │   │       │       ├── 📕 ERNESTO_DAGOBERTO_JOYA_MENDEZ.pdf
+│   │   │       │       ├── 📕 FERNANDO_JAVIER_SORTO_MEDRANO.pdf
+│   │   │       │       ├── 📕 FERNANDO_JOSE_ALFARO_PALACIOS.pdf
+│   │   │       │       ├── 📕 FIDEL_ANGEL_MARTINEZ_NIETO.pdf
+│   │   │       │       ├── 📕 FRANKLIN_WILFREDO_COREAS_AQUINO.pdf
+│   │   │       │       ├── 📕 GLENDA_CAROLINA_MEJIA_CHAVEZ.pdf
+│   │   │       │       ├── 📕 GUILLERMO_ALEXANDER_ZELAYA_PORTILLO.pdf
+│   │   │       │       ├── 📕 HENRY_ALEXANDER_SANTACRUZ_BLANCO.pdf
+│   │   │       │       ├── 📕 HEYDI_MELISA_COREAS_PONCE.pdf
+│   │   │       │       ├── 📕 IRVIN_WILFREDO_HERNANDEZ_LIPE.pdf
+│   │   │       │       ├── 📕 IVAN_ANTONIO_ZELAYA_PORTILLO.pdf
+│   │   │       │       ├── 📕 JAIRO_ANTONIO_HERNANDEZ_GUEVARA.pdf
+│   │   │       │       ├── 📕 JAVIER_ARMANDO_PORTILLO_CHAVEZ.pdf
+│   │   │       │       ├── 📕 JEFFRY_FRANCISCO_RAMOS_GOMEZ.pdf
+│   │   │       │       ├── 📕 JESSICA_BEATRIZ_HERNANDEZ_CHICA.pdf
+│   │   │       │       ├── 📕 JOEL_WILLIAM_HERNANDEZ_RODRIGUEZ.pdf
+│   │   │       │       ├── 📕 JONATHAN_MARCELO_HERNANDEZ_GONZALEZ.pdf
+│   │   │       │       ├── 📕 JORGE_MARLON_HERNANDEZ_LUNA.pdf
+│   │   │       │       ├── 📕 JOSE_EVELIO_RAMIREZ_RAMIREZ.pdf
+│   │   │       │       ├── 📕 JOSE_GUILLERMO_HENRIQUEZ.pdf
+│   │   │       │       ├── 📕 JOSE_RODOLFO_VASQUEZ.pdf
+│   │   │       │       ├── 📕 JOSE_ROLANDO_CHICA_MENDEZ.pdf
+│   │   │       │       ├── 📕 JOSIA_OBED_MANCIA_OLMEDO.pdf
+│   │   │       │       ├── 📕 JOSUE__DANIEL_ROMERO_CHICAS.pdf
+│   │   │       │       ├── 📕 JUAN_CARLOS_VIERA_VILLAVICENCIO.pdf
+│   │   │       │       ├── 📕 JUAN_EMILIO_ULLOA_GOMEZ.pdf
+│   │   │       │       ├── 📕 KARLA_SOFIA_LOVO_CORDOVA.pdf
+│   │   │       │       ├── 📕 KATHERINE_ELIZABETH_VANEGAS_DIAZ.pdf
+│   │   │       │       ├── 📕 KATHERINE_TATIANA_AMAYA_RAMOS.pdf
+│   │   │       │       ├── 📕 KEILY_YAMILETH_NAVARRO_DIAZ.pdf
+│   │   │       │       ├── 📕 KEVIN_ANTONIO_MUNTO_RAMIREZ.pdf
+│   │   │       │       ├── 📕 KIMBERLY_CECILIA_ALVARENGA_MORALES.pdf
+│   │   │       │       ├── 📕 MARIA_GLORIA_HERNANDEZ_ZELAYA.pdf
+│   │   │       │       ├── 📕 MARIO_ERNESTO_GOMEZ_ROMERO.pdf
+│   │   │       │       ├── 📕 MARVIN_JOSUE_ALVARENGA_GUERRERO.pdf
+│   │   │       │       ├── 📕 MAX_STEVEN_HERNANDEZ_CRUZ.pdf
+│   │   │       │       ├── 📕 MILTON_DAVID_MENJIVAR_GRANILLO.pdf
+│   │   │       │       ├── 📕 NAOMI_LINETTE_CHAVEZ_GARCIA.pdf
+│   │   │       │       ├── 📕 OSCAR_ADAN_RAMIREZ_RAMIREZ.pdf
+│   │   │       │       ├── 📕 PATRICIA_GUADALUPE_COLON_SORTO.pdf
+│   │   │       │       ├── 📕 PEDRO_VICENTE_CHICAS.pdf
+│   │   │       │       ├── 📕 RAFAEL_ANTONIO_ALFARO_RIVAS.pdf
+│   │   │       │       ├── 📕 RAFAEL_ANTONIO_DIAZ.pdf
+│   │   │       │       ├── 📕 RAUL_ALEXANDER_CHICAS_GUTIERREZ.pdf
+│   │   │       │       ├── 📕 RICARDO_JOSUE_ALAS_DIAZ.pdf
+│   │   │       │       ├── 📕 ROBERTH_JONATHAN_CORTEZ_PEREZ.pdf
+│   │   │       │       ├── 📕 ROBERTO_ANTONIO_VELIS_DIAZ.pdf
+│   │   │       │       ├── 📕 RONALD_ANTONIO_GOMEZ_PRIVADO.pdf
+│   │   │       │       ├── 📕 RUDY_ARTEMYS_RIVERA.pdf
+│   │   │       │       ├── 📕 STEFANY_YAMILETH_RIVAS_MENDIOLA.pdf
+│   │   │       │       ├── 📕 STEPHANIE_LISETH_SALAZAR_DIAZ.pdf
+│   │   │       │       ├── 📕 STEVEN_EFRAIN_MEDRANO_DEL_CID.pdf
+│   │   │       │       ├── 📕 VICTOR_MANUEL_HERNANDEZ_FUENTES.pdf
+│   │   │       │       ├── 📕 WALTER_ALEXANDER_VELASQUEZ_GOMEZ.pdf
+│   │   │       │       ├── 📕 WILFREDO_ALEXANDER_ESPINOZA_HERRERA.pdf
+│   │   │       │       ├── 📕 WILLIAM_ALEXANDER_SEGOVIA.pdf
+│   │   │       │       ├── 📕 WILLIAM_ULISES_PARADA_BONILLA.pdf
+│   │   │       │       ├── 📕 YANIRA_CECILIA_LEMUS_ROMERO.pdf
+│   │   │       │       ├── 📕 YANIRA_ESTEFANY_GOMEZ_ASCENCIO.pdf
+│   │   │       │       └── 📕 ZAYRA_LISSETH_REYES_DE_GOMEZ.pdf
+│   │   │       ├── 📁 Marzo/
+│   │   │       │   ├── 📁 Q1/
+│   │   │       │   │   ├── 📕 ADELIA_NOHEMY_VALVERDE_ROMERO.pdf
+│   │   │       │   │   ├── 📕 ALEXANDER_ARNOLDO_GOMEZ_QUINTANILLA.pdf
+│   │   │       │   │   ├── 📕 ANDRE_DUARTE_SOSA.pdf
+│   │   │       │   │   ├── 📕 BRAYAN_ESTIVEN_AYALA_AYALA.pdf
+│   │   │       │   │   ├── 📕 CARLOS_EDUARDO_MEJIA_LUNA.pdf
+│   │   │       │   │   ├── 📕 CARLOS_MAURO_CHAVEZ_ALVARENGA.pdf
+│   │   │       │   │   ├── 📕 CHRISTIAN_DE_JESUS_SEGOVIA.pdf
+│   │   │       │   │   ├── 📕 DANIEL_ALESSANDRO_ROSALES_GONZALEZ.pdf
+│   │   │       │   │   ├── 📕 DOUGLAS_ENRIQUE_ARGUETA_AYALA.pdf
+│   │   │       │   │   ├── 📕 EDITH_XIOMARA_BENITEZ_DE_ROBLES.pdf
+│   │   │       │   │   ├── 📕 EDWIN_ALEXANDER_PALACIOS_LINO.pdf
+│   │   │       │   │   ├── 📕 ERICK_EDMUNDO_CANDRAY_RUIZ.pdf
+│   │   │       │   │   ├── 📕 FANNY_YAMILETH_CRUZ_COREAS.pdf
+│   │   │       │   │   ├── 📕 FERNANDO_JAVIER_SORTO_MEDRANO.pdf
+│   │   │       │   │   ├── 📕 FERNANDO_JOSE_ALFARO_PALACIOS.pdf
+│   │   │       │   │   ├── 📕 FIDEL_ANGEL_MARTINEZ_NIETO.pdf
+│   │   │       │   │   ├── 📕 FRANKLIN_WILFREDO_COREAS_AQUINO.pdf
+│   │   │       │   │   ├── 📕 FREDY_ALBERTO_VASQUEZ_VIGIL.pdf
+│   │   │       │   │   ├── 📕 GLENDA_CAROLINA_MEJIA_CHAVEZ.pdf
+│   │   │       │   │   ├── 📕 GUILLERMO_ALEXANDER_ZELAYA.pdf
+│   │   │       │   │   ├── 📕 GUILLERMO_ALEXANDER_ZELAYA_PORTILLO.pdf
+│   │   │       │   │   ├── 📕 HENRY_ALEXANDER_SANTACRUZ_BLANCO.pdf
+│   │   │       │   │   ├── 📕 IRVIN_WILFREDO_HERNANDEZ_LIPE.pdf
+│   │   │       │   │   ├── 📕 IVAN_ANTONIO_ZELAYA_PORTILLO.pdf
+│   │   │       │   │   ├── 📕 JAIRO_ANTONIO_HERNANDEZ_GUEVARA.pdf
+│   │   │       │   │   ├── 📕 JAVIER_ARMANDO_PORTILLO.pdf
+│   │   │       │   │   ├── 📕 JAVIER_ARMANDO_PORTILLO_CHAVEZ.pdf
+│   │   │       │   │   ├── 📕 JESSICA_BEATRIZ_HERNANDEZ_CHICA.pdf
+│   │   │       │   │   ├── 📕 JOEL_WILLIAM_HERNANDEZ_RODRIGUEZ.pdf
+│   │   │       │   │   ├── 📕 JORGE_MARLON_HERNANDEZ_LUNA.pdf
+│   │   │       │   │   ├── 📕 JOSE_EVELIO_RAMIREZ_RAMIREZ.pdf
+│   │   │       │   │   ├── 📕 JOSE_GUILLERMO_HENRIQUEZ.pdf
+│   │   │       │   │   ├── 📕 JOSE_ROLANDO_CHICA_MENDEZ.pdf
+│   │   │       │   │   ├── 📕 JOSUE_DANIEL_SOSA_GODINEZ.pdf
+│   │   │       │   │   ├── 📕 JOSUE__DANIEL_CHICAS.pdf
+│   │   │       │   │   ├── 📕 JOSUE__DANIEL_CHICAS_ROMERO.pdf
+│   │   │       │   │   ├── 📕 JUAN_CARLOS_VIERA_VILLAVICENCIO.pdf
+│   │   │       │   │   ├── 📕 JUAN_EMILIO_ULLOA_GOMEZ.pdf
+│   │   │       │   │   ├── 📕 KARLA_SOFIA_LOVO_CORDOVA.pdf
+│   │   │       │   │   ├── 📕 KATHERINE_ELIZABETH_VANEGAS_DIAZ.pdf
+│   │   │       │   │   ├── 📕 KATHERINE_TATIANA_AMAYA_RAMOS.pdf
+│   │   │       │   │   ├── 📕 KEVIN_ANTONIO_MUNTO_RAMIREZ.pdf
+│   │   │       │   │   ├── 📕 MARIA_GLORIA_HERNANDEZ_ZELAYA.pdf
+│   │   │       │   │   ├── 📕 MARIA_TOMASA_REYES_MEJIA.pdf
+│   │   │       │   │   ├── 📕 MARIO_ERNESTO_GOMEZ_ROMERO.pdf
+│   │   │       │   │   ├── 📕 MARVIN_JOSUE_ALVARENGA_GUERRERO.pdf
+│   │   │       │   │   ├── 📕 MILTON_DAVID_MENJIVAR_GRANILLO.pdf
+│   │   │       │   │   ├── 📕 NAOMI_LINETTE_CHAVEZ_GARCIA.pdf
+│   │   │       │   │   ├── 📕 OSCAR_ADAN_RAMIREZ_RAMIREZ.pdf
+│   │   │       │   │   ├── 📕 PATRICIA_GUADALUPE_COLON_SORTO.pdf
+│   │   │       │   │   ├── 📕 PEDRO_VICENTE_CHICAS.pdf
+│   │   │       │   │   ├── 📕 RAFAEL_ANTONIO_DIAZ.pdf
+│   │   │       │   │   ├── 📕 RAUL_ALEXANDER_CHICAS_GUTIERREZ.pdf
+│   │   │       │   │   ├── 📕 RICARDO_JOSUE_ALAS_DIAZ.pdf
+│   │   │       │   │   ├── 📕 ROBERTO_ANTONIO_VELIS.pdf
+│   │   │       │   │   ├── 📕 ROBERTO_ANTONIO_VELIS_DIAZ.pdf
+│   │   │       │   │   ├── 📕 RONALD_ANTONIO_GOMEZ_PRIVADO.pdf
+│   │   │       │   │   ├── 📕 ROSA_DE_LA_PAZ_CALIX_SERRANO.pdf
+│   │   │       │   │   ├── 📕 RUDY_ARTEMYS_RIVERA.pdf
+│   │   │       │   │   ├── 📕 STEFANY_YAMILETH_RIVAS_MENDIOLA.pdf
+│   │   │       │   │   ├── 📕 STEPHANIE_LISETH_SALAZAR_DIAZ.pdf
+│   │   │       │   │   ├── 📕 STEVEN_EFRAIN_MEDRANO_DEL_CID.pdf
+│   │   │       │   │   ├── 📕 VICTOR_MANUEL_HERNANDEZ_FUENTES.pdf
+│   │   │       │   │   ├── 📕 WIDMAN_RAFAEL_LUCHA_GALLARDO.pdf
+│   │   │       │   │   ├── 📕 WILFREDO_ALEXANDER_ESPINOZA_HERRERA.pdf
+│   │   │       │   │   ├── 📕 WILLIAM_ALEXANDER_SEGOVIA.pdf
+│   │   │       │   │   ├── 📕 WILLIAM_ULISES_PARADA_BONILLA.pdf
+│   │   │       │   │   ├── 📕 YANIRA_CECILIA_LEMUS_ROMERO.pdf
+│   │   │       │   │   ├── 📕 YANIRA_ESTEFANY_GOMEZ_ASCENCIO.pdf
+│   │   │       │   │   └── 📕 ZAYRA_LISSETH_REYES_DE_GOMEZ.pdf
+│   │   │       │   └── 📁 Q2/
+│   │   │       │       ├── 📕 ADELIA_NOHEMY_VALVERDE_ROMERO.pdf
+│   │   │       │       ├── 📕 ALEXANDER_ARNOLDO_GOMEZ_QUINTANILLA.pdf
+│   │   │       │       ├── 📕 ANDRE_DUARTE_SOSA.pdf
+│   │   │       │       ├── 📕 BRAYAN_ESTIVEN_AYALA_AYALA.pdf
+│   │   │       │       ├── 📕 CARLOS_ALFREDO_MARTINEZ_FLORES.pdf
+│   │   │       │       ├── 📕 CARLOS_EDUARDO_MEJIA_LUNA.pdf
+│   │   │       │       ├── 📕 CARLOS_ENRIQUE_BARQUERO_FLORES.pdf
+│   │   │       │       ├── 📕 CARLOS_MAURO_CHAVEZ_ALVARENGA.pdf
+│   │   │       │       ├── 📕 CHRISTIAN_DE_JESUS_SEGOVIA.pdf
+│   │   │       │       ├── 📕 CRISTY_YAMILETH_RAMOS_CHICAS.pdf
+│   │   │       │       ├── 📕 DANIEL_ALESSANDRO_ROSALES_GONZALEZ.pdf
+│   │   │       │       ├── 📕 DAVID_ULISES_VELIS_REYES.pdf
+│   │   │       │       ├── 📕 DOUGLAS_ENRIQUE_ARGUETA_AYALA.pdf
+│   │   │       │       ├── 📕 EDITH_XIOMARA_BENITEZ_DE_ROBLES.pdf
+│   │   │       │       ├── 📕 EDWIN_ALEXANDER_PALACIOS_LINO.pdf
+│   │   │       │       ├── 📕 ELSA_MARCELA_FLORES_SERPAS.pdf
+│   │   │       │       ├── 📕 ERICK_EDMUNDO_CANDRAY_RUIZ.pdf
+│   │   │       │       ├── 📕 FERNANDO_JAVIER_SORTO_MEDRANO.pdf
+│   │   │       │       ├── 📕 FERNANDO_JOSE_ALFARO_PALACIOS.pdf
+│   │   │       │       ├── 📕 FIDEL_ANGEL_MARTINEZ_NIETO.pdf
+│   │   │       │       ├── 📕 FREDY_ALBERTO_VASQUEZ_VIGIL.pdf
+│   │   │       │       ├── 📕 GLENDA_CAROLINA_MEJIA_CHAVEZ.pdf
+│   │   │       │       ├── 📕 GUILLERMO_ALEXANDER_ZELAYA.pdf
+│   │   │       │       ├── 📕 GUILLERMO_ALEXANDER_ZELAYA_PORTILLO.pdf
+│   │   │       │       ├── 📕 HENRY_ALEXANDER_SANTACRUZ_BLANCO.pdf
+│   │   │       │       ├── 📕 IRVIN_WILFREDO_HERNANDEZ_LIPE.pdf
+│   │   │       │       ├── 📕 IVAN_ANTONIO_ZELAYA_PORTILLO.pdf
+│   │   │       │       ├── 📕 JAIRO_ANTONIO_HERNANDEZ_GUEVARA.pdf
+│   │   │       │       ├── 📕 JAVIER_ARMANDO_PORTILLO.pdf
+│   │   │       │       ├── 📕 JAVIER_ARMANDO_PORTILLO_CHAVEZ.pdf
+│   │   │       │       ├── 📕 JESSICA_BEATRIZ_HERNANDEZ_CHICA.pdf
+│   │   │       │       ├── 📕 JOEL_WILLIAM_HERNANDEZ_RODRIGUEZ.pdf
+│   │   │       │       ├── 📕 JORGE_MARLON_HERNANDEZ_LUNA.pdf
+│   │   │       │       ├── 📕 JOSE_EVELIO_RAMIREZ_RAMIREZ.pdf
+│   │   │       │       ├── 📕 JOSE_GUILLERMO_HENRIQUEZ.pdf
+│   │   │       │       ├── 📕 JOSE_RODOLFO_VASQUEZ.pdf
+│   │   │       │       ├── 📕 JOSE_ROLANDO_CHICA_MENDEZ.pdf
+│   │   │       │       ├── 📕 JOSUE_DANIEL_SOSA_GODINEZ.pdf
+│   │   │       │       ├── 📕 JOSUE__DANIEL_CHICAS.pdf
+│   │   │       │       ├── 📕 JOSUE__DANIEL_CHICAS_ROMERO.pdf
+│   │   │       │       ├── 📕 JUAN_CARLOS_VIERA_VILLAVICENCIO.pdf
+│   │   │       │       ├── 📕 JUAN_EMILIO_ULLOA_GOMEZ.pdf
+│   │   │       │       ├── 📕 KARLA_SOFIA_LOVO_CORDOVA.pdf
+│   │   │       │       ├── 📕 KATHERINE_ELIZABETH_VANEGAS_DIAZ.pdf
+│   │   │       │       ├── 📕 KATHERINE_TATIANA_AMAYA_RAMOS.pdf
+│   │   │       │       ├── 📕 KEILY_YAMILETH_NAVARRO_DIAZ.pdf
+│   │   │       │       ├── 📕 KEVIN_ALEXANDER_MARTINEZ_PINTO.pdf
+│   │   │       │       ├── 📕 KEVIN_ANTONIO_MUNTO_RAMIREZ.pdf
+│   │   │       │       ├── 📕 MARIA_GLORIA_HERNANDEZ_ZELAYA.pdf
+│   │   │       │       ├── 📕 MARIA_TOMASA_REYES_MEJIA.pdf
+│   │   │       │       ├── 📕 MARIO_ERNESTO_GOMEZ_ROMERO.pdf
+│   │   │       │       ├── 📕 MARJORIE_MARIELA_LARA_MOLINA.pdf
+│   │   │       │       ├── 📕 MARVIN_JOSUE_ALVARENGA_GUERRERO.pdf
+│   │   │       │       ├── 📕 MILTON_DAVID_MENJIVAR_GRANILLO.pdf
+│   │   │       │       ├── 📕 NAOMI_LINETTE_CHAVEZ_GARCIA.pdf
+│   │   │       │       ├── 📕 NELSY_JOHANNA_DIAZ_DE_CHICAS.pdf
+│   │   │       │       ├── 📕 OSCAR_ADAN_RAMIREZ_RAMIREZ.pdf
+│   │   │       │       ├── 📕 PATRICIA_GUADALUPE_COLON_SORTO.pdf
+│   │   │       │       ├── 📕 PEDRO_VICENTE_CHICAS.pdf
+│   │   │       │       ├── 📕 RAFAEL_ANTONIO_ALFARO_RIVAS.pdf
+│   │   │       │       ├── 📕 RAFAEL_ANTONIO_DIAZ.pdf
+│   │   │       │       ├── 📕 RAUL_ALEXANDER_CHICAS_GUTIERREZ.pdf
+│   │   │       │       ├── 📕 RICARDO_JOSUE_ALAS_DIAZ.pdf
+│   │   │       │       ├── 📕 ROBERTH_JONATHAN_CORTEZ_PEREZ.pdf
+│   │   │       │       ├── 📕 ROBERTO_ANTONIO_VELIS.pdf
+│   │   │       │       ├── 📕 ROBERTO_ANTONIO_VELIS_DIAZ.pdf
+│   │   │       │       ├── 📕 RONALD_ANTONIO_GOMEZ_PRIVADO.pdf
+│   │   │       │       ├── 📕 ROSA_DE_LA_PAZ_CALIX_SERRANO.pdf
+│   │   │       │       ├── 📕 RUDY_ARTEMYS_RIVERA.pdf
+│   │   │       │       ├── 📕 STEFANY_YAMILETH_RIVAS_MENDIOLA.pdf
+│   │   │       │       ├── 📕 STEPHANIE_LISETH_SALAZAR_DIAZ.pdf
+│   │   │       │       ├── 📕 STEVEN_EFRAIN_MEDRANO_DEL_CID.pdf
+│   │   │       │       ├── 📕 VICTOR_MANUEL_HERNANDEZ_FUENTES.pdf
+│   │   │       │       ├── 📕 WALTER_ALEXANDER_VELASQUEZ_GOMEZ.pdf
+│   │   │       │       ├── 📕 WIDMAN_RAFAEL_LUCHA_GALLARDO.pdf
+│   │   │       │       ├── 📕 WILFREDO_ALEXANDER_ESPINOZA_HERRERA.pdf
+│   │   │       │       ├── 📕 WILLIAM_ALEXANDER_SEGOVIA.pdf
+│   │   │       │       ├── 📕 WILLIAM_ULISES_PARADA_BONILLA.pdf
+│   │   │       │       ├── 📕 YANIRA_CECILIA_LEMUS_ROMERO.pdf
+│   │   │       │       ├── 📕 YANIRA_ESTEFANY_GOMEZ_ASCENCIO.pdf
+│   │   │       │       └── 📕 ZAYRA_LISSETH_REYES_DE_GOMEZ.pdf
+│   │   │       └── 📁 Mayo/
+│   │   │           ├── 📁 Q1/
+│   │   │           │   ├── 📕 ADELIA_NOHEMY_VALVERDE_ROMERO.pdf
+│   │   │           │   ├── 📕 ALEXANDER_ARNOLDO_GOMEZ_QUINTANILLA.pdf
+│   │   │           │   ├── 📕 ANDRE_DUARTE_SOSA.pdf
+│   │   │           │   ├── 📕 BRAYAN_ESTIVEN_AYALA_AYALA.pdf
+│   │   │           │   ├── 📕 BRYAN_ARTURO_HERRERA_RODRIGUEZ.pdf
+│   │   │           │   ├── 📕 CARLOS_EDUARDO_MEJIA_LUNA.pdf
+│   │   │           │   ├── 📕 CARLOS_ENRIQUE_BARQUERO_FLORES.pdf
+│   │   │           │   ├── 📕 CARLOS_MAURO_CHAVEZ_ALVARENGA.pdf
+│   │   │           │   ├── 📕 CHRISTIAN_DE_JESUS_SEGOVIA.pdf
+│   │   │           │   ├── 📕 DANIEL_ALESSANDRO_ROSALES_GONZALEZ.pdf
+│   │   │           │   ├── 📕 DAVID_ULISES_VELIS_REYES.pdf
+│   │   │           │   ├── 📕 DOUGLAS_ENRIQUE_ARGUETA_AYALA.pdf
+│   │   │           │   ├── 📕 EDITH_XIOMARA_BENITEZ_DE_ROBLES.pdf
+│   │   │           │   ├── 📕 EDWIN_ALEXANDER_PALACIOS_LINO.pdf
+│   │   │           │   ├── 📕 ELSA_MARCELA_FLORES_SERPAS.pdf
+│   │   │           │   ├── 📕 ERICK_EDMUNDO_CANDRAY_RUIZ.pdf
+│   │   │           │   ├── 📕 FANNY_YAMILETH_CRUZ_COREAS.pdf
+│   │   │           │   ├── 📕 FERNANDO_JAVIER_SORTO_MEDRANO.pdf
+│   │   │           │   ├── 📕 FERNANDO_JOSE_ALFARO_PALACIOS.pdf
+│   │   │           │   ├── 📕 FIDEL_ANGEL_MARTINEZ_NIETO.pdf
+│   │   │           │   ├── 📕 FRANKLIN_WILFREDO_COREAS_AQUINO.pdf
+│   │   │           │   ├── 📕 FREDY_ALBERTO_VASQUEZ_VIGIL.pdf
+│   │   │           │   ├── 📕 GLENDA_CAROLINA_MEJIA_CHAVEZ.pdf
+│   │   │           │   ├── 📕 GRICELDA_XIOMARA_MAGANA_BARRIENTOS.pdf
+│   │   │           │   ├── 📕 GUILLERMO_ALEXANDER_ZELAYA_PORTILLO.pdf
+│   │   │           │   ├── 📕 HENRY_ALEXANDER_SANTACRUZ_BLANCO.pdf
+│   │   │           │   ├── 📕 HEYDI_MELISA_COREAS_PONCE.pdf
+│   │   │           │   ├── 📕 IRVIN_WILFREDO_HERNANDEZ_LIPE.pdf
+│   │   │           │   ├── 📕 IVAN_ANTONIO_ZELAYA_PORTILLO.pdf
+│   │   │           │   ├── 📕 JAIRO_ANTONIO_HERNANDEZ_GUEVARA.pdf
+│   │   │           │   ├── 📕 JAVIER_ARMANDO_PORTILLO_CHAVEZ.pdf
+│   │   │           │   ├── 📕 JEFFRY_FRANCISCO_RAMOS_GOMEZ.pdf
+│   │   │           │   ├── 📕 JESSICA_BEATRIZ_HERNANDEZ_CHICA.pdf
+│   │   │           │   ├── 📕 JOEL_WILLIAM_HERNANDEZ_RODRIGUEZ.pdf
+│   │   │           │   ├── 📕 JONATHAN_MARCELO_HERNANDEZ_GONZALEZ.pdf
+│   │   │           │   ├── 📕 JORGE_MARLON_HERNANDEZ_LUNA.pdf
+│   │   │           │   ├── 📕 JOSE_EVELIO_RAMIREZ_RAMIREZ.pdf
+│   │   │           │   ├── 📕 JOSE_GUILLERMO_HENRIQUEZ.pdf
+│   │   │           │   ├── 📕 JOSE_RODOLFO_VASQUEZ.pdf
+│   │   │           │   ├── 📕 JOSE_ROLANDO_CHICA_MENDEZ.pdf
+│   │   │           │   ├── 📕 JOSIA_OBED_MANCIA_OLMEDO.pdf
+│   │   │           │   ├── 📕 JOSUE_DANIEL_SOSA_GODINEZ.pdf
+│   │   │           │   ├── 📕 JOSUE__DANIEL_ROMERO_CHICAS.pdf
+│   │   │           │   ├── 📕 JUAN_CARLOS_VIERA_VILLAVICENCIO.pdf
+│   │   │           │   ├── 📕 JUAN_EMILIO_ULLOA_GOMEZ.pdf
+│   │   │           │   ├── 📕 KARLA_SOFIA_LOVO_CORDOVA.pdf
+│   │   │           │   ├── 📕 KATHERINE_ELIZABETH_VANEGAS_DIAZ.pdf
+│   │   │           │   ├── 📕 KATHERINE_TATIANA_AMAYA_RAMOS.pdf
+│   │   │           │   ├── 📕 KEILY_YAMILETH_NAVARRO_DIAZ.pdf
+│   │   │           │   ├── 📕 KEVIN_ALEXANDER_MARTINEZ_PINTO.pdf
+│   │   │           │   ├── 📕 KEVIN_ANTONIO_MUNTO_RAMIREZ.pdf
+│   │   │           │   ├── 📕 MARIA_GLORIA_HERNANDEZ_ZELAYA.pdf
+│   │   │           │   ├── 📕 MARIA_TOMASA_REYES_MEJIA.pdf
+│   │   │           │   ├── 📕 MARIO_ERNESTO_GOMEZ_ROMERO.pdf
+│   │   │           │   ├── 📕 MARVIN_JOSUE_ALVARENGA_GUERRERO.pdf
+│   │   │           │   ├── 📕 MILTON_DAVID_MENJIVAR_GRANILLO.pdf
+│   │   │           │   ├── 📕 NAOMI_LINETTE_CHAVEZ_GARCIA.pdf
+│   │   │           │   ├── 📕 NELSY_JOHANNA_DIAZ_DE_CHICAS.pdf
+│   │   │           │   ├── 📕 ODIR_OSWALDO_AGUILAR_MENDEZ.pdf
+│   │   │           │   ├── 📕 OSCAR_ADAN_RAMIREZ_RAMIREZ.pdf
+│   │   │           │   ├── 📕 PATRICIA_GUADALUPE_COLON_SORTO.pdf
+│   │   │           │   ├── 📕 PEDRO_VICENTE_CHICAS.pdf
+│   │   │           │   ├── 📕 RAFAEL_ANTONIO_ALFARO_RIVAS.pdf
+│   │   │           │   ├── 📕 RAFAEL_ANTONIO_DIAZ.pdf
+│   │   │           │   ├── 📕 RAUL_ALEXANDER_CHICAS_GUTIERREZ.pdf
+│   │   │           │   ├── 📕 RICARDO_JOSUE_ALAS_DIAZ.pdf
+│   │   │           │   ├── 📕 ROBERTH_JONATHAN_CORTEZ_PEREZ.pdf
+│   │   │           │   ├── 📕 ROBERTO_ANTONIO_VELIS_DIAZ.pdf
+│   │   │           │   ├── 📕 RONALD_ANTONIO_GOMEZ_PRIVADO.pdf
+│   │   │           │   ├── 📕 ROSA_DE_LA_PAZ_CALIX_SERRANO.pdf
+│   │   │           │   ├── 📕 RUDY_ARTEMYS_RIVERA.pdf
+│   │   │           │   ├── 📕 STEFANY_YAMILETH_RIVAS_MENDIOLA.pdf
+│   │   │           │   ├── 📕 STEPHANIE_LISETH_SALAZAR_DIAZ.pdf
+│   │   │           │   ├── 📕 STEVEN_EFRAIN_MEDRANO_DEL_CID.pdf
+│   │   │           │   ├── 📕 VICTOR_MANUEL_HERNANDEZ_FUENTES.pdf
+│   │   │           │   ├── 📕 VICTOR_MANUEL_PALOMO_ORELLANA.pdf
+│   │   │           │   ├── 📕 WALTER_ALEXANDER_VELASQUEZ_GOMEZ.pdf
+│   │   │           │   ├── 📕 WIDMAN_RAFAEL_LUCHA_GALLARDO.pdf
+│   │   │           │   ├── 📕 WILFREDO_ALEXANDER_ESPINOZA_HERRERA.pdf
+│   │   │           │   ├── 📕 WILLIAM_ALEXANDER_SEGOVIA.pdf
+│   │   │           │   ├── 📕 WILLIAM_ULISES_PARADA_BONILLA.pdf
+│   │   │           │   ├── 📕 YANIRA_CECILIA_LEMUS_ROMERO.pdf
+│   │   │           │   ├── 📕 YANIRA_ESTEFANY_GOMEZ_ASCENCIO.pdf
+│   │   │           │   └── 📕 ZAYRA_LISSETH_REYES_DE_GOMEZ.pdf
+│   │   │           └── 📁 Q2/
+│   │   │               ├── 📕 ADELIA_NOHEMY_VALVERDE_ROMERO.pdf
+│   │   │               ├── 📕 ALEXANDER_ARNOLDO_GOMEZ_QUINTANILLA.pdf
+│   │   │               ├── 📕 ANDRE_DUARTE_SOSA.pdf
+│   │   │               ├── 📕 ARGELIA_GRACIELA_HENRIQUEZ_GARCIA.pdf
+│   │   │               ├── 📕 BRAYAN_ESTIVEN_AYALA_AYALA.pdf
+│   │   │               ├── 📕 BRYAN_ARTURO_HERRERA_RODRIGUEZ.pdf
+│   │   │               ├── 📕 CARLOS_EDUARDO_MEJIA_LUNA.pdf
+│   │   │               ├── 📕 CARLOS_ENRIQUE_BARQUERO_FLORES.pdf
+│   │   │               ├── 📕 CARLOS_MAURO_CHAVEZ_ALVARENGA.pdf
+│   │   │               ├── 📕 DANIEL_ALESSANDRO_ROSALES_GONZALEZ.pdf
+│   │   │               ├── 📕 DAVID_ULISES_VELIS_REYES.pdf
+│   │   │               ├── 📕 DOUGLAS_ENRIQUE_ARGUETA_AYALA.pdf
+│   │   │               ├── 📕 EDITH_XIOMARA_BENITEZ_DE_ROBLES.pdf
+│   │   │               ├── 📕 EDWIN_ALEXANDER_PALACIOS_LINO.pdf
+│   │   │               ├── 📕 ELSA_MARCELA_FLORES_SERPAS.pdf
+│   │   │               ├── 📕 ERICK_EDMUNDO_CANDRAY_RUIZ.pdf
+│   │   │               ├── 📕 ERNESTO_DAGOBERTO_JOYA_MENDEZ.pdf
+│   │   │               ├── 📕 FERNANDO_JAVIER_SORTO_MEDRANO.pdf
+│   │   │               ├── 📕 FERNANDO_JOSE_ALFARO_PALACIOS.pdf
+│   │   │               ├── 📕 FIDEL_ANGEL_MARTINEZ_NIETO.pdf
+│   │   │               ├── 📕 FRANKLIN_WILFREDO_COREAS_AQUINO.pdf
+│   │   │               ├── 📕 GLENDA_CAROLINA_MEJIA_CHAVEZ.pdf
+│   │   │               ├── 📕 GRICELDA_XIOMARA_MAGANA_BARRIENTOS.pdf
+│   │   │               ├── 📕 GUILLERMO_ALEXANDER_ZELAYA_PORTILLO.pdf
+│   │   │               ├── 📕 HENRY_ALEXANDER_SANTACRUZ_BLANCO.pdf
+│   │   │               ├── 📕 HEYDI_MELISA_COREAS_PONCE.pdf
+│   │   │               ├── 📕 IRVIN_WILFREDO_HERNANDEZ_LIPE.pdf
+│   │   │               ├── 📕 IVAN_ANTONIO_ZELAYA_PORTILLO.pdf
+│   │   │               ├── 📕 JAIRO_ANTONIO_HERNANDEZ_GUEVARA.pdf
+│   │   │               ├── 📕 JAVIER_ARMANDO_PORTILLO_CHAVEZ.pdf
+│   │   │               ├── 📕 JEFFRY_FRANCISCO_RAMOS_GOMEZ.pdf
+│   │   │               ├── 📕 JESSICA_BEATRIZ_HERNANDEZ_CHICA.pdf
+│   │   │               ├── 📕 JOEL_WILLIAM_HERNANDEZ_RODRIGUEZ.pdf
+│   │   │               ├── 📕 JONATHAN_MARCELO_HERNANDEZ_GONZALEZ.pdf
+│   │   │               ├── 📕 JORGE_MARLON_HERNANDEZ_LUNA.pdf
+│   │   │               ├── 📕 JOSE_EVELIO_RAMIREZ_RAMIREZ.pdf
+│   │   │               ├── 📕 JOSE_GUILLERMO_HENRIQUEZ.pdf
+│   │   │               ├── 📕 JOSE_RODOLFO_VASQUEZ.pdf
+│   │   │               ├── 📕 JOSE_ROLANDO_CHICA_MENDEZ.pdf
+│   │   │               ├── 📕 JOSIA_OBED_MANCIA_OLMEDO.pdf
+│   │   │               ├── 📕 JOSUE_DANIEL_SOSA_GODINEZ.pdf
+│   │   │               ├── 📕 JOSUE__DANIEL_ROMERO_CHICAS.pdf
+│   │   │               ├── 📕 JUAN_CARLOS_VIERA_VILLAVICENCIO.pdf
+│   │   │               ├── 📕 JUAN_EMILIO_ULLOA_GOMEZ.pdf
+│   │   │               ├── 📕 KARLA_SOFIA_LOVO_CORDOVA.pdf
+│   │   │               ├── 📕 KATHERINE_ELIZABETH_VANEGAS_DIAZ.pdf
+│   │   │               ├── 📕 KATHERINE_TATIANA_AMAYA_RAMOS.pdf
+│   │   │               ├── 📕 KEILY_YAMILETH_NAVARRO_DIAZ.pdf
+│   │   │               ├── 📕 KENIA_ESPERANZA_BONILLA_HERNANDEZ.pdf
+│   │   │               ├── 📕 KEVIN_ALEXANDER_MARTINEZ_PINTO.pdf
+│   │   │               ├── 📕 KEVIN_ANTONIO_MUNTO_RAMIREZ.pdf
+│   │   │               ├── 📕 KIMBERLY_CECILIA_ALVARENGA_MORALES.pdf
+│   │   │               ├── 📕 MARIA_GLORIA_HERNANDEZ_ZELAYA.pdf
+│   │   │               ├── 📕 MARIO_ERNESTO_GOMEZ_ROMERO.pdf
+│   │   │               ├── 📕 MARVIN_JOSUE_ALVARENGA_GUERRERO.pdf
+│   │   │               ├── 📕 MAX_STEVEN_HERNANDEZ_CRUZ.pdf
+│   │   │               ├── 📕 NAOMI_LINETTE_CHAVEZ_GARCIA.pdf
+│   │   │               ├── 📕 NELSY_JOHANNA_DIAZ_DE_CHICAS.pdf
+│   │   │               ├── 📕 ODIR_OSWALDO_AGUILAR_MENDEZ.pdf
+│   │   │               ├── 📕 OSCAR_ADAN_RAMIREZ_RAMIREZ.pdf
+│   │   │               ├── 📕 PATRICIA_GUADALUPE_COLON_SORTO.pdf
+│   │   │               ├── 📕 PEDRO_VICENTE_CHICAS.pdf
+│   │   │               ├── 📕 RAFAEL_ANTONIO_ALFARO_RIVAS.pdf
+│   │   │               ├── 📕 RAFAEL_ANTONIO_DIAZ.pdf
+│   │   │               ├── 📕 RAUL_ALEXANDER_CHICAS_GUTIERREZ.pdf
+│   │   │               ├── 📕 RICARDO_JOSUE_ALAS_DIAZ.pdf
+│   │   │               ├── 📕 ROBERTH_JONATHAN_CORTEZ_PEREZ.pdf
+│   │   │               ├── 📕 ROBERTO_ANTONIO_VELIS_DIAZ.pdf
+│   │   │               ├── 📕 RONALD_ANTONIO_GOMEZ_PRIVADO.pdf
+│   │   │               ├── 📕 ROSA_DE_LA_PAZ_CALIX_SERRANO.pdf
+│   │   │               ├── 📕 RUDY_ARTEMYS_RIVERA.pdf
+│   │   │               ├── 📕 STEFANY_YAMILETH_RIVAS_MENDIOLA.pdf
+│   │   │               ├── 📕 STEPHANIE_LISETH_SALAZAR_DIAZ.pdf
+│   │   │               ├── 📕 STEVEN_EFRAIN_MEDRANO_DEL_CID.pdf
+│   │   │               ├── 📕 VICTOR_MANUEL_HERNANDEZ_FUENTES.pdf
+│   │   │               ├── 📕 WALTER_ALEXANDER_VELASQUEZ_GOMEZ.pdf
+│   │   │               ├── 📕 WILFREDO_ALEXANDER_ESPINOZA_HERRERA.pdf
+│   │   │               ├── 📕 WILLIAM_ULISES_PARADA_BONILLA.pdf
+│   │   │               ├── 📕 YANIRA_CECILIA_LEMUS_ROMERO.pdf
+│   │   │               ├── 📕 YANIRA_ESTEFANY_GOMEZ_ASCENCIO.pdf
+│   │   │               └── 📕 ZAYRA_LISSETH_REYES_DE_GOMEZ.pdf
+│   │   ├── 📁 permits/
+│   │   │   └── 📁 2026/
+│   │   │       ├── 📋 Julio.json
+│   │   │       └── 📋 Junio.json
+│   │   ├── 📁 records/
+│   │   │   └── 📁 2026/
+│   │   │       ├── 📁 AGOSTO/
+│   │   │       │   └── 📁 Q1/
+│   │   │       │       └── 📋 JAIRO_ANTONIO_HERNANDEZ_GUEVARA.json
+│   │   │       ├── 📁 JULIO/
+│   │   │       │   ├── 📁 Q1/
+│   │   │       │   │   ├── 📋 ADELIA_NOHEMY_VALVERDE_ROMERO.json
+│   │   │       │   │   ├── 📋 ANDRE_DUARTE_SOSA.json
+│   │   │       │   │   ├── 📋 BRAYAN_ESTIVEN_AYALA_AYALA.json
+│   │   │       │   │   ├── 📋 CARLOS_EDUARDO_MEJIA_LUNA.json
+│   │   │       │   │   ├── 📋 CARLOS_ENRIQUE_BARQUERO_FLORES.json
+│   │   │       │   │   ├── 📋 DANIEL_ALESSANDRO_ROSALES_GONZALEZ.json
+│   │   │       │   │   ├── 📋 DOUGLAS_ENRIQUE_ARGUETA_AYALA.json
+│   │   │       │   │   ├── 📋 EDWIN_ALEXANDER_PALACIOS_LINO.json
+│   │   │       │   │   ├── 📋 FERNANDO_JAVIER_SORTO_MEDRANO.json
+│   │   │       │   │   ├── 📋 FERNANDO_JOSE_ALFARO_PALACIOS.json
+│   │   │       │   │   ├── 📋 FIDEL_ANGEL_MARTINEZ_NIETO.json
+│   │   │       │   │   ├── 📋 FRANCISCO_RENE_RUIZ_BOLANOS.json
+│   │   │       │   │   ├── 📋 FRANKLIN_WILFREDO_COREAS_AQUINO.json
+│   │   │       │   │   ├── 📋 GERSON_FRANCISCO_MADRID_UTO.json
+│   │   │       │   │   ├── 📋 HENRY_ALEXANDER_SANTACRUZ_BLANCO.json
+│   │   │       │   │   ├── 📋 IVAN_ANTONIO_ZELAYA_PORTILLO.json
+│   │   │       │   │   ├── 📋 JAIRO_ANTONIO_HERNANDEZ_GUEVARA.json
+│   │   │       │   │   ├── 📋 JAIRO_GUEVARA.json
+│   │   │       │   │   ├── 📋 JEFFRY_FRANCISCO_RAMOS_GOMEZ.json
+│   │   │       │   │   ├── 📋 JOSE_EVELIO_RAMIREZ_RAMIREZ.json
+│   │   │       │   │   ├── 📋 JOSE_GUILLERMO_HENRIQUEZ.json
+│   │   │       │   │   ├── 📋 JOSUE__DANIEL_ROMERO_CHICAS.json
+│   │   │       │   │   ├── 📋 JUAN_EMILIO_ULLOA_GOMEZ.json
+│   │   │       │   │   ├── 📋 KEVIN_ALEXANDER_MOLINA_RIVAS.json
+│   │   │       │   │   ├── 📋 KEVIN_ANTONIO_MUNTO_RAMIREZ.json
+│   │   │       │   │   ├── 📋 MARIO_ERNESTO_GOMEZ_ROMERO.json
+│   │   │       │   │   ├── 📋 MARVIN_JOSUE_ALVARENGA_GUERRERO.json
+│   │   │       │   │   ├── 📋 OSCAR_ADAN_RAMIREZ_RAMIREZ.json
+│   │   │       │   │   ├── 📋 PABLO_ENRIQUE_JUAREZ_ORTEGA.json
+│   │   │       │   │   ├── 📋 RAFAEL_ANTONIO_DIAZ.json
+│   │   │       │   │   ├── 📋 RICARDO_JOSUE_ALAS_DIAZ.json
+│   │   │       │   │   ├── 📋 ROBERTO_ANTONIO_VELIS_DIAZ.json
+│   │   │       │   │   ├── 📋 RONALD_ANTONIO_GOMEZ_PRIVADO.json
+│   │   │       │   │   ├── 📋 RUDY_ARTEMYS_RIVERA.json
+│   │   │       │   │   ├── 📋 VICTOR_MANUEL_HERNANDEZ_FUENTES.json
+│   │   │       │   │   ├── 📋 WALTER_ALEXANDER_VELASQUEZ_GOMEZ.json
+│   │   │       │   │   └── 📋 WILLIAM_ALEXANDER_SEGOVIA.json
+│   │   │       │   └── 📁 Q2/
+│   │   │       │       ├── 📋 BRYAN_ARTURO_HERRERA_RODRIGUEZ.json
+│   │   │       │       ├── 📋 EDWIN_ALEXANDER_PALACIOS_LINO.json
+│   │   │       │       ├── 📋 FRANKLIN_WILFREDO_COREAS_AQUINO.json
+│   │   │       │       ├── 📋 GERSON_FRANCISCO_MADRID_UTO.json
+│   │   │       │       ├── 📋 GUILLERMO_ALEXANDER_ZELAYA_PORTILLO.json
+│   │   │       │       ├── 📋 IVAN_ANTONIO_ZELAYA_PORTILLO.json
+│   │   │       │       ├── 📋 JAIRO_ANTONIO_HERNANDEZ_GUEVARA.json
+│   │   │       │       ├── 📋 JOSUE__DANIEL_ROMERO_CHICAS.json
+│   │   │       │       ├── 📋 JUAN_EMILIO_ULLOA_GOMEZ.json
+│   │   │       │       ├── 📋 KEVIN_ALEXANDER_MOLINA_RIVAS.json
+│   │   │       │       ├── 📋 KEVIN_ANTONIO_MUNTO_RAMIREZ.json
+│   │   │       │       ├── 📋 MARIO_ERNESTO_GOMEZ_ROMERO.json
+│   │   │       │       ├── 📋 MARVIN_JOSUE_ALVARENGA_GUERRERO.json
+│   │   │       │       ├── 📋 NAOMI_LINETTE_CHAVEZ_GARCIA.json
+│   │   │       │       ├── 📋 PABLO_ENRIQUE_JUAREZ_ORTEGA.json
+│   │   │       │       ├── 📋 RAFAEL_ANTONIO_DIAZ.json
+│   │   │       │       ├── 📋 RICARDO_JOSUE_ALAS_DIAZ.json
+│   │   │       │       ├── 📋 RONALD_ANTONIO_GOMEZ_PRIVADO.json
+│   │   │       │       ├── 📋 VICTOR_MANUEL_HERNANDEZ_FUENTES.json
+│   │   │       │       └── 📋 WILFREDO_ALEXANDER_ESPINOZA_HERRERA.json
+│   │   │       └── 📁 JUNIO/
+│   │   │           ├── 📁 Q1/
+│   │   │           │   ├── 📋 ANDRE_DUARTE_SOSA.json
+│   │   │           │   ├── 📋 ARGELIA_GRACIELA_HENRIQUEZ_GARCIA.json
+│   │   │           │   ├── 📋 EDWIN_ALEXANDER_PALACIOS_LINO.json
+│   │   │           │   ├── 📋 FERNANDO_JAVIER_SORTO_MEDRANO.json
+│   │   │           │   ├── 📋 FIDEL_ANGEL_MARTINEZ_NIETO.json
+│   │   │           │   ├── 📋 FRANKLIN_WILFREDO_COREAS_AQUINO.json
+│   │   │           │   ├── 📋 HENRY_ALEXANDER_SANTACRUZ_BLANCO.json
+│   │   │           │   ├── 📋 IVAN_ANTONIO_ZELAYA_PORTILLO.json
+│   │   │           │   ├── 📋 JAIRO_ANTONIO_HERNANDEZ_GUEVARA.json
+│   │   │           │   ├── 📋 JOSIA_OBED_MANCIA_OLMEDO.json
+│   │   │           │   ├── 📋 JOSUE__DANIEL_ROMERO_CHICAS.json
+│   │   │           │   ├── 📋 JUAN_EMILIO_ULLOA_GOMEZ.json
+│   │   │           │   ├── 📋 MARVIN_JOSUE_ALVARENGA_GUERRERO.json
+│   │   │           │   ├── 📋 RICARDO_JOSUE_ALAS_DIAZ.json
+│   │   │           │   ├── 📋 ROBERTO_ANTONIO_VELIS_DIAZ.json
+│   │   │           │   ├── 📋 RONALD_ANTONIO_GOMEZ_PRIVADO.json
+│   │   │           │   ├── 📋 RUDY_ARTEMYS_RIVERA.json
+│   │   │           │   ├── 📋 VICTOR_MANUEL_HERNANDEZ_FUENTES.json
+│   │   │           │   └── 📋 WALTER_ALEXANDER_VELASQUEZ_GOMEZ.json
+│   │   │           └── 📁 Q2/
+│   │   │               ├── 📋 ADELIA_NOHEMY_VALVERDE_ROMERO.json
+│   │   │               ├── 📋 ANDRE_DUARTE_SOSA.json
+│   │   │               ├── 📋 BRAYAN_ESTIVEN_AYALA_AYALA.json
+│   │   │               ├── 📋 BRYAN_ARTURO_HERRERA_RODRIGUEZ.json
+│   │   │               ├── 📋 CARLOS_EDUARDO_MEJIA_LUNA.json
+│   │   │               ├── 📋 CARLOS_ENRIQUE_BARQUERO_FLORES.json
+│   │   │               ├── 📋 DANIEL_ALESSANDRO_ROSALES_GONZALEZ.json
+│   │   │               ├── 📋 DOUGLAS_ENRIQUE_ARGUETA_AYALA.json
+│   │   │               ├── 📋 EDWIN_ALEXANDER_PALACIOS_LINO.json
+│   │   │               ├── 📋 FERNANDO_JAVIER_SORTO_MEDRANO.json
+│   │   │               ├── 📋 FERNANDO_JOSE_ALFARO_PALACIOS.json
+│   │   │               ├── 📋 FIDEL_ANGEL_MARTINEZ_NIETO.json
+│   │   │               ├── 📋 FRANKLIN_WILFREDO_COREAS_AQUINO.json
+│   │   │               ├── 📋 GUILLERMO_ALEXANDER_ZELAYA_PORTILLO.json
+│   │   │               ├── 📋 HENRY_ALEXANDER_SANTACRUZ_BLANCO.json
+│   │   │               ├── 📋 IVAN_ANTONIO_ZELAYA_PORTILLO.json
+│   │   │               ├── 📋 JEFFRY_FRANCISCO_RAMOS_GOMEZ.json
+│   │   │               ├── 📋 JORGE_MARLON_HERNANDEZ_LUNA.json
+│   │   │               ├── 📋 JOSUE__DANIEL_ROMERO_CHICAS.json
+│   │   │               ├── 📋 JUAN_EMILIO_ULLOA_GOMEZ.json
+│   │   │               ├── 📋 KEVIN_ALEXANDER_MARTINEZ_PINTO.json
+│   │   │               ├── 📋 KEVIN_ANTONIO_MUNTO_RAMIREZ.json
+│   │   │               ├── 📋 MARIO_ERNESTO_GOMEZ_ROMERO.json
+│   │   │               ├── 📋 MARVIN_JOSUE_ALVARENGA_GUERRERO.json
+│   │   │               ├── 📋 RAFAEL_ANTONIO_ALFARO_RIVAS.json
+│   │   │               ├── 📋 RAUL_ALEXANDER_CHICAS_GUTIERREZ.json
+│   │   │               ├── 📋 RICARDO_JOSUE_ALAS_DIAZ.json
+│   │   │               ├── 📋 ROBERTO_ANTONIO_VELIS_DIAZ.json
+│   │   │               ├── 📋 RONALD_ANTONIO_GOMEZ_PRIVADO.json
+│   │   │               ├── 📋 RUDY_ARTEMYS_RIVERA.json
+│   │   │               ├── 📋 VICTOR_MANUEL_HERNANDEZ_FUENTES.json
+│   │   │               ├── 📋 WALTER_ALEXANDER_VELASQUEZ_GOMEZ.json
+│   │   │               └── 📋 WILLIAM_ALEXANDER_SEGOVIA.json
+│   │   ├── 📁 user-data/
+│   │   │   └── 📁 1/
+│   │   │       ├── 📁 067493fe-8f4d-4618-ba4f-2ae2709cf33d/
+│   │   │       │   ├── 📋 inventario.json
+│   │   │       │   ├── 📋 ordenes-compra.json
+│   │   │       │   └── 📋 ordenes-venta.json
+│   │   │       ├── 📁 1beb6e08-9a37-4456-86a8-5a8cc3b1fd1b/
+│   │   │       │   ├── 📋 cuentas.json
+│   │   │       │   ├── 📋 partidas.json
+│   │   │       │   └── 📋 plantillas.json
+│   │   │       ├── 📁 1cdc34de-027e-4c5d-959e-86d5edd5d551/
+│   │   │       │   ├── 📋 cuentas.json
+│   │   │       │   ├── 📋 partidas.json
+│   │   │       │   └── 📋 plantillas.json
+│   │   │       ├── 📁 3def0a75-642c-4c60-8634-660ed50cdace/
+│   │   │       │   ├── 📁 2026/
+│   │   │       │   │   └── 📋 partidas.json
+│   │   │       │   ├── 📁 general/
+│   │   │       │   │   └── 📋 partidas.json
+│   │   │       │   ├── 📋 activo-tipos.json
+│   │   │       │   ├── 📋 activos.json
+│   │   │       │   ├── 📋 cierre-config.json
+│   │   │       │   ├── 📋 compras-config.json
+│   │   │       │   ├── 📋 cuentas.json
+│   │   │       │   ├── 📋 determinacion-iva-config.json
+│   │   │       │   ├── 📋 impuestos.json
+│   │   │       │   ├── 📋 isr-config.json
+│   │   │       │   ├── 📋 ordenes-compra.json
+│   │   │       │   ├── 📋 pago-iva-config.json
+│   │   │       │   ├── 📋 partidas.json
+│   │   │       │   ├── 📋 plantillas.json
+│   │   │       │   ├── 📋 proveedores.json
+│   │   │       │   ├── 📋 tipos-gasto.json
+│   │   │       │   └── 📋 ventas-cf-config.json
+│   │   │       ├── 📁 4d663e1f-6d4e-4c68-aa17-c771f7930b7e/
+│   │   │       │   ├── 📋 activos.json
+│   │   │       │   ├── 📋 cierre-config.json
+│   │   │       │   ├── 📋 cuentas.json
+│   │   │       │   ├── 📋 impuestos.json
+│   │   │       │   ├── 📋 inventario.json
+│   │   │       │   ├── 📋 ordenes-compra.json
+│   │   │       │   ├── 📋 partidas.json
+│   │   │       │   └── 📋 plantillas.json
+│   │   │       ├── 📁 58db9aa8-2ce2-491e-b7e3-57400c55d988/
+│   │   │       │   └── 📋 cuentas.json
+│   │   │       ├── 📁 6578354f-d73c-4e6c-a75f-25389fc523ea/
+│   │   │       │   ├── 📋 cuentas.json
+│   │   │       │   ├── 📋 partidas.json
+│   │   │       │   └── 📋 plantillas.json
+│   │   │       ├── 📁 7c621c3b-80e7-4b19-9431-376bf7bcf810/
+│   │   │       │   └── 📁 general/
+│   │   │       ├── 📁 83fee6ba-b06b-4fcc-8df5-5213bbc2a9e3/
+│   │   │       │   ├── 📋 cuentas.json
+│   │   │       │   ├── 📋 empleado-deptos.json
+│   │   │       │   ├── 📋 pago-iva-config.json
+│   │   │       │   ├── 📋 partidas.json
+│   │   │       │   ├── 📋 planillas-config.json
+│   │   │       │   ├── 📋 planillas-contabilidad.json
+│   │   │       │   └── 📋 planillas.json
+│   │   │       ├── 📁 8618f28c-a09b-4a3c-af33-c785a971535d/
+│   │   │       │   ├── 📋 cuentas.json
+│   │   │       │   ├── 📋 partidas.json
+│   │   │       │   └── 📋 plantillas.json
+│   │   │       ├── 📁 91db15bd-ea90-4fd5-b7e8-74c73ce2dfa9/
+│   │   │       │   ├── 📋 clientes.json
+│   │   │       │   ├── 📋 cuentas.json
+│   │   │       │   ├── 📋 partidas.json
+│   │   │       │   ├── 📋 plantillas.json
+│   │   │       │   └── 📋 proveedores.json
+│   │   │       ├── 📁 e528541c-2904-4ad7-9176-7fb7a2fbb6ee/
+│   │   │       │   ├── 📋 cuentas.json
+│   │   │       │   ├── 📋 partidas.json
+│   │   │       │   └── 📋 plantillas.json
+│   │   │       ├── 📁 fed885f7-1dd0-4a2c-9900-d74465954859/
+│   │   │       │   ├── 📁 2026/
+│   │   │       │   │   └── 📋 partidas.json
+│   │   │       │   ├── 📁 general/
+│   │   │       │   │   └── 📋 cuentas.json
+│   │   │       │   ├── 📋 empleado-deptos.json
+│   │   │       │   ├── 📋 pago-iva-config.json
+│   │   │       │   ├── 📋 planillas-config.json
+│   │   │       │   ├── 📋 planillas-contabilidad.json
+│   │   │       │   └── 📋 planillas.json
+│   │   │       ├── 📋 clients.json
+│   │   │       ├── 📋 cuentas.json
+│   │   │       ├── 📋 empresas.json
+│   │   │       ├── 📋 inventario.json
+│   │   │       ├── 📋 partidas.json
+│   │   │       ├── 📋 plantillas.json
+│   │   │       └── 📋 providers.json
+│   │   ├── 📋 ADELIA_NOHEMY_ROMERO-Marzo.json
+│   │   ├── 📋 ANDRE_DUARTE_SOSA-ABRIL.json
+│   │   ├── 📋 ANDRE_DUARTE_SOSA-JUNIO.json
+│   │   ├── 📋 ANDRE_DUARTE_SOSA-MAYO.json
+│   │   ├── 📋 ANDRE_DUARTE_SOSA-Marzo.json
+│   │   ├── 📋 BRAYAN_ESTIVEN_AYALA-ABRIL.json
+│   │   ├── 📋 BRAYAN_ESTIVEN_AYALA_AYALA-ABRIL.json
+│   │   ├── 📋 BRAYAN_ESTIVEN_AYALA_AYALA-MAYO.json
+│   │   ├── 📋 BRYAN_ARTURO_HERRERA_RODRIGUEZ-ABRIL.json
+│   │   ├── 📋 BRYAN_ARTURO_HERRERA_RODRIGUEZ-MAYO.json
+│   │   ├── 📋 CARLOS_EDUARDO_MEJIA_LUNA-MAYO.json
+│   │   ├── 📋 CARLOS_ENRIQUE_BARQUERO_FLORES-ABRIL.json
+│   │   ├── 📋 CARLOS_ENRIQUE_BARQUERO_FLORES-MAYO.json
+│   │   ├── 📋 CHRISTIAN_DE_JESUS_SEGOVIA-ABRIL.json
+│   │   ├── 📋 DANIEL_ALESSANDRO_ROSALES_GONZALEZ-ABRIL.json
+│   │   ├── 📋 DANIEL_ALESSANDRO_ROSALES_GONZALEZ-MAYO.json
+│   │   ├── 📋 DAVID_ULISES_VELIS_REYES-ABRIL.json
+│   │   ├── 📋 DAVID_ULISES_VELIS_REYES-MAYO.json
+│   │   ├── 📋 DOUGLAS_ENRIQUE_ARGUETA-Marzo.json
+│   │   ├── 📋 DOUGLAS_ENRIQUE_ARGUETA_AYALA-ABRIL.json
+│   │   ├── 📋 DOUGLAS_ENRIQUE_ARGUETA_AYALA-MAYO.json
+│   │   ├── 📋 EDWIN_ALEXANDER_PALACIOS-ABRIL.json
+│   │   ├── 📋 EDWIN_ALEXANDER_PALACIOS-Marzo.json
+│   │   ├── 📋 EDWIN_ALEXANDER_PALACIOS_LINO-ABRIL.json
+│   │   ├── 📋 EDWIN_ALEXANDER_PALACIOS_LINO-MAYO.json
+│   │   ├── 📋 FERNANDO_JAVIER_SORTO-Marzo.json
+│   │   ├── 📋 FERNANDO_JAVIER_SORTO_MEDRANO-ABRIL.json
+│   │   ├── 📋 FERNANDO_JOSE_ALFARO-Marzo.json
+│   │   ├── 📋 FERNANDO_JOSE_ALFARO_PALACIOS-ABRIL.json
+│   │   ├── 📋 FERNANDO_JOSE_ALFARO_PALACIOS-MAYO.json
+│   │   ├── 📋 FIDEL_ANGEL_MARTINEZ-ABRIL.json
+│   │   ├── 📋 FIDEL_ANGEL_MARTINEZ-Marzo.json
+│   │   ├── 📋 FIDEL_ANGEL_MARTINEZ_NIETO-JUNIO.json
+│   │   ├── 📋 FIDEL_ANGEL_MARTINEZ_NIETO-MAYO.json
+│   │   ├── 📋 FRANKLIN_WILFREDO_COREAS-ABRIL.json
+│   │   ├── 📋 FRANKLIN_WILFREDO_COREAS-Marzo.json
+│   │   ├── 📋 FRANKLIN_WILFREDO_COREAS_AQUINO-ABRIL.json
+│   │   ├── 📋 FRANKLIN_WILFREDO_COREAS_AQUINO-JUNIO.json
+│   │   ├── 📋 FRANKLIN_WILFREDO_COREAS_AQUINO-MAYO.json
+│   │   ├── 📋 FREDY_ALBERTO_VASQUEZ-Marzo.json
+│   │   ├── 📋 FREDY_ALBERTO_VASQUEZ_VIGIL-ABRIL.json
+│   │   ├── 📋 FREDY_ALBERTO_VASQUEZ_VIGIL-MAYO.json
+│   │   ├── 📋 GUILLERMO_ALEXANDER_ZELAYA-Marzo.json
+│   │   ├── 📋 GUILLERMO_ALEXANDER_ZELAYA_PORTILLO-ABRIL.json
+│   │   ├── 📋 GUILLERMO_ALEXANDER_ZELAYA_PORTILLO-MAYO.json
+│   │   ├── 📋 HENRY_ALEXANDER_SANTACRUZ-Marzo.json
+│   │   ├── 📋 HENRY_ALEXANDER_SANTACRUZ_BLANCO-ABRIL.json
+│   │   ├── 📋 HENRY_ALEXANDER_SANTACRUZ_BLANCO-JUNIO.json
+│   │   ├── 📋 HENRY_ALEXANDER_SANTACRUZ_BLANCO-MAYO.json
+│   │   ├── 📋 IVAN_ANTONIO_ZELAYA-ABRIL.json
+│   │   ├── 📋 IVAN_ANTONIO_ZELAYA-Marzo.json
+│   │   ├── 📋 IVAN_ANTONIO_ZELAYA_PORTILLO-JUNIO.json
+│   │   ├── 📋 IVAN_ANTONIO_ZELAYA_PORTILLO-MAYO.json
+│   │   ├── 📋 JAIRO_ANTONIO_HERNANDEZ_GUEVARA-ABRIL.json
+│   │   ├── 📋 JAIRO_GUEVARA-Febrero.json
+│   │   ├── 📋 JAIRO_GUEVARA-JULIO.json
+│   │   ├── 📋 JAIRO_GUEVARA-Marzo.json
+│   │   ├── 📋 JAVIER_ARMANDO_PORTILLO-Marzo.json
+│   │   ├── 📋 JAVIER_ARMANDO_PORTILLO_CHAVEZ-ABRIL.json
+│   │   ├── 📋 JAVIER_ARMANDO_PORTILLO_CHAVEZ-MAYO.json
+│   │   ├── 📋 JEFFRY_FRANCISCO_RAMOS_GOMEZ-ABRIL.json
+│   │   ├── 📋 JORGE_MARLON_HERNANDEZ_LUNA-ABRIL.json
+│   │   ├── 📋 JORGE_MARLON_HERNANDEZ_LUNA-MAYO.json
+│   │   ├── 📋 JOSE_EVELIO_RAMIREZ_RAMIREZ-ABRIL.json
+│   │   ├── 📋 JOSE_GUILLERMO_HENRIQUEZ-ABRIL.json
+│   │   ├── 📋 JOSE_GUILLERMO_HENRIQUEZ-MAYO.json
+│   │   ├── 📋 JOSE_GUILLERMO_HENRIQUEZ-Marzo.json
+│   │   ├── 📋 JOSUE_DANIEL_SOSA_GODINEZ-ABRIL.json
+│   │   ├── 📋 JOSUE_DANIEL_SOSA_GODINEZ-MAYO.json
+│   │   ├── 📋 JOSUE__DANIEL_CHICAS-Marzo.json
+│   │   ├── 📋 JOSUE__DANIEL_ROMERO_CHICAS-ABRIL.json
+│   │   ├── 📋 JOSUE__DANIEL_ROMERO_CHICAS-JUNIO.json
+│   │   ├── 📋 JOSUE__DANIEL_ROMERO_CHICAS-MAYO.json
+│   │   ├── 📋 JUAN_EMILIO_ULLOA-Marzo.json
+│   │   ├── 📋 JUAN_EMILIO_ULLOA_GOMEZ-ABRIL.json
+│   │   ├── 📋 JUAN_EMILIO_ULLOA_GOMEZ-JUNIO.json
+│   │   ├── 📋 JUAN_EMILIO_ULLOA_GOMEZ-MAYO.json
+│   │   ├── 📋 KARLA_SOFIA_LOVO_CORDOVA-MAYO.json
+│   │   ├── 📋 KEVIN_ALEXANDER_MARTINEZ_PINTO-ABRIL.json
+│   │   ├── 📋 KEVIN_ALEXANDER_MARTINEZ_PINTO-MAYO.json
+│   │   ├── 📋 KEVIN_ANTONIO_MUNTO_RAMIREZ-ABRIL.json
+│   │   ├── 📋 KEVIN_ANTONIO_MUNTO_RAMIREZ-MAYO.json
+│   │   ├── 📋 Karla_Sofia_Lovo-Febrero.json
+│   │   ├── 📋 MARIO_ERNESTO_GOMEZ-ABRIL.json
+│   │   ├── 📋 MARIO_ERNESTO_GOMEZ-Marzo.json
+│   │   ├── 📋 MARIO_ERNESTO_GOMEZ_ROMERO-ABRIL.json
+│   │   ├── 📋 MARIO_ERNESTO_GOMEZ_ROMERO-JUNIO.json
+│   │   ├── 📋 MARIO_ERNESTO_GOMEZ_ROMERO-MAYO.json
+│   │   ├── 📋 MARVIN_JOSUE_ALVARENGA-ABRIL.json
+│   │   ├── 📋 MARVIN_JOSUE_ALVARENGA-Marzo.json
+│   │   ├── 📋 MARVIN_JOSUE_ALVARENGA_GUERRERO-JUNIO.json
+│   │   ├── 📋 MARVIN_JOSUE_ALVARENGA_GUERRERO-MAYO.json
+│   │   ├── 📋 OSCAR_ADAN_RAMIREZ_RAMIREZ-ABRIL.json
+│   │   ├── 📋 RAFAEL_ANTONIO_ALFARO_RIVAS-MAYO.json
+│   │   ├── 📋 RAFAEL_ANTONIO_DIAZ-MAYO.json
+│   │   ├── 📋 RAUL_ALEXANDER_CHICAS_GUTIERREZ-MAYO.json
+│   │   ├── 📋 RICARDO_JOSUE_ALAS_DIAZ-ABRIL.json
+│   │   ├── 📋 RICARDO_JOSUE_ALAS_DIAZ-MAYO.json
+│   │   ├── 📋 ROBERTO_ANTONIO_VELIS-ABRIL.json
+│   │   ├── 📋 ROBERTO_ANTONIO_VELIS-Marzo.json
+│   │   ├── 📋 ROBERTO_ANTONIO_VELIS_DIAZ-JUNIO.json
+│   │   ├── 📋 ROBERTO_ANTONIO_VELIS_DIAZ-MAYO.json
+│   │   ├── 📋 RONALD_ANTONIO_GOMEZ-Marzo.json
+│   │   ├── 📋 RONALD_ANTONIO_GOMEZ_PRIVADO-ABRIL.json
+│   │   ├── 📋 RONALD_ANTONIO_GOMEZ_PRIVADO-JUNIO.json
+│   │   ├── 📋 RONALD_ANTONIO_GOMEZ_PRIVADO-MAYO.json
+│   │   ├── 📋 ROSA_DE_LA_PAZ_CALIX-ABRIL.json
+│   │   ├── 📋 ROSA_DE_LA_PAZ_CALIX-Marzo.json
+│   │   ├── 📋 RUDY_ARTEMYS_RIVERA-ABRIL.json
+│   │   ├── 📋 RUDY_ARTEMYS_RIVERA-JUNIO.json
+│   │   ├── 📋 RUDY_ARTEMYS_RIVERA-MAYO.json
+│   │   ├── 📋 RUDY_ARTEMYS_RIVERA-Marzo.json
+│   │   ├── 📋 STEVEN_EFRAIN_MEDRANO-Marzo.json
+│   │   ├── 📋 STEVEN_EFRAIN_MEDRANO_DEL_CID-MAYO.json
+│   │   ├── 📋 VICTOR_MANUEL_HERNANDEZ-ABRIL.json
+│   │   ├── 📋 VICTOR_MANUEL_HERNANDEZ-MARZO(2).json
+│   │   ├── 📋 VICTOR_MANUEL_HERNANDEZ-Marzo(1).json
+│   │   ├── 📋 VICTOR_MANUEL_HERNANDEZ-Marzo.json
+│   │   ├── 📋 VICTOR_MANUEL_HERNANDEZ_FUENTES-ABRIL.json
+│   │   ├── 📋 VICTOR_MANUEL_HERNANDEZ_FUENTES-JUNIO.json
+│   │   ├── 📋 VICTOR_MANUEL_HERNANDEZ_FUENTES-MAYO.json
+│   │   ├── 📋 WALTER_ALEXANDER_VELASQUEZ-Marzo.json
+│   │   ├── 📋 WALTER_ALEXANDER_VELASQUEZ_GOMEZ-ABRIL.json
+│   │   ├── 📋 WALTER_ALEXANDER_VELASQUEZ_GOMEZ-MAYO.json
+│   │   ├── 📋 WIDMAN_RAFAEL_LUCHA_GALLARDO-ABRIL.json
+│   │   ├── 📋 WIDMAN_RAFAEL_LUCHA_GALLARDO-MAYO.json
+│   │   ├── 📋 WILFREDO_ALEXANDER_ESPINOZA_HERRERA-ABRIL.json
+│   │   ├── 📋 WILLIAM_ALEXANDER_SEGOVIA-ABRIL.json
+│   │   ├── 📋 WILLIAM_ALEXANDER_SEGOVIA-MARZO(2).json
+│   │   ├── 📋 WILLIAM_ALEXANDER_SEGOVIA-Marzo(1).json
+│   │   ├── 📋 WILLIAM_ALEXANDER_SEGOVIA-Marzo.json
+│   │   ├── 📋 WILLIAM_ULISES_BONILLA-Marzo.json
+│   │   ├── 📋 admins.json
+│   │   ├── 📋 attendance-JAIRO_GUEVARA-Marzo.json
+│   │   ├── 📋 branches.json
+│   │   ├── 📋 clients.json
+│   │   ├── 📋 company_profiles.json
+│   │   ├── 📋 contracts.json
+│   │   ├── 📋 cuentas.json
+│   │   ├── 📋 empleados_google.json
+│   │   ├── 📋 employee_counter.json
+│   │   ├── 📋 employee_history.json
+│   │   ├── 📋 employees.json
+│   │   ├── 📋 empresas.json
+│   │   ├── 📄 events.log
+│   │   ├── 📋 inventario.json
+│   │   ├── 📋 notifications_confirm.json
+│   │   ├── 📋 partidas.json
+│   │   ├── 📋 permits.json
+│   │   ├── 📋 plantillas.json
+│   │   ├── 📋 providers.json
+│   │   ├── 📋 push_subscriptions.json
+│   │   ├── 📋 settings.json
+│   │   ├── 📋 user_notifications.json
+│   │   ├── 📋 vapid.json
+│   │   └── 📋 warnings.json
+│   ├── 📁 fuentes/
+│   │   ├── 📝 DATOS API.TXT
+│   │   ├── 📄 api-empleados.gs
+│   │   ├── 📝 confidencialidad.txt
+│   │   ├── 📝 constancias.txt
+│   │   ├── 📝 generales.txt
+│   │   ├── 📝 plantilla contrato.txt
+│   │   └── 📝 tipos de falta.txt
+│   ├── 📁 public/
+│   │   ├── 📁 appstore-images/
+│   │   │   ├── 📁 android/
+│   │   │   │   ├── 🖼️ icon-192x192.png
+│   │   │   │   ├── 🖼️ icon-512x512.png
+│   │   │   │   ├── 🖼️ launchericon-144x144.png
+│   │   │   │   ├── 🖼️ launchericon-48x48.png
+│   │   │   │   ├── 🖼️ launchericon-72x72.png
+│   │   │   │   └── 🖼️ launchericon-96x96.png
+│   │   │   └── 📁 ios/
+│   │   │       ├── 🖼️ 100.png
+│   │   │       ├── 🖼️ 1024.png
+│   │   │       ├── 🖼️ 114.png
+│   │   │       ├── 🖼️ 120.png
+│   │   │       ├── 🖼️ 128.png
+│   │   │       ├── 🖼️ 144.png
+│   │   │       ├── 🖼️ 152.png
+│   │   │       ├── 🖼️ 16.png
+│   │   │       ├── 🖼️ 167.png
+│   │   │       ├── 🖼️ 180.png
+│   │   │       ├── 🖼️ 192.png
+│   │   │       ├── 🖼️ 20.png
+│   │   │       ├── 🖼️ 256.png
+│   │   │       ├── 🖼️ 29.png
+│   │   │       ├── 🖼️ 32.png
+│   │   │       ├── 🖼️ 40.png
+│   │   │       ├── 🖼️ 50.png
+│   │   │       ├── 🖼️ 512.png
+│   │   │       ├── 🖼️ 57.png
+│   │   │       ├── 🖼️ 58.png
+│   │   │       ├── 🖼️ 60.png
+│   │   │       ├── 🖼️ 64.png
+│   │   │       ├── 🖼️ 72.png
+│   │   │       ├── 🖼️ 76.png
+│   │   │       ├── 🖼️ 80.png
+│   │   │       └── 🖼️ 87.png
+│   │   ├── 📁 plantillas/
+│   │   │   ├── 📘 Contrato de Trabajo Wilfredo Espinoza - copia.doc
+│   │   │   ├── 📘 amoestacion.docx
+│   │   │   ├── 📘 confidencialidad.docx
+│   │   │   ├── 📘 constancias.docx
+│   │   │   ├── 📘 plantilla contrato.6dependientes.docx
+│   │   │   ├── 📘 plantilla contrato.backup.docx
+│   │   │   └── 📘 plantilla contrato.docx
+│   │   ├── 📁 uploads/
+│   │   │   └── 📁 contratos/
+│   │   │       ├── 📘 Carta_Confidencialidad_Hernandez_Guevara_Jairo_Antonio_1787853572483.docx
+│   │   │       ├── 📘 Carta_Confidencialidad_Reyes_de_Gómez_Zayra_Lisseth_1786327426148.docx
+│   │   │       ├── 📘 Carta_Confidencialidad_Reyes_de_Gómez_Zayra_Lisseth_1786328008275.docx
+│   │   │       ├── 📘 Constancia_Salario_Hernandez_Guevara_Jairo_Antonio_1787852715250.docx
+│   │   │       ├── 📘 Constancia_Salario_Hernandez_Guevara_Jairo_Antonio_1787852764344.docx
+│   │   │       ├── 📘 Constancia_Salario_Hernandez_Guevara_Jairo_Antonio_1787853098412.docx
+│   │   │       ├── 📘 Constancia_Salario_Hernandez_Guevara_Jairo_Antonio_1787853174581.docx
+│   │   │       ├── 📘 Constancia_Salario_Reyes_de_Gómez_Zayra_Lisseth_1786327447269.docx
+│   │   │       ├── 📘 Constancia_Salario_Reyes_de_Gómez_Zayra_Lisseth_1786327844440.docx
+│   │   │       ├── 📘 Constancia_Salario_Reyes_de_Gómez_Zayra_Lisseth_1786327925823.docx
+│   │   │       ├── 📘 Constancia_Salario_Reyes_de_Gómez_Zayra_Lisseth_1786328014248.docx
+│   │   │       ├── 📘 Contrato_Hernandez_Guevara_Jairo_Antonio_1787850891432.docx
+│   │   │       ├── 📘 Contrato_IVAN_ANTONIO_ZELAYA_PORTILLO_1786307258250.docx
+│   │   │       ├── 📘 Contrato_JAIRO_GUEVARA_HERNANDEZ_1787848273644.docx
+│   │   │       ├── 📘 Contrato_JAIRO_GUEVARA_HERNANDEZ_1787848762169.docx
+│   │   │       ├── 📘 Contrato_JAIRO_GUEVARA_HERNANDEZ_1787850280080.docx
+│   │   │       ├── 📘 Contrato_Reyes_de_Gómez_Zayra_Lisseth_1786327207570.docx
+│   │   │       ├── 📘 Contrato_Reyes_de_Gómez_Zayra_Lisseth_1786327827956.docx
+│   │   │       ├── 📘 Contrato_Reyes_de_Gómez_Zayra_Lisseth_1786328001322.docx
+│   │   │       └── 📕 confidentiality_signed_1787862679798_NOTIFICACI_N_DE_SUSPENSI_N_DE_SERVICIOS.pdf
+│   │   ├── 🖼️ 100.png
+│   │   ├── 🖼️ 1024.png
+│   │   ├── 🖼️ 114.png
+│   │   ├── 🖼️ 120.png
+│   │   ├── 🖼️ 128.png
+│   │   ├── 🖼️ 144.png
+│   │   ├── 🖼️ 152.png
+│   │   ├── 🖼️ 167.png
+│   │   ├── 🖼️ 180.png
+│   │   ├── 🖼️ 192.png
+│   │   ├── 🖼️ 256.png
+│   │   ├── 🖼️ 32.png
+│   │   ├── 🖼️ 40.png
+│   │   ├── 🖼️ 50.png
+│   │   ├── 🖼️ 512.png
+│   │   ├── 🖼️ 57.png
+│   │   ├── 🖼️ 58.png
+│   │   ├── 🖼️ 60.png
+│   │   ├── 🖼️ 64.png
+│   │   ├── 🖼️ 72.png
+│   │   ├── 🖼️ 76.png
+│   │   ├── 🖼️ 80.png
+│   │   ├── 🖼️ 87.png
+│   │   ├── 🖼️ icon-192x192.png
+│   │   ├── 🖼️ icon-512x512.png
+│   │   ├── 🖼️ launchericon-144x144.png
+│   │   ├── 🖼️ launchericon-192x192.png
+│   │   ├── 🖼️ launchericon-512x512.png
+│   │   ├── 🖼️ launchericon-72x72.png
+│   │   ├── 🖼️ launchericon-96x96.png
+│   │   ├── 📋 manifest.json
+│   │   ├── 🖼️ reloj.ico
+│   │   └── ⚛️ sw.js
+│   ├── 📁 scripts/
+│   │   └── 🐍 expandir_dependientes.py
+│   ├── 📁 src/
+│   │   ├── 📁 ai/
+│   │   │   ├── 📁 flows/
+│   │   │   │   └── ⚛️ identify-paystub-flow.ts
+│   │   │   ├── ⚛️ dev.ts
+│   │   │   └── ⚛️ genkit.ts
+│   │   ├── 📁 app/
+│   │   │   ├── 📁 admin/
+│   │   │   │   ├── 📁 admins/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 attendance/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 branches/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 contracts/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 dashboard/
+│   │   │   │   │   ├── ⚛️ layout.tsx
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 datos-c/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 devices/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 employees/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 history/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 login/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 pay-stubs/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 payroll/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 pdf/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 permits/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 pins/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 reports/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 settings/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   ├── 📁 warnings/
+│   │   │   │   │   └── ⚛️ page.tsx
+│   │   │   │   └── ⚛️ layout.tsx
+│   │   │   ├── 📁 api/
+│   │   │   │   ├── 📁 admin/
+│   │   │   │   │   ├── 📁 admins/
+│   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   ├── 📁 all-records/
+│   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   ├── 📁 attendance/
+│   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   ├── 📁 contracts/
+│   │   │   │   │   │   ├── 📁 generate/
+│   │   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   │   ├── 📁 upload/
+│   │   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   ├── 📁 datos-c/
+│   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   ├── 📁 login/
+│   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   ├── 📁 logout/
+│   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   ├── 📁 confirm/
+│   │   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   │   ├── 📁 send/
+│   │   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   │   └── 📁 subscriptions/
+│   │   │   │   │   │       └── ⚛️ route.ts
+│   │   │   │   │   ├── 📁 pay-stubs/
+│   │   │   │   │   │   ├── 📁 delete/
+│   │   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   │   ├── 📁 identify/
+│   │   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   │   ├── 📁 list/
+│   │   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   │   ├── 📁 save/
+│   │   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   │   └── 📁 view/
+│   │   │   │   │   │       └── ⚛️ route.ts
+│   │   │   │   │   ├── 📁 records/
+│   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   ├── 📁 sheets/
+│   │   │   │   │   │   ├── 📁 employee/
+│   │   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   │   └── 📁 sync/
+│   │   │   │   │   │       └── ⚛️ route.ts
+│   │   │   │   │   ├── 📁 stats/
+│   │   │   │   │   │   └── 📁 yearly-overtime/
+│   │   │   │   │   │       └── ⚛️ route.ts
+│   │   │   │   │   └── 📁 warnings/
+│   │   │   │   │       └── ⚛️ route.ts
+│   │   │   │   ├── 📁 attendance/
+│   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   ├── 📁 auth/
+│   │   │   │   │   ├── 📁 employee/
+│   │   │   │   │   │   └── 📁 login/
+│   │   │   │   │   │       └── ⚛️ route.ts
+│   │   │   │   │   └── 📁 login/
+│   │   │   │   │       └── ⚛️ route.ts
+│   │   │   │   ├── 📁 branches/
+│   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   ├── 📁 contracts/
+│   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   ├── 📁 employees/
+│   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   ├── 📁 history/
+│   │   │   │   │   ├── 📁 file/
+│   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   ├── 📁 log-event/
+│   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   ├── 📁 overtime/
+│   │   │   │   │   ├── 📁 all-records/
+│   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   └── 📁 records/
+│   │   │   │   │       └── ⚛️ route.ts
+│   │   │   │   ├── 📁 pay-stubs/
+│   │   │   │   │   ├── 📁 my-list/
+│   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   └── 📁 view/
+│   │   │   │   │       └── ⚛️ route.ts
+│   │   │   │   ├── 📁 permits/
+│   │   │   │   │   ├── 📁 evidence/
+│   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   ├── 📁 push/
+│   │   │   │   │   ├── 📁 keys/
+│   │   │   │   │   │   └── ⚛️ route.ts
+│   │   │   │   │   └── 📁 subscribe/
+│   │   │   │   │       └── ⚛️ route.ts
+│   │   │   │   └── 📁 settings/
+│   │   │   │       └── ⚛️ route.ts
+│   │   │   ├── 📁 dashboard/
+│   │   │   │   ├── ⚛️ layout.tsx
+│   │   │   │   └── ⚛️ page.tsx
+│   │   │   ├── 🖼️ favicon.ico
+│   │   │   ├── 🎨 globals.css
+│   │   │   ├── ⚛️ layout.tsx
+│   │   │   └── ⚛️ page.tsx
+│   │   ├── 📁 components/
+│   │   │   ├── 📁 admin/
+│   │   │   │   ├── ⚛️ add-employee-dialog.tsx
+│   │   │   │   ├── ⚛️ branch-dialog.tsx
+│   │   │   │   ├── ⚛️ pdf-report.tsx
+│   │   │   │   ├── ⚛️ permit-pdf-template.tsx
+│   │   │   │   ├── ⚛️ record-actions.tsx
+│   │   │   │   ├── ⚛️ record-dialog.tsx
+│   │   │   │   ├── ⚛️ warning-dialog.tsx
+│   │   │   │   └── ⚛️ warning-pdf-template.tsx
+│   │   │   ├── 📁 auth/
+│   │   │   │   ├── ⚛️ admin-login-form.tsx
+│   │   │   │   └── ⚛️ login-form.tsx
+│   │   │   ├── 📁 dashboard/
+│   │   │   │   ├── ⚛️ add-hours-form.tsx
+│   │   │   │   ├── ⚛️ announcement-dialog.tsx
+│   │   │   │   ├── ⚛️ attendance-tracker.tsx
+│   │   │   │   ├── ⚛️ history-form.tsx
+│   │   │   │   ├── ⚛️ history-tracker.tsx
+│   │   │   │   ├── ⚛️ hours-table.tsx
+│   │   │   │   ├── ⚛️ notification-banner.tsx
+│   │   │   │   ├── ⚛️ notification-center.tsx
+│   │   │   │   ├── ⚛️ overtime-tracker.tsx
+│   │   │   │   ├── ⚛️ pay-stubs-viewer.tsx
+│   │   │   │   ├── ⚛️ permit-form.tsx
+│   │   │   │   └── ⚛️ permit-tracker.tsx
+│   │   │   ├── 📁 ui/
+│   │   │   │   ├── ⚛️ accordion.tsx
+│   │   │   │   ├── ⚛️ alert-dialog.tsx
+│   │   │   │   ├── ⚛️ alert.tsx
+│   │   │   │   ├── ⚛️ avatar.tsx
+│   │   │   │   ├── ⚛️ badge.tsx
+│   │   │   │   ├── ⚛️ button.tsx
+│   │   │   │   ├── ⚛️ calendar.tsx
+│   │   │   │   ├── ⚛️ card.tsx
+│   │   │   │   ├── ⚛️ carousel.tsx
+│   │   │   │   ├── ⚛️ chart.tsx
+│   │   │   │   ├── ⚛️ checkbox.tsx
+│   │   │   │   ├── ⚛️ collapsible.tsx
+│   │   │   │   ├── ⚛️ command.tsx
+│   │   │   │   ├── ⚛️ dialog.tsx
+│   │   │   │   ├── ⚛️ dropdown-menu.tsx
+│   │   │   │   ├── ⚛️ form.tsx
+│   │   │   │   ├── ⚛️ input.tsx
+│   │   │   │   ├── ⚛️ label.tsx
+│   │   │   │   ├── ⚛️ menubar.tsx
+│   │   │   │   ├── ⚛️ pdf-viewer.tsx
+│   │   │   │   ├── ⚛️ popover.tsx
+│   │   │   │   ├── ⚛️ progress.tsx
+│   │   │   │   ├── ⚛️ radio-group.tsx
+│   │   │   │   ├── ⚛️ scroll-area.tsx
+│   │   │   │   ├── ⚛️ select.tsx
+│   │   │   │   ├── ⚛️ separator.tsx
+│   │   │   │   ├── ⚛️ sheet.tsx
+│   │   │   │   ├── ⚛️ sidebar.tsx
+│   │   │   │   ├── ⚛️ skeleton.tsx
+│   │   │   │   ├── ⚛️ slider.tsx
+│   │   │   │   ├── ⚛️ switch.tsx
+│   │   │   │   ├── ⚛️ table.tsx
+│   │   │   │   ├── ⚛️ tabs.tsx
+│   │   │   │   ├── ⚛️ textarea.tsx
+│   │   │   │   ├── ⚛️ toast.tsx
+│   │   │   │   ├── ⚛️ toaster.tsx
+│   │   │   │   └── ⚛️ tooltip.tsx
+│   │   │   └── ⚛️ pwa-handler.tsx
+│   │   ├── 📁 hooks/
+│   │   │   ├── ⚛️ use-mobile.tsx
+│   │   │   └── ⚛️ use-toast.ts
+│   │   ├── 📁 lib/
+│   │   │   ├── ⚛️ auth-server.ts
+│   │   │   ├── ⚛️ data.ts
+│   │   │   ├── ⚛️ export-to-excel.ts
+│   │   │   ├── ⚛️ faltas-catalogo.ts
+│   │   │   ├── ⚛️ logger.ts
+│   │   │   ├── ⚛️ offline-manager.ts
+│   │   │   ├── 📋 placeholder-images.json
+│   │   │   ├── ⚛️ placeholder-images.ts
+│   │   │   ├── ⚛️ record-utils.ts
+│   │   │   ├── ⚛️ security.ts
+│   │   │   ├── ⚛️ types.ts
+│   │   │   └── ⚛️ utils.ts
+│   │   └── ⚛️ middleware.ts
+│   ├── 📝 README.md
+│   ├── ⚙️ apphosting.yaml
+│   ├── 📋 components.json
+│   ├── 🐍 mapa.py
+│   ├── ⚛️ next-env.d.ts
+│   ├── ⚛️ next.config.ts
+│   ├── 📋 package-lock.json
+│   ├── 📋 package.json
+│   ├── 📄 postcss.config.mjs
+│   ├── ⚛️ tailwind.config.ts
+│   ├── 📋 tsconfig.json
+│   └── 📄 tsconfig.tsbuildinfo
+
+======================================================================
+✨ Generado por Árbol Bonito ✨
