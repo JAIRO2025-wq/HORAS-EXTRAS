@@ -161,6 +161,53 @@ export type EmployeeHistoryRecord = {
   notes?: string;
 };
 
+/** Estado de un permiso tal como lo maneja /api/permits. */
+export type PermitStatus = 'pending' | 'pending_admin' | 'approved' | 'rejected';
+
+/** Origen de una entrada del Historial del Colaborador. */
+export type HistoryEntryKind = 'document' | 'permit';
+
+/**
+ * Entrada unificada del Historial del Colaborador.
+ * Reconcilia en una sola línea de tiempo los documentos del expediente
+ * (employee_history.json) y los permisos solicitados por el colaborador
+ * (data/permits/...), conservando ambos.
+ */
+export type HistoryEntry = {
+  id: string;
+  kind: HistoryEntryKind;
+  employeeName: string;
+  /** Fecha para ordenar y filtrar: uploadDate (documento) o requestDate (permiso). ISO. */
+  date: string;
+  /** Documento: tipo de documento. Permiso: acción solicitada (ej. "113 - CITAS MEDICAS"). */
+  title: string;
+  /** Texto secundario listo para mostrar (archivo, rango de fechas, sucursal...). */
+  detail: string;
+  /** Solo permisos. */
+  status?: PermitStatus;
+  /** Documento: notas de la carga. Permiso: notas de resolución del admin. */
+  notes?: string;
+  branch?: string;
+  position?: string;
+  startDate?: string;
+  endDate?: string;
+  /** Días solicitados (inclusive), solo permisos. */
+  days?: number;
+  justification?: string;
+  eventuality?: string;
+  supervisorName?: string;
+  approvedBy?: string;
+  approvedAt?: string;
+  resolvedAt?: string;
+  /** URL para ver/descargar (documento del expediente o justificante del permiso). */
+  fileUrl?: string;
+  fileName?: string;
+  /** true si hay archivo disponible en el servidor. */
+  hasFile: boolean;
+  /** true si el archivo es una imagen (se previsualiza como <img>). */
+  isImage?: boolean;
+};
+
 export type Dependiente = {
   nombre: string;
   apellido: string;

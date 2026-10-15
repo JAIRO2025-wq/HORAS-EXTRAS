@@ -4,71 +4,16 @@ import fs from 'fs/promises';
 import path from 'path';
 import type { PermitRequest } from '@/lib/types';
 import { getAuthContext } from '@/lib/auth-server';
-import { parseISO, isWithinInterval, format } from 'date-fns';
+import { parseISO, isWithinInterval } from 'date-fns';
 import { sendPushToUser, notifyAdmins } from '@/lib/push-server';
+import { readAllPermits, getPermitFilePath } from '@/lib/permits-server';
 
 const dataDir = path.join(process.cwd(), 'data');
 const legacyPermitsFile = path.join(dataDir, 'permits.json');
 const evidencesDir = path.join(dataDir, 'evidences');
 
-/**
- * Obtiene la ruta del archivo según la fecha de solicitud
- */
-async function getPermitPath(dateIso: string) {
-  const date = parseISO(dateIso);
-  const year = date.getFullYear().toString();
-  const monthNames = [
-    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-  ];
-  const month = monthNames[date.getMonth()];
-  
-  const targetDir = path.join(dataDir, 'permits', year);
-  await fs.mkdir(targetDir, { recursive: true });
-  
-  return path.join(targetDir, `${month}.json`);
-}
-
 async function sendPush(targetName: string, title: string, message: string, url: string = '/dashboard') {
   await sendPushToUser(targetName, title, message, url);
-}
-
-async function readAllPermits(): Promise<PermitRequest[]> {
-  let all: PermitRequest[] = [];
-  
-  // 1. Leer archivo legado
-  try {
-    const legacyContent = await fs.readFile(legacyPermitsFile, 'utf-8');
-    all = [...JSON.parse(legacyContent)];
-  } catch (e) {}
-
-  // 2. Leer archivos de la nueva estructura jerárquica
-  try {
-    const permitsBaseDir = path.join(dataDir, 'permits');
-    const years = await fs.readdir(permitsBaseDir).catch(() => []);
-    
-    for (const year of years) {
-      const yearDir = path.join(permitsBaseDir, year);
-      const stats = await fs.stat(yearDir);
-      if (!stats.isDirectory()) continue;
-
-      const monthFiles = await fs.readdir(yearDir).catch(() => []);
-      
-      for (const file of monthFiles) {
-        if (file.toLowerCase().endsWith('.json')) {
-          const content = await fs.readFile(path.join(yearDir, file), 'utf-8');
-          const data = JSON.parse(content);
-          if (Array.isArray(data)) {
-            all = [...all, ...data];
-          }
-        }
-      }
-    }
-  } catch (e) {
-    console.error("Error reading hierarchical permits:", e);
-  }
-
-  return all;
 }
 
 export async function GET(request: Request) {
@@ -156,7 +101,7 @@ export async function POST(request: Request) {
       evidenceFileDataUri: finalEvidenceUri
     };
 
-    const filePath = await getPermitPath(requestDate);
+    const filePath = await getPermitFilePath(requestDate);
     let permits: PermitRequest[] = [];
     try {
       const content = await fs.readFile(filePath, 'utf-8');

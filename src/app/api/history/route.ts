@@ -3,6 +3,9 @@ import fs from 'fs/promises';
 import path from 'path';
 import { getAuthContext } from '@/lib/auth-server';
 import type { EmployeeHistoryRecord } from '@/lib/types';
+import { normalizeEmployeeName } from '@/lib/record-utils';
+import { buildHistoryEntries } from '@/lib/history-utils';
+import { readAllPermits, readEvidenceFiles } from '@/lib/permits-server';
 
 const dataDir = path.join(process.cwd(), 'data');
 const historyFile = path.join(dataDir, 'employee_history.json');
@@ -17,25 +20,48 @@ async function readHistory(): Promise<EmployeeHistoryRecord[]> {
   }
 }
 
+/**
+ * GET /api/history
+ *   - Por defecto: solo los documentos del expediente (comportamiento histórico).
+ *   - ?consolidated=1: Historial del Colaborador completo, es decir los documentos
+ *     del expediente MÁS los permisos del colaborador, en una sola línea de tiempo.
+ */
 export async function GET(request: Request) {
   const auth = await getAuthContext();
   if (!auth) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { searchParams } = new URL(request.url);
   const targetEmployee = searchParams.get('employee');
+  const consolidated = ['1', 'true', 'yes'].includes(
+    (searchParams.get('consolidated') || '').toLowerCase()
+  );
 
   const all = await readHistory();
-  
-  let filtered = all;
-  if (auth.role === 'admin') {
-    if (targetEmployee) {
-      filtered = all.filter(r => r.employeeName === targetEmployee);
-    }
-  } else {
-    filtered = all.filter(r => r.employeeName === auth.name);
+
+  // Los nombres se comparan normalizados para que un colaborador no se pierda
+  // por diferencias de espacios o mayúsculas entre archivos.
+  const target = normalizeEmployeeName(targetEmployee || '');
+  const session = normalizeEmployeeName(auth.name);
+
+  const seesEveryone = auth.role === 'admin' && !target;
+  const matches = (name?: string) => {
+    const n = normalizeEmployeeName(name);
+    if (seesEveryone) return true;
+    return target ? n === target || n.includes(target) || target.includes(n) : n === session;
+  };
+
+  const documents = all.filter((r) => matches(r.employeeName));
+
+  if (!consolidated) {
+    return NextResponse.json(
+      documents.sort((a, b) => new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime())
+    );
   }
 
-  return NextResponse.json(filtered.sort((a, b) => new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime()));
+  const [permits, evidenceFiles] = await Promise.all([readAllPermits(), readEvidenceFiles()]);
+  const visiblePermits = permits.filter((p) => matches(p.employeeName));
+
+  return NextResponse.json(buildHistoryEntries(documents, visiblePermits, evidenceFiles));
 }
 
 export async function POST(request: Request) {
@@ -93,7 +119,7 @@ export async function DELETE(request: Request) {
     if (!record) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
     // Solo el admin o el dueño pueden borrar
-    if (auth.role !== 'admin' && record.employeeName !== auth.name) {
+    if (auth.role !== 'admin' && normalizeEmployeeName(record.employeeName) !== normalizeEmployeeName(auth.name)) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
